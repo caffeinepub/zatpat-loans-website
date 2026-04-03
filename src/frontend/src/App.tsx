@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 import AppDownload from "./components/AppDownload";
+import EasyLoans from "./components/EasyLoans";
 import Eligibility from "./components/Eligibility";
 import FAQ from "./components/FAQ";
 import Features from "./components/Features";
@@ -22,6 +23,7 @@ export default function App() {
         <Hero onApplyNow={() => setModalOpen(true)} />
         <Stats />
         <Features />
+        <EasyLoans onApplyNow={() => setModalOpen(true)} />
         <HowItWorks />
         <Eligibility />
         <AppDownload />

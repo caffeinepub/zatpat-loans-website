@@ -1,42 +1,36 @@
 # Zatpat.loans Website
 
 ## Current State
-New project. Empty workspace with no existing application files.
+Hero section uses a dark background (near-black with deep brown) with electric orange (#FF5500) accents. The layout has a left text column and right phone mockup image, with decorative blobs, dot grid, floating animation, and a bottom wave. CTA buttons use `btn-brand` and `btn-outline-brand` utility classes.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full single-page marketing website for Zatpat.loans, a fintech/instant personal loan platform
-- Sticky header/navbar with logo, nav links, and CTA button
-- Hero section with animated entrance, bold headline, subheadline, two CTAs, and hero illustration
-- Loan Features/Benefits section with 6 icon cards and staggered scroll animations
-- How It Works section with 3-step process and step-by-step scroll reveal
-- Loan Amount & Eligibility section with loan range and eligibility criteria cards
-- App Download section with Play Store / App Store buttons and mobile mockup
-- Testimonials carousel with auto-scroll animation
-- FAQ accordion section with smooth open/close animation
-- Footer with links, social icons, and copyright
-- Stats counter animation (10,000+ Customers, ₹50Cr+ Disbursed, etc.)
-- All scroll-triggered animations via Intersection Observer API
+- Light orange gradient background (warm white → soft peach → light orange) replacing the dark theme
+- Large decorative circular shapes in warm orange/peach tones for visual depth
+- A floating stats card (e.g. "50K+ Happy Customers") as a visual trust element
+- A loan amount badge/card floating near the phone mockup for visual richness
+- Subtle animated confetti or sparkle dots in the background
 
 ### Modify
-- N/A (new project)
+- Background: change from dark (#1A0A00 → #3D1800) to light orange gradient (white/peach/orange tones)
+- Text: change from white to dark charcoal/brown for readability on light background
+- Sub-text: change from `text-white/70` to `text-orange-900/70` or similar dark warm tone
+- Badge pill: update to a richer orange tint background
+- CTA primary button: keep orange but ensure high contrast on light background
+- CTA secondary button: update border/text to work on light background
+- Blobs: update colors to softer, lighter orange/peach tones
+- Bottom wave: update fill to match next section background (white stays)
+- Dot grid pattern: update to softer warm orange dots
+- Floating card UI elements (trust indicators) styled to be visible on light bg
 
 ### Remove
-- N/A (new project)
+- Nothing removed
 
 ## Implementation Plan
-1. Set up Motoko backend (minimal, static site with no data persistence needed)
-2. Build React frontend:
-   - Global styles: electric orange (#FF5500) + white color scheme, Tailwind config
-   - Navbar component: sticky, transparent-to-solid on scroll, logo + nav links + CTA
-   - Hero section: fade-in + slide-up animation, floating illustration, two CTA buttons
-   - Features section: 6 cards with Intersection Observer staggered fade-in
-   - How It Works: 3 steps with scroll-triggered reveal
-   - Eligibility section: loan range display + eligibility criteria
-   - App Download section: store buttons + mobile mockup with slide-in animation
-   - Testimonials: auto-scrolling carousel with customer reviews
-   - FAQ: accordion with smooth CSS transitions
-   - Footer: multi-column links, social icons, copyright
-   - Stats counter: animated number count-up on scroll
-   - Custom useIntersectionObserver hook for all scroll animations
+1. Redesign Hero.tsx background to warm light orange gradient
+2. Update all text colors for dark-on-light legibility
+3. Redesign decorative blobs to soft peach/light orange
+4. Add 1–2 floating UI cards (stats, loan amount) for visual richness
+5. Update badge pill and CTA button styles for light background context
+6. Ensure bottom wave transitions cleanly to white
