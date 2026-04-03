@@ -10,21 +10,21 @@ const personas = [
     name: "Riya – Student",
     quote: "First loan ₹1,000 approved in minutes",
     tag: "Student",
-    color: "from-sky-400 to-blue-500",
+    color: "from-blue-600 to-blue-700",
   },
   {
     icon: "⚙️",
     name: "Ramesh – Worker",
     quote: "Got ₹3,000 when I needed it most",
     tag: "Factory Worker",
-    color: "from-blue-500 to-indigo-600",
+    color: "from-blue-700 to-indigo-700",
   },
   {
     icon: "🏪",
     name: "Priya – Business Owner",
     quote: "Grew my limit to ₹10,000!",
     tag: "Small Business",
-    color: "from-emerald-400 to-teal-600",
+    color: "from-emerald-500 to-teal-600",
   },
 ];
 
@@ -41,15 +41,15 @@ const cibilSteps = [
     icon: "📱",
     text: "Apply with Zatpat Loans",
     badge: "Easy Apply",
-    badgeColor: "#0ea5e9",
-    badgeBg: "#f0f9ff",
+    badgeColor: "#2563EB",
+    badgeBg: "#EFF6FF",
     id: "cibil-apply",
   },
   {
     icon: "✅",
     text: "Instant Approval",
     badge: "Approved!",
-    badgeColor: "#10b981",
+    badgeColor: "#22C55E",
     badgeBg: "#f0fdf4",
     id: "cibil-approved",
   },
@@ -93,6 +93,9 @@ const loanSteps = [
     id: "step-grow",
   },
 ];
+
+// Per-step active colors: blue → orange → orange-warm → green
+const stepColors = ["#2563EB", "#FF6A00", "#FF9500", "#22C55E"];
 
 const trustBadges = [
   { icon: "⚡", text: "Instant Approval" },
@@ -215,8 +218,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           50% { transform: translateY(-5px); }
         }
         @keyframes cta-glow {
-          0%, 100% { box-shadow: 0 4px 20px rgba(255, 85, 0, 0.35); }
-          50% { box-shadow: 0 4px 36px rgba(255, 85, 0, 0.7), 0 0 0 6px rgba(255, 85, 0, 0.12); }
+          0%, 100% { box-shadow: 0 4px 20px rgba(255, 106, 0, 0.35); }
+          50% { box-shadow: 0 4px 36px rgba(255, 106, 0, 0.7), 0 0 0 6px rgba(37, 99, 235, 0.15); }
         }
         @keyframes number-pop {
           0% { transform: scale(0.85); opacity: 0; }
@@ -239,7 +242,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         }
         .cta-btn-easy:hover {
           transform: scale(1.06);
-          box-shadow: 0 8px 36px rgba(255, 85, 0, 0.55);
+          box-shadow: 0 8px 36px rgba(255, 106, 0, 0.55);
           animation: none;
         }
         .number-count-easy {
@@ -279,7 +282,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           >
             <span
               className="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
-              style={{ background: "#e0f2fe", color: "#0ea5e9" }}
+              style={{ background: "#EFF6FF", color: "#2563EB" }}
             >
               Easy Loans
             </span>
@@ -290,7 +293,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               Easy Loans for Every Indian,{" "}
               <span
                 style={{
-                  background: "linear-gradient(135deg, #0ea5e9, #10b981)",
+                  background: "linear-gradient(135deg, #2563EB, #22C55E)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -299,7 +302,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 Anytime, Anywhere!
               </span>
             </h2>
-            <p className="text-slate-500 mt-5 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p
+              className="mt-5 text-lg max-w-2xl mx-auto leading-relaxed"
+              style={{ color: "rgba(30, 41, 59, 0.7)" }}
+            >
               Your journey to financial freedom starts here. No matter your
               credit score — we've got you covered.
             </p>
@@ -319,7 +325,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     : "translateY(40px)",
                   transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
                   boxShadow:
-                    "0 4px 24px rgba(14, 165, 233, 0.1), 0 1px 4px rgba(0,0,0,0.06)",
+                    "0 4px 24px rgba(37, 99, 235, 0.1), 0 1px 4px rgba(0,0,0,0.06)",
                 }}
               >
                 <div
@@ -329,7 +335,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
                     style={{
-                      background: "linear-gradient(135deg, #f0f9ff, #f0fdf4)",
+                      background: "linear-gradient(135deg, #EFF6FF, #f0fdf4)",
                     }}
                   >
                     {persona.icon}
@@ -338,10 +344,16 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">
                       {persona.tag}
                     </p>
-                    <h3 className="font-bold text-slate-900 text-base">
+                    <h3
+                      className="font-bold text-base"
+                      style={{ color: "#1E293B" }}
+                    >
                       {persona.name}
                     </h3>
-                    <p className="text-slate-500 text-sm mt-1 leading-snug">
+                    <p
+                      className="text-sm mt-1 leading-snug"
+                      style={{ color: "rgba(30, 41, 59, 0.7)" }}
+                    >
                       "{persona.quote}"
                     </p>
                   </div>
@@ -349,7 +361,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl pointer-events-none"
                   style={{
-                    background: "linear-gradient(135deg, #0ea5e9, #10b981)",
+                    background: "linear-gradient(135deg, #2563EB, #22C55E)",
                   }}
                 />
               </div>
@@ -365,7 +377,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               transition: "opacity 0.8s ease 200ms, transform 0.8s ease 200ms",
             }}
           >
-            <h3 className="text-center text-xl font-bold text-slate-800 mb-8">
+            <h3
+              className="text-center text-xl font-bold mb-8"
+              style={{ color: "#1E293B" }}
+            >
               Even with Low CIBIL Score — We Say Yes!
             </h3>
             <div className="relative">
@@ -373,7 +388,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5"
                 style={{
                   background:
-                    "linear-gradient(90deg, #ef4444, #0ea5e9, #10b981, #f59e0b)",
+                    "linear-gradient(90deg, #ef4444, #2563EB, #22C55E, #f59e0b)",
                   clipPath: `inset(0 ${100 - lineWidth}% 0 0)`,
                   transition: "clip-path 1.5s ease",
                 }}
@@ -410,7 +425,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     >
                       {step.badge}
                     </span>
-                    <p className="text-sm font-medium text-slate-700 leading-snug max-w-[140px]">
+                    <p
+                      className="text-sm font-medium leading-snug max-w-[140px]"
+                      style={{ color: "rgba(30, 41, 59, 0.8)" }}
+                    >
                       {step.text}
                     </p>
                   </div>
@@ -423,8 +441,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           <div
             className="rounded-3xl p-8 lg:p-10 mb-20 relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, #0f172a 0%, #0c2a3d 100%)",
-              boxShadow: "0 20px 60px rgba(14, 165, 233, 0.2)",
+              background: "linear-gradient(135deg, #0f172a 0%, #0c1f35 100%)",
+              boxShadow: "0 20px 60px rgba(37, 99, 235, 0.2)",
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(40px)",
               transition: "opacity 0.9s ease 400ms, transform 0.9s ease 400ms",
@@ -434,7 +452,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.15) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.15) 0%, transparent 70%)",
               }}
             />
             <div className="relative">
@@ -442,8 +460,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 <span
                   className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-3 py-1 rounded-full"
                   style={{
-                    background: "rgba(14,165,233,0.15)",
-                    color: "#38bdf8",
+                    background: "rgba(37,99,235,0.15)",
+                    color: "#93C5FD",
                   }}
                 >
                   🎮 Loan Growth Game
@@ -466,10 +484,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     style={{
                       width: `${progressWidth}%`,
                       background:
-                        "linear-gradient(90deg, #0ea5e9, #10b981, #34d399)",
+                        "linear-gradient(90deg, #2563EB 0%, #FF6A00 50%, #22C55E 100%)",
                       transition:
                         "width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      boxShadow: "0 0 12px rgba(16, 185, 129, 0.6)",
+                      boxShadow: "0 0 12px rgba(34, 197, 94, 0.5)",
                     }}
                   />
                 </div>
@@ -483,6 +501,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 {loanSteps.map((step, i) => {
                   const isActive = i === activeStep;
                   const isDone = i < activeStep;
+                  const activeColor = stepColors[i];
                   return (
                     <button
                       key={step.id}
@@ -491,14 +510,14 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                       className="rounded-2xl p-4 text-left transition-all duration-300 cursor-pointer"
                       style={{
                         background: isActive
-                          ? "linear-gradient(135deg, rgba(14,165,233,0.25), rgba(16,185,129,0.2))"
+                          ? `rgba(${Number.parseInt(activeColor.slice(1, 3), 16)},${Number.parseInt(activeColor.slice(3, 5), 16)},${Number.parseInt(activeColor.slice(5, 7), 16)},0.22)`
                           : isDone
-                            ? "rgba(16,185,129,0.1)"
+                            ? "rgba(34,197,94,0.1)"
                             : "rgba(255,255,255,0.04)",
                         border: isActive
-                          ? "1.5px solid rgba(14,165,233,0.6)"
+                          ? `1.5px solid ${activeColor}99`
                           : isDone
-                            ? "1.5px solid rgba(16,185,129,0.3)"
+                            ? "1.5px solid rgba(34,197,94,0.3)"
                             : "1.5px solid rgba(255,255,255,0.07)",
                       }}
                       onClick={() => setActiveStep(i)}
@@ -509,7 +528,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                           className="text-xs font-bold uppercase tracking-wider"
                           style={{
                             color: isActive
-                              ? "#38bdf8"
+                              ? activeColor
                               : isDone
                                 ? "#34d399"
                                 : "#64748b",
@@ -548,7 +567,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   key={activeStep}
                   className="number-count-easy text-5xl lg:text-6xl font-black"
                   style={{
-                    background: "linear-gradient(135deg, #38bdf8, #34d399)",
+                    background: "linear-gradient(135deg, #2563EB, #22C55E)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -578,9 +597,9 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 data-ocid={`easy_loans.item.${i + 8}`}
                 className="trust-badge-anim flex items-center gap-3 rounded-full px-6 py-3 text-white font-semibold text-sm"
                 style={{
-                  background: "linear-gradient(135deg, #0ea5e9, #10b981)",
+                  background: "linear-gradient(135deg, #2563EB, #1D4ED8)",
                   boxShadow:
-                    "0 4px 20px rgba(14, 165, 233, 0.3), 0 0 0 1px rgba(16,185,129,0.2)",
+                    "0 4px 20px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(37,99,235,0.2)",
                 }}
               >
                 <span className="text-xl">{badge.icon}</span>
@@ -598,8 +617,11 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               transition: "opacity 0.8s ease 700ms, transform 0.8s ease 700ms",
             }}
           >
-            <p className="text-slate-500 mb-6 text-base">
-              Join <strong className="text-slate-700">2 lakh+</strong> Indians
+            <p
+              className="mb-6 text-base"
+              style={{ color: "rgba(30, 41, 59, 0.7)" }}
+            >
+              Join <strong style={{ color: "#1E293B" }}>2 lakh+</strong> Indians
               who already trust Zatpat.loans
             </p>
             <button
@@ -607,7 +629,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               data-ocid="easy_loans.primary_button"
               className="cta-btn-easy inline-flex items-center gap-3 rounded-full px-10 py-4 text-white font-bold text-lg"
               style={{
-                background: "linear-gradient(135deg, #ff5500, #ff7a2e)",
+                background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
               }}
               onClick={onApplyNow}
             >

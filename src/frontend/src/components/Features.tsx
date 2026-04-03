@@ -65,14 +65,17 @@ export default function Features() {
         <div className="text-center mb-16">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#FFF1E8", color: "#FF5500" }}
+            style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Our Benefits
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
-            Why Choose <span style={{ color: "#FF5500" }}>Zatpat.loans</span>?
+            Why Choose <span style={{ color: "#FF6A00" }}>Zatpat.loans</span>?
           </h2>
-          <p className="text-gray-500 mt-6 text-lg max-w-2xl mx-auto">
+          <p
+            className="mt-6 text-lg max-w-2xl mx-auto"
+            style={{ color: "rgba(30, 41, 59, 0.7)" }}
+          >
             We've reimagined personal lending to make it faster, simpler, and
             more transparent than ever before.
           </p>
@@ -93,14 +96,20 @@ export default function Features() {
             >
               <div
                 className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "#FFF1E8" }}
+                style={{ background: "#EFF6FF" }}
               >
-                <feature.icon size={26} style={{ color: "#FF5500" }} />
+                <feature.icon size={26} style={{ color: "#2563EB" }} />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
+              <h3
+                className="text-lg font-bold mb-2"
+                style={{ color: "#1E293B" }}
+              >
                 {feature.title}
               </h3>
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: "rgba(30, 41, 59, 0.7)" }}
+              >
                 {feature.description}
               </p>
             </div>

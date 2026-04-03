@@ -10,7 +10,7 @@ const navLinks = [
   { label: "About", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Features", href: "#eligibility" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "#footer" },
 ];
 
 export default function Navbar({ onApplyNow }: NavbarProps) {
@@ -53,7 +53,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             >
               Zatpat
             </span>
-            <span className="text-2xl font-black" style={{ color: "#FF5500" }}>
+            <span className="text-2xl font-black" style={{ color: "#FF6A00" }}>
               .
             </span>
             <span
@@ -73,8 +73,10 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                 type="button"
                 data-ocid="navbar.link"
                 onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-medium transition-colors duration-200 hover:text-orange-500 bg-transparent border-none cursor-pointer ${
-                  scrolled ? "text-gray-700" : "text-white/90"
+                className={`text-sm font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer ${
+                  scrolled
+                    ? "text-gray-700 hover:text-blue-600"
+                    : "text-white/90 hover:text-blue-300"
                 }`}
               >
                 {link.label}
@@ -119,7 +121,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                 type="button"
                 data-ocid="navbar.link"
                 onClick={() => handleNavClick(link.href)}
-                className="text-gray-700 font-medium py-2 hover:text-orange-500 transition-colors text-left bg-transparent border-none cursor-pointer w-full"
+                className="text-gray-700 font-medium py-2 hover:text-blue-600 transition-colors text-left bg-transparent border-none cursor-pointer w-full"
               >
                 {link.label}
               </button>

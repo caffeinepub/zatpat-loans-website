@@ -43,14 +43,17 @@ export default function HowItWorks() {
         <div className="text-center mb-16">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#FFF1E8", color: "#FF5500" }}
+            style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Simple Process
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
-            How It <span style={{ color: "#FF5500" }}>Works</span>
+            How It <span style={{ color: "#FF6A00" }}>Works</span>
           </h2>
-          <p className="text-gray-500 mt-6 text-lg max-w-xl mx-auto">
+          <p
+            className="mt-6 text-lg max-w-xl mx-auto"
+            style={{ color: "rgba(30, 41, 59, 0.7)" }}
+          >
             Getting a loan has never been this straightforward. Just 3 easy
             steps and you're done.
           </p>
@@ -62,7 +65,7 @@ export default function HowItWorks() {
           <div
             className="hidden md:block absolute top-10 left-1/6 right-1/6 h-0.5 pointer-events-none"
             style={{
-              background: "linear-gradient(90deg, #FF5500, #FFB380, #FF5500)",
+              background: "linear-gradient(90deg, #2563EB, #FF6A00, #22C55E)",
               zIndex: 0,
             }}
           />
@@ -81,21 +84,27 @@ export default function HowItWorks() {
               {/* Number badge */}
               <div
                 className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-orange relative"
-                style={{ background: "#FF5500" }}
+                style={{ background: "#2563EB" }}
               >
                 <step.icon size={32} className="text-white" />
                 <span
                   className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-white border-2 flex items-center justify-center text-xs font-black"
-                  style={{ borderColor: "#FF5500", color: "#FF5500" }}
+                  style={{ borderColor: "#2563EB", color: "#2563EB" }}
                 >
                   {index + 1}
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className="text-xl font-bold mb-3"
+                style={{ color: "#1E293B" }}
+              >
                 {step.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
+              <p
+                className="text-sm leading-relaxed max-w-xs"
+                style={{ color: "rgba(30, 41, 59, 0.7)" }}
+              >
                 {step.description}
               </p>
 
@@ -103,7 +112,7 @@ export default function HowItWorks() {
               {index < steps.length - 1 && (
                 <div
                   className="md:hidden mt-6 text-2xl font-bold"
-                  style={{ color: "#FF5500" }}
+                  style={{ color: "#2563EB" }}
                 >
                   ↓
                 </div>
