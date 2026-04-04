@@ -7,42 +7,31 @@ interface NavbarProps {
 
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Features", href: "#eligibility" },
+  { label: "Eligibility", href: "#eligibility" },
+  { label: "About", href: "#features" },
   { label: "Contact", href: "#footer" },
 ];
 
-function RocketMoneyLogo({ scrolled }: { scrolled: boolean }) {
+function RocketMoneyLogo() {
   return (
     <span className="flex items-center gap-2 select-none">
-      {/* Rocket icon */}
       <svg
-        width="32"
-        height="32"
+        width="34"
+        height="34"
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
+        style={{ flexShrink: 0 }}
       >
-        <circle
-          cx="16"
-          cy="16"
-          r="16"
-          fill={scrolled ? "#2563EB" : "#FF6A00"}
-        />
+        <circle cx="16" cy="16" r="16" fill="#2563EB" />
         <path
           d="M16 6C16 6 21 9 21 16C21 19.5 19.5 22.5 16 26C12.5 22.5 11 19.5 11 16C11 9 16 6 16 6Z"
           fill="white"
           opacity="0.95"
         />
-        <ellipse
-          cx="16"
-          cy="16"
-          rx="2.5"
-          ry="2.5"
-          fill={scrolled ? "#2563EB" : "#FF6A00"}
-        />
+        <ellipse cx="16" cy="16" rx="2.5" ry="2.5" fill="#2563EB" />
         <path
           d="M13 22.5C12 24 11 25.5 10.5 27C11.5 26.5 13 25.5 13.5 24L13 22.5Z"
           fill="white"
@@ -54,20 +43,20 @@ function RocketMoneyLogo({ scrolled }: { scrolled: boolean }) {
           opacity="0.7"
         />
       </svg>
-      {/* Brand text */}
       <span
         style={{
           fontFamily: "Inter, system-ui, sans-serif",
           fontWeight: 800,
-          fontSize: "1.25rem",
+          fontSize: "1.2rem",
           letterSpacing: "-0.02em",
-          color: scrolled ? "#1E293B" : "#FFFFFF",
+          color: "#1E293B",
           lineHeight: 1,
+          whiteSpace: "nowrap",
         }}
       >
         Rocket
-        <span style={{ color: scrolled ? "#FF6A00" : "#FFB347" }}>.</span>
-        <span style={{ color: scrolled ? "#2563EB" : "#93C5FD" }}>Money</span>
+        <span style={{ color: "#FF6A00" }}>.</span>
+        <span style={{ color: "#2563EB" }}>Money</span>
       </span>
     </span>
   );
@@ -76,15 +65,17 @@ function RocketMoneyLogo({ scrolled }: { scrolled: boolean }) {
 export default function Navbar({ onApplyNow }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#home");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    setActiveSection(href);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -92,98 +83,247 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
   return (
     <header
       data-ocid="navbar.section"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        backgroundColor: "#ffffff",
+        boxShadow: scrolled
+          ? "0 2px 16px 0 rgba(30,41,59,0.10)"
+          : "0 1px 4px 0 rgba(30,41,59,0.07)",
+        transition: "box-shadow 0.3s ease",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+      {/* Desktop navbar — 3-part flex layout */}
+      <div
+        style={{
+          maxWidth: "100%",
+          paddingLeft: "clamp(24px, 5vw, 60px)",
+          paddingRight: "clamp(24px, 5vw, 60px)",
+          height: "84px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "16px",
+        }}
+      >
+        {/* LEFT — Logo */}
+        <div style={{ flex: "0 0 auto", minWidth: 0 }}>
           <button
             type="button"
             data-ocid="navbar.link"
             onClick={() => handleNavClick("#home")}
-            className="flex items-center bg-transparent border-none p-0 cursor-pointer"
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+            }}
             aria-label="Go to home"
           >
-            <RocketMoneyLogo scrolled={scrolled} />
+            <RocketMoneyLogo />
           </button>
+        </div>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+        {/* CENTER — Navigation (desktop only) */}
+        <nav
+          className="hidden lg:flex"
+          style={{
+            flex: "1 1 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+          }}
+        >
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
               <button
                 key={link.label}
                 type="button"
                 data-ocid="navbar.link"
                 onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-medium transition-colors duration-200 bg-transparent border-none cursor-pointer ${
-                  scrolled
-                    ? "text-gray-700 hover:text-blue-600"
-                    : "text-white/90 hover:text-blue-300"
-                }`}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "8px 14px",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? "#2563EB" : "#374151",
+                  backgroundColor: isActive
+                    ? "rgba(37,99,235,0.08)"
+                    : "transparent",
+                  transition:
+                    "color 0.2s ease, background-color 0.2s ease, transform 0.15s ease",
+                  whiteSpace: "nowrap",
+                  letterSpacing: "-0.01em",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLButtonElement).style.color =
+                      "#2563EB";
+                    (
+                      e.currentTarget as HTMLButtonElement
+                    ).style.backgroundColor = "rgba(37,99,235,0.06)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLButtonElement).style.color =
+                      "#374151";
+                    (
+                      e.currentTarget as HTMLButtonElement
+                    ).style.backgroundColor = "transparent";
+                  }
+                }}
               >
                 {link.label}
               </button>
-            ))}
-          </nav>
+            );
+          })}
+        </nav>
 
-          {/* CTA */}
-          <div className="hidden lg:flex items-center">
-            <button
-              type="button"
-              data-ocid="navbar.primary_button"
-              onClick={onApplyNow}
-              className="btn-brand text-sm px-6 py-2.5"
-            >
-              Apply Now
-            </button>
-          </div>
-
-          {/* Mobile toggle */}
+        {/* RIGHT — CTA Button (desktop only) */}
+        <div
+          className="hidden lg:flex"
+          style={{ flex: "0 0 auto", alignItems: "center" }}
+        >
           <button
             type="button"
-            data-ocid="navbar.toggle"
-            className={`lg:hidden p-2 rounded-md transition-colors ${
-              scrolled ? "text-gray-700" : "text-white"
-            }`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            data-ocid="navbar.primary_button"
+            onClick={onApplyNow}
+            style={{
+              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "50px",
+              padding: "11px 28px",
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              letterSpacing: "0.01em",
+              boxShadow: "0 4px 14px rgba(255,106,0,0.35)",
+              transition: "transform 0.18s ease, box-shadow 0.18s ease",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform =
+                "translateY(-2px)";
+              (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                "0 8px 22px rgba(255,106,0,0.45)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform =
+                "translateY(0)";
+              (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                "0 4px 14px rgba(255,106,0,0.35)";
+            }}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            Apply Now
+          </button>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          data-ocid="navbar.toggle"
+          className="lg:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: "#374151",
+            padding: "8px",
+            borderRadius: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile menu drawer */}
+      <div
+        className="lg:hidden"
+        style={{
+          maxHeight: mobileOpen ? "400px" : "0",
+          overflow: "hidden",
+          transition: "max-height 0.3s ease",
+          backgroundColor: "#ffffff",
+          borderTop: mobileOpen ? "1px solid #f1f5f9" : "none",
+          boxShadow: mobileOpen ? "0 8px 24px rgba(30,41,59,0.10)" : "none",
+        }}
+      >
+        <div
+          style={{
+            padding: "16px clamp(20px, 5vw, 60px) 24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+          }}
+        >
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <button
+                key={link.label}
+                type="button"
+                data-ocid="navbar.link"
+                onClick={() => handleNavClick(link.href)}
+                style={{
+                  background: isActive ? "rgba(37,99,235,0.07)" : "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "12px 16px",
+                  borderRadius: "10px",
+                  textAlign: "left",
+                  fontSize: "1rem",
+                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? "#2563EB" : "#374151",
+                  width: "100%",
+                  transition: "background-color 0.2s ease, color 0.2s ease",
+                }}
+              >
+                {link.label}
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            data-ocid="navbar.primary_button"
+            onClick={() => {
+              setMobileOpen(false);
+              onApplyNow();
+            }}
+            style={{
+              marginTop: "12px",
+              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "50px",
+              padding: "14px 28px",
+              fontSize: "1rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              width: "100%",
+              boxShadow: "0 4px 14px rgba(255,106,0,0.30)",
+            }}
+          >
+            Apply Now
           </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <button
-                key={link.label}
-                type="button"
-                data-ocid="navbar.link"
-                onClick={() => handleNavClick(link.href)}
-                className="text-gray-700 font-medium py-2 hover:text-blue-600 transition-colors text-left bg-transparent border-none cursor-pointer w-full"
-              >
-                {link.label}
-              </button>
-            ))}
-            <button
-              type="button"
-              data-ocid="navbar.primary_button"
-              onClick={() => {
-                setMobileOpen(false);
-                onApplyNow();
-              }}
-              className="btn-brand mt-2 w-full"
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
