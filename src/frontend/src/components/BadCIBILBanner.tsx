@@ -8,26 +8,26 @@ interface BadCIBILBannerProps {
 
 const SCORE_CARDS = [
   {
-    range: "300 – 579",
-    label: "Poor Credit",
+    range: "0 or No CIBIL",
+    label: "No Credit History",
     barColor: "#EF4444",
     barWidth: "28%",
     bgGlow: "rgba(239,68,68,0.12)",
     borderColor: "rgba(239,68,68,0.3)",
   },
   {
-    range: "580 – 699",
-    label: "Fair Credit",
+    range: "300 – 579",
+    label: "Poor Credit",
     barColor: "#F59E0B",
-    barWidth: "56%",
+    barWidth: "45%",
     bgGlow: "rgba(245,158,11,0.12)",
     borderColor: "rgba(245,158,11,0.3)",
   },
   {
-    range: "700+",
-    label: "Good Credit",
+    range: "580+",
+    label: "Fair / Good Credit",
     barColor: "#22C55E",
-    barWidth: "85%",
+    barWidth: "75%",
     bgGlow: "rgba(34,197,94,0.12)",
     borderColor: "rgba(34,197,94,0.3)",
   },
@@ -183,7 +183,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           >
             We approve loans for{" "}
             <strong style={{ color: "#F1F5F9" }}>
-              every credit score — even 300
+              every credit score — even 0 or No CIBIL
             </strong>
             . No judgment, just fast cash in your account.
           </p>
@@ -228,9 +228,10 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                     </div>
                     <div
                       style={{
-                        fontSize: "1rem",
+                        fontSize: i === 0 ? "0.85rem" : "1rem",
                         fontWeight: 800,
                         color: card.barColor,
+                        lineHeight: 1.2,
                       }}
                     >
                       {card.range}
