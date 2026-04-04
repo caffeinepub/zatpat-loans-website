@@ -115,9 +115,23 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           .mobile-drawer-panel { transition: none !important; }
           .mobile-overlay { transition: none !important; animation: none !important; }
         }
+        .nav-link-desktop {
+          position: relative;
+        }
         .nav-link-desktop:hover {
           background-color: #EFF6FF !important;
           color: #2563EB !important;
+        }
+        .nav-link-desktop .active-dot {
+          position: absolute;
+          bottom: 3px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #FF6A00;
+          pointer-events: none;
         }
         .nav-cta-desktop:hover {
           transform: translateY(-2px) !important;
@@ -348,11 +362,13 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           left: 0,
           right: 0,
           zIndex: 50,
-          backgroundColor: "#ffffff",
+          background: scrolled
+            ? "linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(248,250,252,0.98) 100%)"
+            : "#ffffff",
           boxShadow: scrolled
-            ? "0 2px 20px 0 rgba(30,41,59,0.12)"
+            ? "0 1px 0 rgba(37,99,235,0.15), 0 4px 32px rgba(15,23,42,0.16)"
             : "0 1px 4px 0 rgba(30,41,59,0.07)",
-          transition: "box-shadow 0.3s ease",
+          transition: "box-shadow 0.3s ease, background 0.3s ease",
           borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
         }}
       >
@@ -418,7 +434,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    padding: "8px 14px",
+                    padding: isActive ? "8px 14px 12px" : "8px 14px",
                     borderRadius: "10px",
                     fontSize: "0.875rem",
                     fontWeight: isActive ? 700 : 500,
@@ -428,13 +444,11 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                       : "transparent",
                     transition: "color 0.2s ease, background-color 0.2s ease",
                     whiteSpace: "nowrap",
-                    borderLeft: isActive
-                      ? "3px solid #2563EB"
-                      : "3px solid transparent",
                     letterSpacing: "-0.01em",
                   }}
                 >
                   {link.label}
+                  {isActive && <span className="active-dot" />}
                 </button>
               );
             })}
@@ -511,7 +525,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
               style={{
                 background: mobileOpen ? "#EFF6FF" : "#F8FAFC",
                 border: mobileOpen
-                  ? "1.5px solid #BFDBFE"
+                  ? "2px solid #BFDBFE"
                   : "1.5px solid #E2E8F0",
                 color: mobileOpen ? "#2563EB" : "#1E293B",
                 padding: "9px",

@@ -5,6 +5,8 @@ import {
   Play,
   Shield,
   Star,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
@@ -45,6 +47,27 @@ const SPARKLE_DOTS = [
     delay: "2s",
     color: "#FBBF24",
     id: "dot-yellow-bottom",
+  },
+];
+
+const HERO_STATS = [
+  {
+    icon: Users,
+    label: "50,000+",
+    sub: "Happy customers",
+    delay: 0.9,
+  },
+  {
+    icon: Star,
+    label: "4.8★",
+    sub: "App rating",
+    delay: 1.05,
+  },
+  {
+    icon: TrendingUp,
+    label: "₹50 Cr+",
+    sub: "Disbursed",
+    delay: 1.2,
   },
 ];
 
@@ -154,6 +177,18 @@ export default function Hero({ onApplyNow }: HeroProps) {
         }
         .cta-bounce {
           animation: cta-bounce-once 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
+        }
+        @keyframes stat-glow-pulse {
+          0%, 100% { box-shadow: 0 0 0px rgba(255,106,0,0); }
+          50% { box-shadow: 0 0 20px rgba(255,106,0,0.22); }
+        }
+        .hero-stat-pill:hover {
+          box-shadow: 0 0 20px rgba(255,106,0,0.2) !important;
+          border-color: rgba(255,106,0,0.25) !important;
+          transform: translateY(-2px);
+        }
+        .hero-stat-pill {
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
       `}</style>
 
@@ -277,38 +312,62 @@ export default function Hero({ onApplyNow }: HeroProps) {
               No CIBIL check • Low credit welcome • Same day disbursal
             </p>
 
-            {/* Trust badges row */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex items-center justify-center sm:justify-start gap-4 sm:gap-5 mt-6 pt-6 w-full"
-              style={{ borderTop: "1px solid rgba(37,99,235,0.25)" }}
+            {/* ── PREMIUM GLASSMORPHIC STAT PILLS ── */}
+            <div
+              className="flex items-stretch justify-center sm:justify-start gap-3 mt-6 pt-6 w-full flex-wrap sm:flex-nowrap"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
             >
-              {[
-                { label: "50,000+", sub: "Happy customers" },
-                { label: "4.8★", sub: "App rating" },
-                { label: "₹50 Cr+", sub: "Disbursed" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="flex flex-col items-center sm:items-start"
-                >
-                  <span
-                    className="text-base sm:text-xl font-black"
-                    style={{ color: "#FF6A00" }}
+              {HERO_STATS.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 14, scale: 0.92 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      delay: stat.delay,
+                      duration: 0.5,
+                      type: "spring",
+                      bounce: 0.35,
+                    }}
+                    className="hero-stat-pill flex flex-col items-center gap-1.5 px-4 py-3 rounded-2xl cursor-default"
+                    style={{
+                      background: "rgba(255,255,255,0.07)",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      flex: "1 1 auto",
+                      minWidth: "90px",
+                    }}
                   >
-                    {stat.label}
-                  </span>
-                  <span
-                    className="text-xs font-medium"
-                    style={{ color: "rgba(148,163,184,1)" }}
-                  >
-                    {stat.sub}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
+                    <span
+                      className="flex items-center justify-center w-7 h-7 rounded-full"
+                      style={{
+                        background: "rgba(255,106,0,0.14)",
+                        border: "1px solid rgba(255,106,0,0.2)",
+                      }}
+                    >
+                      <Icon
+                        size={14}
+                        style={{ color: "#FF6A00", flexShrink: 0 }}
+                      />
+                    </span>
+                    <span
+                      className="text-lg sm:text-xl font-black leading-none"
+                      style={{ color: "#FF6A00" }}
+                    >
+                      {stat.label}
+                    </span>
+                    <span
+                      className="text-[10px] sm:text-xs font-medium text-center leading-tight"
+                      style={{ color: "rgba(203,213,225,0.85)" }}
+                    >
+                      {stat.sub}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
 
           {/* Right: Family banner + floating cards */}
