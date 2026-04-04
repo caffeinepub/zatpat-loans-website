@@ -47,7 +47,7 @@ function StatItem({
     >
       <div
         className="text-4xl lg:text-5xl font-black number-stat"
-        style={{ color: "#FF5500" }}
+        style={{ color: "#2563EB" }}
       >
         {prefix}
         {count.toLocaleString()}

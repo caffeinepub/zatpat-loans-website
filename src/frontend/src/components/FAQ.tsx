@@ -47,7 +47,7 @@ function FAQItem({
   return (
     <div
       data-ocid={`faq.item.${index + 1}`}
-      className="border border-gray-200 rounded-2xl overflow-hidden bg-white transition-all duration-200 hover:border-orange-200"
+      className="border border-gray-200 rounded-2xl overflow-hidden bg-white transition-all duration-200 hover:border-blue-200"
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(20px)",
@@ -63,14 +63,14 @@ function FAQItem({
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <span className="font-semibold text-gray-900 text-sm lg:text-base pr-4 group-hover:text-orange-600 transition-colors">
+        <span className="font-semibold text-gray-900 text-sm lg:text-base pr-4 group-hover:text-blue-600 transition-colors">
           {faq.q}
         </span>
         <span
           className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
           style={{
-            background: open ? "#FF5500" : "#FFF1E8",
-            color: open ? "white" : "#FF5500",
+            background: open ? "#2563EB" : "#EFF6FF",
+            color: open ? "white" : "#2563EB",
           }}
         >
           {open ? <Minus size={14} /> : <Plus size={14} />}
@@ -109,12 +109,12 @@ export default function FAQ() {
         <div className="text-center mb-12">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#FFF1E8", color: "#FF5500" }}
+            style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Got Questions?
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
-            Frequently Asked <span style={{ color: "#FF5500" }}>Questions</span>
+            Frequently Asked <span style={{ color: "#2563EB" }}>Questions</span>
           </h2>
           <p className="text-gray-500 mt-6 text-lg">
             Everything you need to know about Zatpat.loans.

@@ -34,7 +34,7 @@ export default function Footer() {
               <span className="text-2xl font-black text-gray-900">Zatpat</span>
               <span
                 className="text-2xl font-black"
-                style={{ color: "#FF5500" }}
+                style={{ color: "#FF6A00" }}
               >
                 .
               </span>
@@ -56,11 +56,10 @@ export default function Footer() {
                   href={href}
                   aria-label={label}
                   data-ocid="footer.link"
-                  className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-white hover:border-orange-500 transition-all duration-200"
-                  style={{ "--hover-bg": "#FF5500" } as React.CSSProperties}
+                  className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-white hover:border-blue-600 transition-all duration-200"
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.background =
-                      "#FF5500";
+                      "#2563EB";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.background =
@@ -84,14 +83,14 @@ export default function Footer() {
                   <a
                     href={link.href}
                     data-ocid="footer.link"
-                    className="text-sm text-gray-500 hover:text-orange-500 transition-colors flex items-center gap-2 group"
+                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors flex items-center gap-2 group"
                     onClick={(e) => {
                       e.preventDefault();
                       const el = document.querySelector(link.href);
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
-                    <span className="w-1 h-1 rounded-full bg-gray-300 group-hover:bg-orange-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-gray-300 group-hover:bg-blue-500 transition-colors" />
                     {link.label}
                   </a>
                 </li>
@@ -110,9 +109,9 @@ export default function Footer() {
                   <a
                     href={svc.href}
                     data-ocid="footer.link"
-                    className="text-sm text-gray-500 hover:text-orange-500 transition-colors flex items-center gap-2 group"
+                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors flex items-center gap-2 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-gray-300 group-hover:bg-orange-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-gray-300 group-hover:bg-blue-500 transition-colors" />
                     {svc.label}
                   </a>
                 </li>
@@ -130,7 +129,7 @@ export default function Footer() {
                 <div className="font-semibold text-gray-700 mb-1">Email</div>
                 <a
                   href="mailto:support@zatpat.loans"
-                  className="hover:text-orange-500 transition-colors"
+                  className="hover:text-blue-600 transition-colors"
                 >
                   support@zatpat.loans
                 </a>
@@ -139,7 +138,7 @@ export default function Footer() {
                 <div className="font-semibold text-gray-700 mb-1">Phone</div>
                 <a
                   href="tel:+918001234567"
-                  className="hover:text-orange-500 transition-colors"
+                  className="hover:text-blue-600 transition-colors"
                 >
                   +91 800 123 4567
                 </a>
@@ -166,7 +165,7 @@ export default function Footer() {
               href={utmLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-orange-500 transition-colors"
+              className="hover:text-blue-600 transition-colors"
             >
               caffeine.ai
             </a>

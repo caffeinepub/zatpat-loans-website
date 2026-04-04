@@ -14,7 +14,7 @@ export default function AppDownload() {
       className="py-20 lg:py-28 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #FF5500 0%, #E64D00 50%, #CC4400 100%)",
+          "linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #163558 100%)",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,7 +102,7 @@ export default function AppDownload() {
               className="absolute inset-0 rounded-full opacity-40 blur-3xl pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%)",
+                  "radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 60%)",
               }}
             />
             <div className="animate-float relative z-10">

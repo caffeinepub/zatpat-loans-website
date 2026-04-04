@@ -31,13 +31,13 @@ export default function Eligibility() {
         <div className="text-center mb-16">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#FFF1E8", color: "#FF5500" }}
+            style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Loan Details
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
             Loan Amount &amp;{" "}
-            <span style={{ color: "#FF5500" }}>Eligibility</span>
+            <span style={{ color: "#FF6A00" }}>Eligibility</span>
           </h2>
         </div>
 
@@ -53,7 +53,7 @@ export default function Eligibility() {
             <div
               className="rounded-3xl p-10 text-center relative overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, #1A0A00 0%, #2D1200 100%)",
+                background: "linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%)",
               }}
             >
               {/* Decorative circles */}
@@ -61,14 +61,14 @@ export default function Eligibility() {
                 className="absolute top-[-40px] right-[-40px] w-40 h-40 rounded-full opacity-20 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(circle, #FF5500 0%, transparent 70%)",
+                    "radial-gradient(circle, #2563EB 0%, transparent 70%)",
                 }}
               />
               <div
                 className="absolute bottom-[-30px] left-[-30px] w-32 h-32 rounded-full opacity-15 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(circle, #FF5500 0%, transparent 70%)",
+                    "radial-gradient(circle, #2563EB 0%, transparent 70%)",
                 }}
               />
 
@@ -77,14 +77,14 @@ export default function Eligibility() {
               </p>
               <div
                 className="text-5xl lg:text-6xl font-black mb-2"
-                style={{ color: "#FF5500" }}
+                style={{ color: "#FF6A00" }}
               >
                 ₹1,000
               </div>
               <div className="text-white/40 text-2xl font-bold mb-2">to</div>
               <div
                 className="text-5xl lg:text-6xl font-black"
-                style={{ color: "#FF5500" }}
+                style={{ color: "#FF6A00" }}
               >
                 ₹5,00,000
               </div>
@@ -94,11 +94,11 @@ export default function Eligibility() {
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <div
                   className="rounded-2xl p-4"
-                  style={{ background: "rgba(255,85,0,0.15)" }}
+                  style={{ background: "rgba(37,99,235,0.15)" }}
                 >
                   <div
                     className="text-2xl font-black"
-                    style={{ color: "#FF5500" }}
+                    style={{ color: "#FF6A00" }}
                   >
                     12%
                   </div>
@@ -108,11 +108,11 @@ export default function Eligibility() {
                 </div>
                 <div
                   className="rounded-2xl p-4"
-                  style={{ background: "rgba(255,85,0,0.15)" }}
+                  style={{ background: "rgba(37,99,235,0.15)" }}
                 >
                   <div
                     className="text-2xl font-black"
-                    style={{ color: "#FF5500" }}
+                    style={{ color: "#FF6A00" }}
                   >
                     0
                   </div>
@@ -140,7 +140,7 @@ export default function Eligibility() {
                 <div
                   key={item.label}
                   data-ocid={`eligibility.item.${index + 1}`}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-orange-200 hover:bg-orange-50 transition-all duration-200"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all duration-200"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateX(0)" : "translateX(20px)",
@@ -149,9 +149,9 @@ export default function Eligibility() {
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "#FFF1E8" }}
+                    style={{ background: "#EFF6FF" }}
                   >
-                    <item.icon size={18} style={{ color: "#FF5500" }} />
+                    <item.icon size={18} style={{ color: "#2563EB" }} />
                   </div>
                   <div>
                     <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
@@ -164,7 +164,7 @@ export default function Eligibility() {
                   <div className="ml-auto">
                     <span
                       className="w-6 h-6 rounded-full flex items-center justify-center text-xs"
-                      style={{ background: "#FF5500", color: "white" }}
+                      style={{ background: "#22C55E", color: "white" }}
                     >
                       ✓
                     </span>

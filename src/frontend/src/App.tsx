@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 import AppDownload from "./components/AppDownload";
+import CreditScore from "./components/CreditScore";
 import EasyLoans from "./components/EasyLoans";
 import Eligibility from "./components/Eligibility";
 import FAQ from "./components/FAQ";
@@ -26,6 +27,7 @@ export default function App() {
         <EasyLoans onApplyNow={() => setModalOpen(true)} />
         <HowItWorks />
         <Eligibility />
+        <CreditScore />
         <AppDownload />
         <Testimonials />
         <FAQ />

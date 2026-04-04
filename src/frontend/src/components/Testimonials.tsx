@@ -8,7 +8,7 @@ const testimonials = [
     rating: 5,
     quote:
       "Got ₹50,000 in my account within 3 hours of applying! The entire process was so smooth. Highly recommend Zatpat.loans to everyone.",
-    color: "#FF5500",
+    color: "#2563EB",
   },
   {
     name: "Rahul Mehta",
@@ -26,7 +26,7 @@ const testimonials = [
     rating: 5,
     quote:
       "Needed emergency funds for a medical situation. Zatpat.loans came through in under 4 hours. Truly a lifesaver!",
-    color: "#7C3AED",
+    color: "#22C55E",
   },
   {
     name: "Arjun Patel",
@@ -44,7 +44,7 @@ const testimonials = [
     rating: 5,
     quote:
       "The app is super intuitive. Applied in 10 minutes, got approved in 5, and money was in my account the same day!",
-    color: "#DC2626",
+    color: "#2563EB",
   },
   {
     name: "Kiran Kumar",
@@ -53,7 +53,7 @@ const testimonials = [
     rating: 5,
     quote:
       "Best fintech app for personal loans in India. Customer support is responsive and the process is completely paperless.",
-    color: "#D97706",
+    color: "#FF6A00",
   },
   {
     name: "Pooja Gupta",
@@ -121,12 +121,12 @@ export default function Testimonials() {
         <div className="text-center">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#FFF1E8", color: "#FF5500" }}
+            style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Customer Stories
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
-            What Our <span style={{ color: "#FF5500" }}>Customers Say</span>
+            What Our <span style={{ color: "#2563EB" }}>Customers Say</span>
           </h2>
           <p className="text-gray-500 mt-6 text-lg max-w-xl mx-auto">
             Over 50,000 happy customers trust Zatpat.loans for their financial
@@ -151,7 +151,6 @@ export default function Testimonials() {
 
         <div className="testimonial-track py-4">
           {doubled.map((t, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: doubled array for carousel loop
             <TestimonialCard key={`${t.name}-${i}`} testimonial={t} />
           ))}
         </div>
