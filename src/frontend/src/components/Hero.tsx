@@ -320,7 +320,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
           >
             {/* Glow rings — hidden on mobile to reduce clutter */}
             <div
-              className="hidden sm:block absolute inset-0 rounded-2xl pointer-events-none"
+              className="absolute inset-0 rounded-2xl pointer-events-none"
               style={{
                 background:
                   "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(37,99,235,0.28) 0%, transparent 70%)",
@@ -329,7 +329,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             />
 
             {/* Sparkle dots — hidden on mobile */}
-            <div className="hidden sm:block">
+            <div className="">
               {SPARKLE_DOTS.map((dot) => (
                 <div
                   key={dot.id}

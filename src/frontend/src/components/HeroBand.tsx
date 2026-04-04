@@ -6,6 +6,7 @@ import {
   Shield,
   Zap,
 } from "lucide-react";
+import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
@@ -67,17 +68,26 @@ const PROCESS_STEPS = [
 
 const CARD_WIDTH = 200;
 const CARD_HEIGHT = 160;
-const RADIUS = 260;
+const RADIUS_DESKTOP = 260;
+const RADIUS_MOBILE = 140;
 
-// Desktop-only 3D carousel
-function Carousel3D({ isVisible }: { isVisible: boolean }) {
+// Shared 3D Carousel — works on both desktop and mobile
+function Carousel3D({
+  isVisible,
+  isMobile,
+}: { isVisible: boolean; isMobile: boolean }) {
+  const radius = isMobile ? RADIUS_MOBILE : RADIUS_DESKTOP;
+  const containerHeight = isMobile ? 280 : 400;
+  const cardW = isMobile ? 150 : CARD_WIDTH;
+  const cardH = isMobile ? 120 : CARD_HEIGHT;
+
   return (
     <div
       data-ocid="hero_band.carousel.section"
       style={{
         position: "relative",
         width: "100%",
-        height: 400,
+        height: containerHeight,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -91,8 +101,8 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 420,
-          height: 420,
+          width: isMobile ? 280 : 420,
+          height: isMobile ? 280 : 420,
           borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(37,99,235,0.12) 0%, rgba(124,58,237,0.08) 40%, transparent 70%)",
@@ -104,9 +114,9 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
       <div
         className="carousel-scene"
         style={{
-          perspective: "1100px",
-          width: CARD_WIDTH,
-          height: CARD_HEIGHT,
+          perspective: isMobile ? "700px" : "1100px",
+          width: cardW,
+          height: cardH,
           position: "relative",
           zIndex: 1,
         }}
@@ -133,25 +143,25 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
                   position: "absolute",
                   top: 0,
                   left: 0,
-                  width: CARD_WIDTH,
-                  height: CARD_HEIGHT,
-                  transform: `rotateY(${card.angle}deg) translateZ(${RADIUS}px) rotateX(5deg)`,
+                  width: cardW,
+                  height: cardH,
+                  transform: `rotateY(${card.angle}deg) translateZ(${radius}px) rotateX(5deg)`,
                   background: card.gradient,
                   borderRadius: "16px",
-                  padding: "20px 18px",
+                  padding: isMobile ? "14px 12px" : "20px 18px",
                   color: "#FFFFFF",
                   boxShadow: `0 8px 32px ${card.glow}, 0 2px 8px rgba(0,0,0,0.2)`,
                   display: "flex",
                   flexDirection: "column",
-                  gap: "8px",
+                  gap: isMobile ? "6px" : "8px",
                   backfaceVisibility: "visible",
                   border: "1px solid rgba(255,255,255,0.18)",
                 }}
               >
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
+                    width: isMobile ? 32 : 40,
+                    height: isMobile ? 32 : 40,
                     borderRadius: "10px",
                     background: "rgba(255,255,255,0.2)",
                     display: "flex",
@@ -160,13 +170,13 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
                     flexShrink: 0,
                   }}
                 >
-                  <Icon size={20} color="#FFFFFF" />
+                  <Icon size={isMobile ? 16 : 20} color="#FFFFFF" />
                 </div>
 
                 <div>
                   <h3
                     style={{
-                      fontSize: "15px",
+                      fontSize: isMobile ? "13px" : "15px",
                       fontWeight: 800,
                       color: "#FFFFFF",
                       marginBottom: "3px",
@@ -176,7 +186,7 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
                   </h3>
                   <p
                     style={{
-                      fontSize: "12px",
+                      fontSize: isMobile ? "10px" : "12px",
                       color: "rgba(255,255,255,0.85)",
                       lineHeight: 1.45,
                     }}
@@ -193,64 +203,6 @@ function Carousel3D({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-// Mobile-friendly card grid
-function MobileCardGrid({ isVisible }: { isVisible: boolean }) {
-  return (
-    <div className="grid grid-cols-2 gap-3">
-      {CAROUSEL_CARDS.map((card, i) => {
-        const Icon = card.icon;
-        return (
-          <div
-            key={card.title}
-            data-ocid={`hero_band.carousel.item.${i + 1}`}
-            style={{
-              background: card.gradient,
-              borderRadius: "14px",
-              padding: "16px 14px",
-              color: "#FFFFFF",
-              boxShadow: `0 4px 16px ${card.glow}`,
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible
-                ? "translateY(0) scale(1)"
-                : "translateY(24px) scale(0.95)",
-              transition: `opacity 0.6s ease ${i * 100}ms, transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 100}ms`,
-            }}
-          >
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: "10px",
-                background: "rgba(255,255,255,0.2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <Icon size={18} color="#FFFFFF" />
-            </div>
-            <h3
-              style={{ fontSize: "13px", fontWeight: 800, marginBottom: "4px" }}
-            >
-              {card.title}
-            </h3>
-            <p
-              style={{
-                fontSize: "11px",
-                color: "rgba(255,255,255,0.85)",
-                lineHeight: 1.4,
-              }}
-            >
-              {card.description}
-            </p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function HeroBand() {
   const { ref: cardsRef, isVisible: cardsVisible } = useIntersectionObserver({
     threshold: 0.15,
@@ -263,7 +215,7 @@ export default function HeroBand() {
 
   const [litSteps, setLitSteps] = useState<boolean[]>([false, false, false]);
   const litTimeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const [_isMobile, setIsMobile] = useState(
+  const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < 640 : false,
   );
 
@@ -356,13 +308,8 @@ export default function HeroBand() {
             </h2>
           </div>
 
-          {/* Desktop: 3D Carousel | Mobile: 2-col grid */}
-          <div className="hidden sm:block">
-            <Carousel3D isVisible={cardsVisible} />
-          </div>
-          <div className="block sm:hidden mt-4">
-            <MobileCardGrid isVisible={cardsVisible} />
-          </div>
+          {/* 3D Carousel — visible on ALL screen sizes */}
+          <Carousel3D isVisible={cardsVisible} isMobile={isMobile} />
         </div>
 
         {/* SUB-SECTION 2: PROCESS FLOW */}

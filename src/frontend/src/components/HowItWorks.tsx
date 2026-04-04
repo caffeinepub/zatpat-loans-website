@@ -154,7 +154,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
 
           {/* Animated progress bar — desktop only */}
           <div
-            className="hidden md:block mb-4 mx-auto max-w-lg"
+            className="block mb-4 mx-auto max-w-lg"
             style={{
               height: "4px",
               borderRadius: "2px",
@@ -176,7 +176,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
           </div>
 
           {/* Desktop Stepper */}
-          <div className="hidden md:block">
+          <div className="block">
             <div style={{ position: "relative", marginBottom: "0" }}>
               {/* SVG connecting path */}
               <svg

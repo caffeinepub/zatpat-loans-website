@@ -131,7 +131,7 @@ export default function TrustBanner() {
       >
         {/* Breathing radial glow */}
         <div
-          className="tb-glow absolute pointer-events-none hidden sm:block"
+          className="tb-glow absolute pointer-events-none"
           style={{
             width: "70%",
             height: "70%",
@@ -147,7 +147,7 @@ export default function TrustBanner() {
         {PARTICLES.map((p) => (
           <div
             key={p.id}
-            className="tb-particle absolute rounded-full pointer-events-none hidden sm:block"
+            className="tb-particle absolute rounded-full pointer-events-none"
             style={{
               left: p.left,
               top: p.top,
@@ -196,7 +196,6 @@ export default function TrustBanner() {
                     <svg
                       aria-hidden="true"
                       viewBox="0 0 280 84"
-                      className="hidden sm:block"
                       style={{
                         position: "absolute",
                         top: "50%",
@@ -309,7 +308,7 @@ export default function TrustBanner() {
 
         {/* Decorative corners — hidden on mobile */}
         <div
-          className="hidden sm:block absolute top-0 left-0 pointer-events-none"
+          className="absolute top-0 left-0 pointer-events-none"
           style={{
             width: "120px",
             height: "120px",
@@ -318,7 +317,7 @@ export default function TrustBanner() {
           }}
         />
         <div
-          className="hidden sm:block absolute bottom-0 right-0 pointer-events-none"
+          className="absolute bottom-0 right-0 pointer-events-none"
           style={{
             width: "120px",
             height: "120px",

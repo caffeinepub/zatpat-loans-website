@@ -125,6 +125,21 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
         .mobile-cta-btn:active {
           transform: scale(0.98) !important;
         }
+        .hamburger-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 44px;
+          min-width: 44px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        .hamburger-btn:hover {
+          background-color: #EFF6FF !important;
+          border-color: #BFDBFE !important;
+          color: #2563EB !important;
+        }
       `}</style>
 
       {/* Full-page overlay backdrop for mobile menu — premium UX */}
@@ -286,7 +301,14 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           </div>
 
           {/* Mobile: Apply Now + Hamburger */}
-          <div className="lg:hidden flex items-center gap-2">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+            className="lg:hidden"
+          >
             <button
               type="button"
               data-ocid="navbar.primary_button"
@@ -307,31 +329,28 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             >
               Apply
             </button>
+            {/* Hamburger button — clearly visible on mobile */}
             <button
               type="button"
               data-ocid="navbar.toggle"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
+              className="hamburger-btn"
               style={{
-                background: mobileOpen ? "#EFF6FF" : "none",
+                background: mobileOpen ? "#EFF6FF" : "#F8FAFC",
                 border: mobileOpen
-                  ? "1px solid #BFDBFE"
-                  : "1px solid transparent",
-                cursor: "pointer",
-                color: mobileOpen ? "#2563EB" : "#374151",
-                padding: "8px",
-                borderRadius: "10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: "44px",
-                minWidth: "44px",
-                transition:
-                  "background 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+                  ? "1.5px solid #BFDBFE"
+                  : "1.5px solid #E2E8F0",
+                color: mobileOpen ? "#2563EB" : "#1E293B",
+                padding: "10px",
               }}
             >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+              {mobileOpen ? (
+                <X size={22} strokeWidth={2.5} />
+              ) : (
+                <Menu size={22} strokeWidth={2.5} />
+              )}
             </button>
           </div>
         </div>

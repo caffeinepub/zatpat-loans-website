@@ -122,6 +122,48 @@ const STATS = [
   },
 ];
 
+const PERSONA_CONFIGS = [
+  {
+    id: "student",
+    name: "Savita",
+    role: "Student",
+    emoji: "📚",
+    circleColor: "#2563EB",
+    circleBg: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+    glowColor: "rgba(37,99,235,0.35)",
+    approvalText: "✅ Approved ₹2,500",
+    approvalColor: "#2563EB",
+    floatDelay: "0s",
+    entranceDelay: 0.4,
+  },
+  {
+    id: "gig",
+    name: "Ramesh",
+    role: "Gig Worker",
+    emoji: "🛵",
+    circleColor: "#FF6A00",
+    circleBg: "linear-gradient(135deg, #FF6A00 0%, #EA580C 100%)",
+    glowColor: "rgba(255,106,0,0.35)",
+    approvalText: "✅ Approved ₹5,000",
+    approvalColor: "#FF6A00",
+    floatDelay: "1.4s",
+    entranceDelay: 0.55,
+  },
+  {
+    id: "shop",
+    name: "Kamla",
+    role: "Shop Owner",
+    emoji: "🏪",
+    circleColor: "#22C55E",
+    circleBg: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
+    glowColor: "rgba(34,197,94,0.35)",
+    approvalText: "✅ Approved ₹4,000",
+    approvalColor: "#22C55E",
+    floatDelay: "2.8s",
+    entranceDelay: 0.7,
+  },
+];
+
 function useCountUp(target: number, inView: boolean, delay = 0) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -195,6 +237,259 @@ function StatCard({
   );
 }
 
+// Animated SVG illustration panel
+function PersonaIllustration({ inView }: { inView: boolean }) {
+  return (
+    <div
+      className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden illustr-float"
+      style={{
+        background:
+          "linear-gradient(135deg, #F0F7FF 0%, #EEF2FF 60%, #F0FFF4 100%)",
+        boxShadow:
+          "0 32px 80px rgba(37,99,235,0.14), 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(37,99,235,0.12)",
+        aspectRatio: "7/3",
+        minHeight: 220,
+      }}
+    >
+      {/* Decorative background elements */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(37,99,235,0.10) 1.5px, transparent 1.5px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(37,99,235,0.07) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Connection line between personas (decorative) */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 700 300"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+      >
+        {/* Dashed connector line */}
+        <line
+          x1="175"
+          y1="150"
+          x2="350"
+          y2="150"
+          stroke="rgba(37,99,235,0.2)"
+          strokeWidth="2"
+          strokeDasharray="6 4"
+          style={{
+            strokeDashoffset: inView ? 0 : 200,
+            transition: "stroke-dashoffset 1.4s ease 0.8s",
+          }}
+        />
+        <line
+          x1="350"
+          y1="150"
+          x2="525"
+          y2="150"
+          stroke="rgba(255,106,0,0.2)"
+          strokeWidth="2"
+          strokeDasharray="6 4"
+          style={{
+            strokeDashoffset: inView ? 0 : 200,
+            transition: "stroke-dashoffset 1.4s ease 1.0s",
+          }}
+        />
+        {/* Sparkle stars */}
+        <text
+          x="80"
+          y="60"
+          fontSize="16"
+          style={{ animation: "star-twinkle 2.2s ease-in-out infinite" }}
+        >
+          ✦
+        </text>
+        <text
+          x="600"
+          y="80"
+          fontSize="12"
+          style={{ animation: "star-twinkle 3s ease-in-out infinite 0.8s" }}
+        >
+          ✦
+        </text>
+        <text
+          x="320"
+          y="40"
+          fontSize="10"
+          style={{ animation: "star-twinkle 2.6s ease-in-out infinite 1.2s" }}
+        >
+          ✦
+        </text>
+        <text
+          x="140"
+          y="240"
+          fontSize="10"
+          style={{ animation: "star-twinkle 3.4s ease-in-out infinite 0.4s" }}
+        >
+          ✦
+        </text>
+        <text
+          x="520"
+          y="240"
+          fontSize="14"
+          style={{ animation: "star-twinkle 2.8s ease-in-out infinite 1.6s" }}
+        >
+          ✦
+        </text>
+        {/* Rupee coins */}
+        <text
+          x="30"
+          y="160"
+          fontSize="20"
+          opacity="0.35"
+          style={{ animation: "coin-float 4s ease-in-out infinite" }}
+        >
+          ₹
+        </text>
+        <text
+          x="650"
+          y="140"
+          fontSize="18"
+          opacity="0.35"
+          style={{ animation: "coin-float 5s ease-in-out infinite 1s" }}
+        >
+          ₹
+        </text>
+        <text
+          x="340"
+          y="270"
+          fontSize="16"
+          opacity="0.25"
+          style={{ animation: "coin-float 3.8s ease-in-out infinite 2s" }}
+        >
+          ₹
+        </text>
+      </svg>
+
+      {/* Three persona characters */}
+      <div className="absolute inset-0 flex items-center justify-around px-4 sm:px-8 md:px-12">
+        {PERSONA_CONFIGS.map((persona, i) => (
+          <motion.div
+            key={persona.id}
+            initial={{ opacity: 0, y: 30, scale: 0.85 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{
+              delay: persona.entranceDelay,
+              duration: 0.65,
+              type: "spring",
+              bounce: 0.4,
+            }}
+            className="flex flex-col items-center gap-1 sm:gap-2"
+            style={{
+              animation: inView
+                ? `persona-float 4.5s ease-in-out infinite ${persona.floatDelay}`
+                : "none",
+            }}
+          >
+            {/* Approval badge floating above */}
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.8 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{
+                delay: persona.entranceDelay + 0.4,
+                duration: 0.5,
+                type: "spring",
+                bounce: 0.5,
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-full text-[9px] sm:text-[11px] font-bold whitespace-nowrap"
+              style={{
+                background: "rgba(255,255,255,0.97)",
+                border: `1.5px solid ${persona.approvalColor}40`,
+                boxShadow: `0 4px 16px ${persona.approvalColor}30`,
+                color: persona.approvalColor,
+                marginBottom: 2,
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{
+                  background: persona.approvalColor,
+                  boxShadow: `0 0 6px ${persona.approvalColor}`,
+                }}
+              />
+              {persona.approvalText}
+            </motion.div>
+
+            {/* Avatar circle */}
+            <div
+              className="relative flex items-center justify-center rounded-full"
+              style={{
+                width: "clamp(52px, 9vw, 88px)",
+                height: "clamp(52px, 9vw, 88px)",
+                background: persona.circleBg,
+                boxShadow: `0 8px 28px ${persona.glowColor}, 0 0 0 4px ${persona.circleColor}20`,
+                fontSize: "clamp(22px, 4vw, 38px)",
+              }}
+            >
+              {/* Pulse ring */}
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  border: `2px solid ${persona.circleColor}`,
+                  animation: inView
+                    ? `avatar-ring-pulse 2.4s ease-out infinite ${(i * 0.6).toString()}s`
+                    : "none",
+                }}
+              />
+              <span role="img" aria-label={persona.role}>
+                {persona.emoji}
+              </span>
+            </div>
+
+            {/* Name + role */}
+            <div className="flex flex-col items-center">
+              <span
+                className="font-black text-[11px] sm:text-sm leading-tight"
+                style={{ color: "#1E293B" }}
+              >
+                {persona.name}
+              </span>
+              <span
+                className="text-[9px] sm:text-[11px] font-semibold"
+                style={{ color: persona.circleColor }}
+              >
+                {persona.role}
+              </span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Bottom tag line */}
+      <div
+        className="absolute bottom-2 sm:bottom-3 left-0 right-0 flex items-center justify-center"
+        style={{ pointerEvents: "none" }}
+      >
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.6, duration: 0.6 }}
+          className="text-[10px] sm:text-xs font-semibold px-3 py-1 rounded-full"
+          style={{
+            background: "rgba(255,255,255,0.85)",
+            color: "#64748B",
+            border: "1px solid rgba(37,99,235,0.15)",
+          }}
+        >
+          🇮🇳 Real borrowers. Real approvals. No CIBIL needed.
+        </motion.span>
+      </div>
+    </div>
+  );
+}
+
 export default function BannerIllustration() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -213,9 +508,26 @@ export default function BannerIllustration() {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-14px); }
         }
+        @keyframes persona-float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes avatar-ring-pulse {
+          0% { transform: scale(1); opacity: 0.7; }
+          70% { transform: scale(1.5); opacity: 0; }
+          100% { transform: scale(1); opacity: 0; }
+        }
         @keyframes illustr-particle {
           0%, 100% { transform: translateY(0px) scale(1); opacity: 0.65; }
           50% { transform: translateY(-12px) scale(1.25); opacity: 1; }
+        }
+        @keyframes star-twinkle {
+          0%, 100% { opacity: 0.3; transform: scale(0.9); }
+          50% { opacity: 0.8; transform: scale(1.2); }
+        }
+        @keyframes coin-float {
+          0%, 100% { transform: translateY(0px) rotate(-5deg); }
+          50% { transform: translateY(-8px) rotate(5deg); }
         }
         @keyframes badge-glow {
           0%, 100% { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
@@ -225,14 +537,6 @@ export default function BannerIllustration() {
           0% { transform: scale(1); opacity: 1; }
           70% { transform: scale(2.2); opacity: 0; }
           100% { transform: scale(1); opacity: 0; }
-        }
-        @keyframes shimmer-sweep {
-          0% { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
-          30% { opacity: 1; }
-          100% { transform: translateX(250%) skewX(-12deg); opacity: 0; }
-        }
-        .illustr-card:hover .shimmer-overlay {
-          animation: shimmer-sweep 0.85s ease-in-out;
         }
         .illustr-float {
           animation: illustr-float 5s ease-in-out infinite;
@@ -374,46 +678,11 @@ export default function BannerIllustration() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.3 }}
           className="relative w-full"
         >
-          {/* Illustration card */}
-          <div
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden illustr-float illustr-card"
-            style={{
-              boxShadow:
-                "0 32px 80px rgba(37,99,235,0.14), 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(37,99,235,0.12)",
-              animationDuration: "5s",
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-            }}
-          >
-            {/* Static subtle shimmer overlay */}
-            <div
-              className="absolute inset-0 z-10 pointer-events-none rounded-2xl sm:rounded-3xl"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(37,99,235,0.05) 100%)",
-              }}
-            />
+          {/* SVG Illustration Panel */}
+          <PersonaIllustration inView={inView} />
 
-            {/* Hover shimmer sweep overlay */}
-            <div
-              className="shimmer-overlay absolute inset-0 z-20 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%)",
-                animationFillMode: "forwards",
-              }}
-            />
-
-            <img
-              src="/assets/generated/banner-illustration-photorealistic.dim_1400x600.jpg"
-              alt="Savita, Ramesh, and Kamla — happy Indians celebrating loan approvals with Rocket.Money"
-              className="w-full object-cover"
-              style={{ display: "block", aspectRatio: "7/3" }}
-            />
-          </div>
-
-          {/* Persona approval badges — overlaid on desktop */}
-          <div className="hidden sm:flex absolute -bottom-5 left-0 right-0 justify-between px-6 lg:px-12 z-20">
+          {/* Persona approval badges — overlaid, visible on ALL screen sizes */}
+          <div className="flex absolute -bottom-5 left-0 right-0 justify-between px-4 sm:px-6 lg:px-12 z-20">
             {PERSONA_BADGES.map((badge) => (
               <motion.div
                 key={badge.id}
@@ -426,7 +695,7 @@ export default function BannerIllustration() {
                   bounce: 0.45,
                 }}
                 whileHover={{ scale: 1.04, y: -2 }}
-                className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl cursor-default"
+                className="flex items-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl cursor-default"
                 style={{
                   background: "rgba(255,255,255,0.97)",
                   border: `1px solid ${badge.border}`,
@@ -437,7 +706,7 @@ export default function BannerIllustration() {
                 {/* Pulsing approval dot */}
                 <div className="relative flex-shrink-0">
                   <div
-                    className="w-3 h-3 rounded-full"
+                    className="w-2 h-2 sm:w-3 sm:h-3 rounded-full"
                     style={{ background: badge.color }}
                   />
                   <div
@@ -451,52 +720,17 @@ export default function BannerIllustration() {
                 </div>
                 <div className="flex flex-col">
                   <span
-                    className="text-xs font-bold leading-tight"
+                    className="text-[9px] sm:text-xs font-bold leading-tight"
                     style={{ color: "#1E293B" }}
                   >
                     ✅ {badge.label}
                   </span>
                   <span
-                    className="text-[10px] font-medium"
+                    className="text-[8px] sm:text-[10px] font-medium"
                     style={{ color: badge.color }}
                   >
                     {badge.sub}
                   </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Mobile: stacked badges below */}
-          <div className="flex sm:hidden flex-col gap-2.5 mt-4">
-            {PERSONA_BADGES.map((badge) => (
-              <motion.div
-                key={`mob-${badge.id}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: badge.delay, duration: 0.5 }}
-                className="flex items-center gap-3 px-4 py-3 rounded-2xl"
-                style={{
-                  background: "rgba(255,255,255,0.9)",
-                  border: `1px solid ${badge.border}`,
-                  boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-                  borderLeft: `4px solid ${badge.color}`,
-                }}
-              >
-                <div
-                  className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                  style={{ background: badge.color }}
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold" style={{ color: "#1E293B" }}>
-                    ✅ {badge.label}
-                  </p>
-                  <p
-                    className="text-[11px] font-medium"
-                    style={{ color: badge.color }}
-                  >
-                    {badge.sub}
-                  </p>
                 </div>
               </motion.div>
             ))}
@@ -504,7 +738,7 @@ export default function BannerIllustration() {
         </motion.div>
 
         {/* Bottom stats row */}
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-8 mt-10 sm:mt-16">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-8 mt-12 sm:mt-16">
           {STATS.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} inView={inView} index={i} />
           ))}
