@@ -34,8 +34,8 @@ export default function LoanModal({ open, onClose }: LoanModalProps) {
       return;
     }
     const amountNum = Number.parseInt(amount.replace(/,/g, ""), 10);
-    if (Number.isNaN(amountNum) || amountNum < 1000 || amountNum > 500000) {
-      setError("Loan amount must be between ₹1,000 and ₹5,00,000.");
+    if (Number.isNaN(amountNum) || amountNum < 1000 || amountNum > 5000) {
+      setError("Loan amount must be between ₹1,000 and ₹5,000.");
       return;
     }
 
@@ -83,7 +83,8 @@ export default function LoanModal({ open, onClose }: LoanModalProps) {
             Apply for a Loan
           </DialogTitle>
           <DialogDescription className="text-gray-500 text-sm">
-            Fill in your details and we'll get back to you within minutes.
+            No CIBIL check — bad credit or no credit, everyone is welcome. Fill
+            in your details and we'll get back to you within minutes.
           </DialogDescription>
         </DialogHeader>
 
@@ -167,16 +168,27 @@ export default function LoanModal({ open, onClose }: LoanModalProps) {
                   id="loan-amount"
                   data-ocid="loan-modal.input"
                   type="number"
-                  placeholder="50000"
+                  placeholder="3000"
                   min="1000"
-                  max="500000"
+                  max="5000"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="rounded-xl pl-8"
                   required
                 />
               </div>
-              <p className="text-xs text-gray-400">Range: ₹1,000 – ₹5,00,000</p>
+              <p className="text-xs text-gray-400">Range: ₹1,000 – ₹5,000</p>
+            </div>
+
+            {/* No CIBIL badge */}
+            <div
+              className="flex items-center gap-2 px-4 py-3 rounded-xl"
+              style={{ background: "#f0fdf4", border: "1px solid #bbf7d0" }}
+            >
+              <span className="text-green-600 text-base">✅</span>
+              <p className="text-xs font-semibold" style={{ color: "#166534" }}>
+                No CIBIL check • Bad credit welcome • Approved for everyone
+              </p>
             </div>
 
             {error && (

@@ -8,21 +8,21 @@ const personas = [
   {
     icon: "📚",
     name: "Riya – Student",
-    quote: "First loan ₹1,000 approved in minutes",
+    quote: "First loan ₹1,000 approved in minutes. No CIBIL needed!",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
   },
   {
     icon: "⚙️",
     name: "Ramesh – Worker",
-    quote: "Got ₹3,000 when I needed it most",
+    quote: "Got ₹3,000 when I needed it most. Bad CIBIL, still approved!",
     tag: "Factory Worker",
     color: "from-blue-700 to-indigo-700",
   },
   {
     icon: "🏪",
     name: "Priya – Business Owner",
-    quote: "Grew my limit to ₹10,000!",
+    quote: "No credit score? No problem. Got ₹5,000 same day!",
     tag: "Small Business",
     color: "from-emerald-500 to-teal-600",
   },
@@ -31,8 +31,8 @@ const personas = [
 const cibilSteps = [
   {
     icon: "😟",
-    text: "Low CIBIL Score? Don't worry",
-    badge: "Your Situation",
+    text: "Low or No CIBIL Score? Don't worry",
+    badge: "Any Credit Score",
     badgeColor: "#ef4444",
     badgeBg: "#fef2f2",
     id: "cibil-worried",
@@ -47,7 +47,7 @@ const cibilSteps = [
   },
   {
     icon: "✅",
-    text: "Instant Approval",
+    text: "Instant Approval — Everyone Welcome",
     badge: "Approved!",
     badgeColor: "#22C55E",
     badgeBg: "#f0fdf4",
@@ -79,17 +79,17 @@ const loanSteps = [
     id: "step-repay",
   },
   {
-    label: "Unlock ₹2,000 limit",
+    label: "Unlock ₹3,000 limit",
     level: "Level 3",
     icon: "🔓",
-    amount: 5000,
+    amount: 3000,
     id: "step-unlock",
   },
   {
-    label: "Keep growing your limit!",
+    label: "Max ₹5,000 — Yours!",
     level: "Level 4",
     icon: "🚀",
-    amount: 10000,
+    amount: 5000,
     id: "step-grow",
   },
 ];
@@ -299,16 +299,27 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   backgroundClip: "text",
                 }}
               >
-                Anytime, Anywhere!
+                Any Credit Score!
               </span>
             </h2>
             <p
               className="mt-5 text-lg max-w-2xl mx-auto leading-relaxed"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
-              Your journey to financial freedom starts here. No matter your
-              credit score — we've got you covered.
+              No CIBIL? Bad CIBIL? Zero credit history? We don't care. Up to
+              ₹5,000 instantly for every Indian.
             </p>
+            {/* USP pill */}
+            <div
+              className="inline-flex items-center gap-2 mt-4 px-5 py-2 rounded-full text-sm font-bold"
+              style={{
+                background: "linear-gradient(135deg, #22C55E22, #2563EB22)",
+                border: "1.5px solid #22C55E55",
+                color: "#166534",
+              }}
+            >
+              ✅ No CIBIL Required  ·  Bad Credit Welcome  ·  Max ₹5,000
+            </div>
           </div>
 
           {/* Persona Cards */}
@@ -381,7 +392,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               className="text-center text-xl font-bold mb-8"
               style={{ color: "#1E293B" }}
             >
-              Even with Low CIBIL Score — We Say Yes!
+              Even with Low or Zero CIBIL Score — We Always Say Yes!
             </h3>
             <div className="relative">
               <div
@@ -470,7 +481,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   Level Up Your Loan Limit!
                 </h3>
                 <p className="text-slate-400 mt-2 text-sm">
-                  Repay on time and unlock bigger loans automatically
+                  Start at ₹1,000. Repay on time and unlock up to ₹5,000. No
+                  CIBIL required at any level.
                 </p>
               </div>
 
@@ -493,7 +505,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 </div>
                 <div className="flex justify-between text-xs text-slate-500">
                   <span>₹1,000</span>
-                  <span>₹10,000+</span>
+                  <span>₹5,000 (Max)</span>
                 </div>
               </div>
 
@@ -576,7 +588,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   {formatAmount(displayCount)}
                 </div>
                 <p className="text-slate-500 text-xs mt-2">
-                  Keep repaying on time to unlock more
+                  Max limit: ₹5,000 · Keep repaying on time to unlock more
                 </p>
               </div>
             </div>
@@ -633,7 +645,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               }}
               onClick={onApplyNow}
             >
-              <span>Apply Now</span>
+              <span>Apply Now — No CIBIL Needed</span>
               <span
                 className="w-7 h-7 rounded-full flex items-center justify-center text-sm"
                 style={{ background: "rgba(255,255,255,0.2)" }}
@@ -642,8 +654,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               </span>
             </button>
             <p className="text-xs text-slate-400 mt-4">
-              ✓ No hidden fees &nbsp;·&nbsp; ✓ 100% digital &nbsp;·&nbsp; ✓
-              Instant decision
+              ✓ No CIBIL check &nbsp;·&nbsp; ✓ Bad credit welcome &nbsp;·&nbsp;
+              ✓ Max ₹5,000 loan
             </p>
           </div>
         </div>

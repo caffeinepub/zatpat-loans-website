@@ -1,15 +1,27 @@
-import { Banknote, Briefcase, CreditCard, FileCheck, User } from "lucide-react";
+import { Banknote, Briefcase, FileCheck, Smartphone, User } from "lucide-react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 const criteria = [
-  { icon: User, label: "Age", detail: "21 – 55 years" },
-  { icon: Briefcase, label: "Employment", detail: "Salaried or Self-employed" },
-  { icon: Banknote, label: "Monthly Income", detail: "₹15,000+ per month" },
-  { icon: CreditCard, label: "Credit Score", detail: "650 or above" },
+  { icon: User, label: "Age", detail: "18 – 55 years" },
+  {
+    icon: Briefcase,
+    label: "Employment",
+    detail: "Salaried, Self-employed, or Student",
+  },
+  {
+    icon: Banknote,
+    label: "Monthly Income",
+    detail: "Any income level accepted",
+  },
+  {
+    icon: Smartphone,
+    label: "CIBIL / Credit Score",
+    detail: "No minimum — all credit scores welcome",
+  },
   {
     icon: FileCheck,
     label: "Documents",
-    detail: "Aadhaar, PAN, Bank Statement",
+    detail: "Aadhaar + PAN (that's it!)",
   },
 ];
 
@@ -39,6 +51,10 @@ export default function Eligibility() {
             Loan Amount &amp;{" "}
             <span style={{ color: "#FF6A00" }}>Eligibility</span>
           </h2>
+          <p className="mt-3 text-base text-slate-500 max-w-xl mx-auto">
+            Everyone qualifies. No CIBIL check. No income minimum. Just your
+            Aadhaar &amp; PAN.
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -72,6 +88,18 @@ export default function Eligibility() {
                 }}
               />
 
+              {/* No CIBIL USP banner */}
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-6"
+                style={{
+                  background: "rgba(34,197,94,0.15)",
+                  color: "#86EFAC",
+                  border: "1px solid rgba(34,197,94,0.3)",
+                }}
+              >
+                ✅ No CIBIL Check Required
+              </div>
+
               <p className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
                 Loan Range
               </p>
@@ -86,10 +114,10 @@ export default function Eligibility() {
                 className="text-5xl lg:text-6xl font-black"
                 style={{ color: "#FF6A00" }}
               >
-                ₹5,00,000
+                ₹5,000
               </div>
-              <p className="text-white/50 text-sm mt-6">
-                Flexible tenures from 3 to 36 months
+              <p className="text-white/50 text-sm mt-4">
+                Maximum loan: ₹5,000 · Flexible tenures 1–6 months
               </p>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <div
@@ -132,9 +160,12 @@ export default function Eligibility() {
               transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
             }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
               Eligibility Criteria
             </h3>
+            <p className="text-sm text-slate-500 mb-6">
+              Super simple — almost everyone qualifies.
+            </p>
             <div className="space-y-4">
               {criteria.map((item, index) => (
                 <div

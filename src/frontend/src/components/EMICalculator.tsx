@@ -6,7 +6,7 @@ interface EMICalculatorProps {
   openModal: () => void;
 }
 
-const TENURE_OPTIONS = [6, 12, 18, 24];
+const TENURE_OPTIONS = [1, 2, 3, 6];
 const ANNUAL_RATE = 18;
 
 function formatINR(amount: number): string {
@@ -58,8 +58,8 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
     threshold: 0.1,
     triggerOnce: true,
   });
-  const [loanAmount, setLoanAmount] = useState(100000);
-  const [tenure, setTenure] = useState(12);
+  const [loanAmount, setLoanAmount] = useState(3000);
+  const [tenure, setTenure] = useState(3);
 
   const emi = calculateEMI(loanAmount, tenure, ANNUAL_RATE);
   const totalAmount = emi * tenure;
@@ -69,8 +69,8 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
   const animatedInterest = useAnimatedNumber(totalInterest);
   const animatedTotal = useAnimatedNumber(totalAmount);
 
-  const MIN = 10000;
-  const MAX = 500000;
+  const MIN = 1000;
+  const MAX = 5000;
   const fillPercent = ((loanAmount - MIN) / (MAX - MIN)) * 100;
 
   return (
@@ -128,8 +128,8 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
             </span>
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
-            Adjust the sliders to instantly calculate your estimated EMI — no
-            commitment needed.
+            Borrow ₹1,000 to ₹5,000 — no CIBIL check required. Calculate your
+            EMI instantly.
           </p>
         </div>
 
@@ -172,7 +172,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                     data-ocid="emi_calculator.input"
                     min={MIN}
                     max={MAX}
-                    step={5000}
+                    step={500}
                     value={loanAmount}
                     onChange={(e) => setLoanAmount(Number(e.target.value))}
                     className="w-full h-2 rounded-full appearance-none cursor-pointer"
@@ -186,8 +186,8 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                   className="flex justify-between text-xs mt-2"
                   style={{ color: "#94A3B8" }}
                 >
-                  <span>₹10,000</span>
-                  <span>₹5,00,000</span>
+                  <span>₹1,000</span>
+                  <span>₹5,000</span>
                 </div>
               </div>
 
@@ -232,7 +232,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 <Info size={14} style={{ color: "#FF6A00", flexShrink: 0 }} />
                 <p className="text-xs" style={{ color: "#92400E" }}>
                   Interest Rate: <strong>{ANNUAL_RATE}% p.a.</strong> (fixed) —
-                  No hidden fees. No prepayment charges.
+                  No CIBIL check. No hidden fees.
                 </p>
               </div>
             </div>
@@ -268,7 +268,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                   className="text-xs"
                   style={{ color: "rgba(148,163,184,0.7)" }}
                 >
-                  per month for {tenure} months
+                  per month for {tenure} month{tenure > 1 ? "s" : ""}
                 </p>
               </div>
 
@@ -331,7 +331,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 className="text-xs text-center mt-3"
                 style={{ color: "rgba(148,163,184,0.5)" }}
               >
-                ⚡ Processing under 4 minutes for most applicants
+                ⚡ No CIBIL check — Approved for everyone
               </p>
             </div>
           </div>
@@ -343,7 +343,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
           style={{ color: "#64748B" }}
         >
           <span>🔒 Safe &amp; Secure • RBI Regulated</span>
-          <span>✅ No credit score required to apply</span>
+          <span>✅ No CIBIL score required — Bad credit welcome</span>
           <span>⚡ Same-day disbursal</span>
         </div>
       </div>

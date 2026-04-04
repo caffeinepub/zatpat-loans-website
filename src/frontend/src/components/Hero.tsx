@@ -188,14 +188,14 @@ export default function Hero({ onApplyNow }: HeroProps) {
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-              India's Fastest Loan Platform
+              India's Fastest Loan Platform — No CIBIL Required
             </motion.div>
 
             <h1
               className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-4"
               style={{ color: "#F8FAFC" }}
             >
-              Get Instant{" "}
+              Loans for{" "}
               <span
                 style={{
                   background:
@@ -205,9 +205,9 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   backgroundClip: "text",
                 }}
               >
-                Personal Loans
+                Every Indian
               </span>{" "}
-              in Minutes
+              — Any CIBIL Score
             </h1>
 
             {/* Live counter */}
@@ -217,16 +217,16 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="text-lg lg:text-xl mt-6 mb-6 max-w-xl leading-relaxed"
               style={{ color: "rgba(148, 163, 184, 0.9)" }}
             >
-              Quick approvals, minimal paperwork, 100% digital process. Get
-              funds in your account within hours — not days.
+              Bad CIBIL? No CIBIL? No problem. Get up to ₹5,000 instantly — 100%
+              digital, zero paperwork, same day disbursal.
             </p>
 
             {/* Key points */}
             <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8">
               {[
-                "₹1K – ₹5L Loans",
+                "Up to ₹5,000 Loans",
                 "5-Min Approval",
-                "No Collateral",
+                "No CIBIL Check",
                 "100% Digital",
               ].map((item) => (
                 <span
@@ -291,7 +291,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="mt-4 text-xs"
               style={{ color: "rgba(148,163,184,0.7)" }}
             >
-              No credit score required • 100% online • Same day disbursal
+              No CIBIL check • Bad credit welcome • Same day disbursal
             </p>
 
             {/* Trust badges row */}
@@ -447,7 +447,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   5 Min Approval
                 </span>
                 <span className="text-[10px]" style={{ color: "#93C5FD" }}>
-                  Fastest in India
+                  No CIBIL Check
                 </span>
               </div>
             </motion.div>
@@ -484,7 +484,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   100% Safe
                 </span>
                 <span className="text-[10px]" style={{ color: "#86EFAC" }}>
-                  RBI Compliant
+                  Bad CIBIL Welcome
                 </span>
               </div>
             </motion.div>
@@ -511,7 +511,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   className="text-xs font-bold"
                   style={{ color: "#166534" }}
                 >
-                  ₹50,000 Approved!
+                  ₹5,000 Approved!
                 </span>
                 <span className="text-[10px]" style={{ color: "#6B7280" }}>
                   Just now · Instant disbursal

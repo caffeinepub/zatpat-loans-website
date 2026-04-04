@@ -1,14 +1,14 @@
 const TICKER_ITEMS = [
-  "🟢 Rahul from Delhi just got ₹25,000 approved • 2 min ago",
-  "🟢 Priya from Mumbai just got ₹50,000 approved • 3 min ago",
-  "🟢 Amit from Bangalore just got ₹1,00,000 approved • 1 min ago",
-  "🟢 Sunita from Hyderabad just got ₹15,000 approved • 4 min ago",
-  "🟢 Kiran from Chennai just got ₹75,000 approved • 5 min ago",
-  "🟢 Deepak from Pune just got ₹40,000 approved • 2 min ago",
-  "🟢 Anjali from Kolkata just got ₹30,000 approved • 6 min ago",
-  "🟢 Ravi from Ahmedabad just got ₹2,00,000 approved • 7 min ago",
-  "🟢 Meera from Jaipur just got ₹60,000 approved • 3 min ago",
-  "🟢 Suresh from Lucknow just got ₹90,000 approved • 8 min ago",
+  "🟢 Rahul from Delhi just got ₹4,500 approved • 2 min ago",
+  "🟢 Priya from Mumbai just got ₹5,000 approved • 3 min ago",
+  "🟢 Amit from Bangalore just got ₹3,000 approved • 1 min ago",
+  "🟢 Sunita from Hyderabad just got ₹2,500 approved • 4 min ago",
+  "🟢 Kiran from Chennai just got ₹5,000 approved • 5 min ago",
+  "🟢 Deepak from Pune just got ₹1,500 approved • 2 min ago",
+  "🟢 Anjali from Kolkata just got ₹4,000 approved • 6 min ago",
+  "🟢 Ravi from Ahmedabad just got ₹5,000 approved • 7 min ago",
+  "🟢 Meera from Jaipur just got ₹3,500 approved • 3 min ago",
+  "🟢 Suresh from Lucknow just got ₹2,000 approved • 8 min ago",
 ];
 
 const SEPARATOR = "  •  ";
