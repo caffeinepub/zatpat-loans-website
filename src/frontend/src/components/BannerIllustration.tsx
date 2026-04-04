@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const PERSONA_BADGES = [
   {
     id: "student",
-    label: "Savita — Student",
+    label: "Riya — Student",
     sub: "₹2,500 approved in 4 min",
     color: "#2563EB",
     bg: "rgba(37,99,235,0.1)",
@@ -16,7 +16,7 @@ const PERSONA_BADGES = [
   },
   {
     id: "gig",
-    label: "Ramesh — Delivery Worker",
+    label: "Arjun — Delivery Worker",
     sub: "₹5,000 approved instantly",
     color: "#FF6A00",
     bg: "rgba(255,106,0,0.1)",
@@ -27,7 +27,7 @@ const PERSONA_BADGES = [
   },
   {
     id: "shop",
-    label: "Kamla — Kirana Owner",
+    label: "Priya — Kirana Owner",
     sub: "₹4,000 approved, no CIBIL",
     color: "#22C55E",
     bg: "rgba(34,197,94,0.1)",
@@ -125,7 +125,7 @@ const STATS = [
 const PERSONA_CONFIGS = [
   {
     id: "student",
-    name: "Savita",
+    name: "Riya",
     role: "Student",
     emoji: "📚",
     circleColor: "#2563EB",
@@ -138,7 +138,7 @@ const PERSONA_CONFIGS = [
   },
   {
     id: "gig",
-    name: "Ramesh",
+    name: "Arjun",
     role: "Gig Worker",
     emoji: "🛵",
     circleColor: "#FF6A00",
@@ -151,7 +151,7 @@ const PERSONA_CONFIGS = [
   },
   {
     id: "shop",
-    name: "Kamla",
+    name: "Priya",
     role: "Shop Owner",
     emoji: "🏪",
     circleColor: "#22C55E",
@@ -621,54 +621,9 @@ export default function BannerIllustration() {
             className="mt-2 text-sm sm:text-base max-w-xl"
             style={{ color: "#64748B" }}
           >
-            Rocket.Money approves in minutes — Savita, Ramesh, and Kamla all got
+            Rocket.Money approves in minutes — Riya, Arjun, and Priya all got
             loans. No CIBIL, no paperwork.
           </p>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 mb-8"
-        >
-          <motion.button
-            data-ocid="banner.see_how_button"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() =>
-              document
-                .getElementById("how-it-works")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="w-full sm:w-auto px-7 py-3 rounded-full font-bold text-white text-sm sm:text-base transition-all"
-            style={{
-              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-              boxShadow: "0 4px 20px rgba(255,106,0,0.35)",
-            }}
-          >
-            See How It Works →
-          </motion.button>
-          <motion.a
-            data-ocid="banner.apply_button"
-            href="#apply"
-            whileHover={{
-              scale: 1.04,
-              y: -2,
-              backgroundColor: "#2563EB",
-              color: "#ffffff",
-            }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto px-7 py-3 rounded-full font-bold text-sm sm:text-base transition-all text-center"
-            style={{
-              border: "2px solid #2563EB",
-              color: "#2563EB",
-              background: "transparent",
-            }}
-          >
-            Apply Now — Free
-          </motion.a>
         </motion.div>
 
         {/* Main illustration container */}

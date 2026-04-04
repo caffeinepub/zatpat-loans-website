@@ -85,7 +85,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
       >
         {/* Background orbs — reduced on mobile */}
         <div
-          className="absolute pointer-events-none rounded-full"
+          className="absolute pointer-events-none rounded-full hidden sm:block"
           style={{
             width: "280px",
             height: "280px",
@@ -97,7 +97,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           }}
         />
         <div
-          className="absolute pointer-events-none rounded-full"
+          className="absolute pointer-events-none rounded-full hidden sm:block"
           style={{
             width: "240px",
             height: "240px",
