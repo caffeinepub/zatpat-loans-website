@@ -103,9 +103,17 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
   return (
     <>
       <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
         @media (prefers-reduced-motion: reduce) {
-          .mobile-drawer { transition: none !important; }
-          .mobile-overlay { transition: none !important; }
+          .mobile-drawer-panel { transition: none !important; }
+          .mobile-overlay { transition: none !important; animation: none !important; }
         }
         .nav-link-desktop:hover {
           background-color: #EFF6FF !important;
@@ -114,6 +122,10 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
         .nav-cta-desktop:hover {
           transform: translateY(-2px) !important;
           box-shadow: 0 8px 24px rgba(255,106,0,0.5) !important;
+        }
+        .mobile-nav-link {
+          position: relative;
+          transition: background-color 0.18s ease, color 0.18s ease;
         }
         .mobile-nav-link:hover {
           background-color: #EFF6FF !important;
@@ -129,8 +141,8 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-height: 44px;
-          min-width: 44px;
+          min-height: 40px;
+          min-width: 40px;
           border-radius: 10px;
           cursor: pointer;
           transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -142,7 +154,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
         }
       `}</style>
 
-      {/* Full-page overlay backdrop for mobile menu — premium UX */}
+      {/* Full-page overlay backdrop — RIGHT side drawer */}
       {mobileOpen && (
         <button
           type="button"
@@ -152,23 +164,181 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 40,
-            background: "rgba(15,23,42,0.45)",
+            zIndex: 48,
+            background: "rgba(15,23,42,0.50)",
             backdropFilter: "blur(3px)",
             WebkitBackdropFilter: "blur(3px)",
             border: "none",
             cursor: "default",
-            animation: "fadeIn 0.2s ease",
+            animation: "fadeIn 0.22s ease",
           }}
         />
       )}
 
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
+      {/* RIGHT SIDE DRAWER — premium app-like panel */}
+      <div
+        className="mobile-drawer-panel lg:hidden"
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: "min(80vw, 280px)",
+          zIndex: 50,
+          background: "white",
+          boxShadow:
+            "-8px 0 40px rgba(15,23,42,0.18), -2px 0 8px rgba(0,0,0,0.08)",
+          transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
+          transition: "transform 0.32s cubic-bezier(0.4, 0, 0.2, 1)",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          pointerEvents: mobileOpen ? "all" : "none",
+        }}
+      >
+        {/* Drawer header — logo + close */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "18px 20px 14px",
+            borderBottom: "1px solid #F1F5F9",
+            flexShrink: 0,
+          }}
+        >
+          <RocketMoneyLogo compact={true} />
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+            data-ocid="navbar.close_button"
+            style={{
+              background: "#F8FAFC",
+              border: "1.5px solid #E2E8F0",
+              borderRadius: 10,
+              width: 38,
+              height: 38,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              color: "#475569",
+              transition: "background 0.15s ease, border-color 0.15s ease",
+            }}
+          >
+            <X size={18} strokeWidth={2.5} />
+          </button>
+        </div>
+
+        {/* Navigation links */}
+        <nav
+          style={{
+            padding: "12px 14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "3px",
+            flex: 1,
+          }}
+        >
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <button
+                key={link.label}
+                type="button"
+                data-ocid="navbar.link"
+                onClick={() => handleNavClick(link.href)}
+                className="mobile-nav-link"
+                style={{
+                  background: isActive ? "rgba(37,99,235,0.09)" : "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "13px 16px",
+                  borderRadius: "12px",
+                  textAlign: "left",
+                  fontSize: "0.95rem",
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? "#2563EB" : "#374151",
+                  width: "100%",
+                  minHeight: "48px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                }}
+              >
+                {/* Active pill indicator */}
+                {isActive && (
+                  <span
+                    style={{
+                      width: 4,
+                      height: 20,
+                      borderRadius: 4,
+                      background: "#2563EB",
+                      flexShrink: 0,
+                      display: "block",
+                    }}
+                  />
+                )}
+                {!isActive && <span style={{ width: 4, flexShrink: 0 }} />}
+                {link.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Bottom CTA area */}
+        <div
+          style={{
+            padding: "12px 14px 28px",
+            borderTop: "1px solid #F1F5F9",
+            flexShrink: 0,
+          }}
+        >
+          <button
+            type="button"
+            data-ocid="navbar.primary_button"
+            className="mobile-cta-btn"
+            onClick={() => {
+              setMobileOpen(false);
+              onApplyNow();
+            }}
+            style={{
+              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: 16,
+              padding: "15px 24px",
+              fontSize: "0.95rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              width: "100%",
+              minHeight: "52px",
+              boxShadow: "0 6px 24px rgba(255,106,0,0.38)",
+              letterSpacing: "-0.01em",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+              transition:
+                "transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease",
+            }}
+          >
+            🚀 Apply Now — No CIBIL Needed
+          </button>
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "0.68rem",
+              color: "#94A3B8",
+              marginTop: "10px",
+              lineHeight: 1.6,
+            }}
+          >
+            ✓ Free to apply &nbsp;·&nbsp; No credit score &nbsp;·&nbsp; 5 min
+          </p>
+        </div>
+      </div>
 
       <header
         data-ocid="navbar.section"
@@ -192,7 +362,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             maxWidth: "100%",
             paddingLeft: "clamp(16px, 4vw, 60px)",
             paddingRight: "clamp(16px, 4vw, 60px)",
-            height: "68px",
+            height: "60px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -318,18 +488,19 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                 color: "#ffffff",
                 border: "none",
                 borderRadius: "50px",
-                padding: "9px 18px",
-                fontSize: "0.8rem",
+                padding: "9px 16px",
+                fontSize: "0.78rem",
                 fontWeight: 700,
                 cursor: "pointer",
                 whiteSpace: "nowrap",
-                minHeight: "40px",
+                minHeight: "38px",
                 boxShadow: "0 2px 10px rgba(255,106,0,0.3)",
+                letterSpacing: "-0.01em",
               }}
             >
-              Apply
+              Apply Now
             </button>
-            {/* Hamburger button — clearly visible on mobile */}
+            {/* Hamburger button — always visible on mobile */}
             <button
               type="button"
               data-ocid="navbar.toggle"
@@ -343,135 +514,16 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                   ? "1.5px solid #BFDBFE"
                   : "1.5px solid #E2E8F0",
                 color: mobileOpen ? "#2563EB" : "#1E293B",
-                padding: "10px",
+                padding: "9px",
               }}
             >
               {mobileOpen ? (
-                <X size={22} strokeWidth={2.5} />
+                <X size={20} strokeWidth={2.5} />
               ) : (
-                <Menu size={22} strokeWidth={2.5} />
+                <Menu size={20} strokeWidth={2.5} />
               )}
             </button>
           </div>
-        </div>
-
-        {/* Mobile menu drawer — premium slide-in panel */}
-        <div
-          className="mobile-drawer lg:hidden"
-          style={{
-            maxHeight: mobileOpen ? "520px" : "0",
-            overflow: "hidden",
-            transition: "max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
-            background: "white",
-            borderTop: mobileOpen ? "2px solid rgba(37,99,235,0.12)" : "none",
-            boxShadow: mobileOpen
-              ? "0 20px 60px rgba(30,41,59,0.20), 0 8px 24px rgba(30,41,59,0.10)"
-              : "none",
-          }}
-        >
-          <nav
-            style={{
-              padding: "12px 20px 0",
-              display: "flex",
-              flexDirection: "column",
-              gap: "2px",
-            }}
-          >
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <button
-                  key={link.label}
-                  type="button"
-                  data-ocid="navbar.link"
-                  onClick={() => handleNavClick(link.href)}
-                  className="mobile-nav-link"
-                  style={{
-                    background: isActive
-                      ? "rgba(37,99,235,0.07)"
-                      : "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: "14px 20px",
-                    borderRadius: "12px",
-                    textAlign: "center",
-                    fontSize: "1rem",
-                    fontWeight: isActive ? 700 : 500,
-                    color: isActive ? "#2563EB" : "#374151",
-                    width: "100%",
-                    minHeight: "50px",
-                    transition: "background-color 0.2s ease, color 0.2s ease",
-                    borderLeft: isActive
-                      ? "3px solid #2563EB"
-                      : "3px solid transparent",
-                    letterSpacing: "-0.01em",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {link.label}
-                </button>
-              );
-            })}
-
-            {/* Divider above CTA */}
-            <div
-              style={{
-                height: "1px",
-                background: "#F1F5F9",
-                margin: "12px 0 8px",
-              }}
-            />
-
-            {/* Full-width CTA */}
-            <div style={{ paddingBottom: "24px", paddingTop: "4px" }}>
-              <button
-                type="button"
-                data-ocid="navbar.primary_button"
-                className="mobile-cta-btn"
-                onClick={() => {
-                  setMobileOpen(false);
-                  onApplyNow();
-                }}
-                style={{
-                  background:
-                    "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-                  color: "#ffffff",
-                  border: "none",
-                  borderRadius: "16px",
-                  padding: "16px 28px",
-                  fontSize: "1rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  width: "100%",
-                  minHeight: "56px",
-                  boxShadow: "0 6px 24px rgba(255,106,0,0.40)",
-                  letterSpacing: "-0.01em",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  transition:
-                    "transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease",
-                }}
-              >
-                🚀 Apply Now — No CIBIL Needed
-              </button>
-              <p
-                style={{
-                  textAlign: "center",
-                  fontSize: "0.7rem",
-                  color: "#94A3B8",
-                  marginTop: "10px",
-                  lineHeight: 1.5,
-                }}
-              >
-                ✓ Free to apply &nbsp;·&nbsp; No credit score required
-                &nbsp;·&nbsp; Results in 5 min
-              </p>
-            </div>
-          </nav>
         </div>
       </header>
     </>

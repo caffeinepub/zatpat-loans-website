@@ -7,27 +7,33 @@ interface EasyLoansProps {
 const personas = [
   {
     icon: "📚",
-    name: "Riya – Student",
-    quote: "First loan ₹1,000 approved in minutes. No CIBIL needed!",
+    name: "Riya, 21 — College Student",
+    quote: "Loan approved in 4 mins! No CIBIL needed. Pure magic 🙌",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
-    image: "/assets/generated/persona-student.dim_600x400.jpg",
+    image: "/assets/generated/persona-student-riya.dim_600x400.jpg",
+    approvalLabel: "✅ Approved",
+    approvalColor: "#22C55E",
   },
   {
     icon: "⚙️",
-    name: "Arjun – Gig Worker",
-    quote: "Got ₹3,000 when I needed it most. Low CIBIL, still approved!",
+    name: "Arjun, 28 — Delivery Worker",
+    quote: "₹5,000 when I needed it most. Low CIBIL, instantly approved!",
     tag: "Gig Worker",
-    color: "from-blue-700 to-indigo-700",
-    image: "/assets/generated/persona-gig-worker.dim_600x400.jpg",
+    color: "from-orange-500 to-orange-600",
+    image: "/assets/generated/persona-gig-arjun.dim_600x400.jpg",
+    approvalLabel: "✅ Approved",
+    approvalColor: "#22C55E",
   },
   {
     icon: "🏪",
-    name: "Priya – Shop Owner",
-    quote: "No credit score? No problem. Got ₹5,000 same day!",
+    name: "Priya, 35 — Kirana Shop Owner",
+    quote: "Stocked up my shop with ₹4,000. No credit history needed at all!",
     tag: "Small Business",
     color: "from-emerald-500 to-teal-600",
-    image: "/assets/generated/persona-shopowner.dim_600x400.jpg",
+    image: "/assets/generated/persona-shop-priya.dim_600x400.jpg",
+    approvalLabel: "✅ Approved",
+    approvalColor: "#22C55E",
   },
 ];
 
@@ -199,6 +205,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           60% { transform: scale(1.06); }
           100% { transform: scale(1); opacity: 1; }
         }
+        @keyframes approval-badge-enter {
+          0% { transform: translateY(8px) scale(0.85); opacity: 0; }
+          100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
         .cta-btn-easy {
           animation: cta-glow 2.5s ease-in-out infinite;
           transition: transform 0.2s ease;
@@ -213,11 +223,25 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         }
         .persona-card-img {
           width: 100%;
-          height: 120px;
+          height: 140px;
           object-fit: cover;
           object-position: top center;
-          border-radius: 12px;
+          border-radius: 12px 12px 0 0;
           display: block;
+          transition: transform 0.4s ease;
+        }
+        .persona-card:hover .persona-card-img {
+          transform: scale(1.04);
+        }
+        .approval-badge-pill {
+          animation: approval-badge-enter 0.45s ease forwards;
+          animation-delay: 0.6s;
+          opacity: 0;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cta-btn-easy { animation: none !important; }
+          .persona-card-img { transition: none !important; }
+          .approval-badge-pill { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
 
@@ -225,15 +249,24 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         id="easy-loans"
         data-ocid="easy_loans.section"
         ref={sectionRef}
-        className="relative overflow-hidden py-12 sm:py-16 lg:py-24"
+        className="relative overflow-hidden py-14 sm:py-20 lg:py-28"
         style={{
-          background: "linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)",
+          background: "linear-gradient(160deg, #f0f9ff 0%, #f0fdf4 100%)",
         }}
       >
+        {/* Subtle dot pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(37,99,235,0.07) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           {/* Header */}
           <div
-            className="text-center mb-10 sm:mb-14"
+            className="text-center mb-12 sm:mb-16"
             style={{
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(32px)",
@@ -241,16 +274,21 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <span
-              className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-              style={{ background: "#EFF6FF", color: "#2563EB" }}
+              className="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
+              style={{
+                background: "#EFF6FF",
+                color: "#2563EB",
+                border: "1px solid rgba(37,99,235,0.2)",
+              }}
             >
-              Easy Loans
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+              For Every Bharatvasi
             </span>
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 leading-tight"
+              className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-slate-900 leading-tight"
               style={{ letterSpacing: "-0.02em" }}
             >
-              Easy Loans for Every Indian,{" "}
+              Loans for Every Bharatvasi —{" "}
               <span
                 style={{
                   background: "linear-gradient(135deg, #2563EB, #22C55E)",
@@ -259,18 +297,18 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   backgroundClip: "text",
                 }}
               >
-                Any Credit Score!
+                Students, Workers &amp; Shop Owners
               </span>
             </h2>
             <p
-              className="mt-3 text-sm sm:text-base max-w-xl mx-auto leading-relaxed px-2"
+              className="mt-4 text-sm sm:text-base max-w-xl mx-auto leading-relaxed px-2"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               No CIBIL? Low CIBIL? Zero credit history? We don't care. Up to
               ₹5,000 instantly for every Indian.
             </p>
             <div
-              className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full text-xs font-bold"
+              className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full text-xs font-bold"
               style={{
                 background: "linear-gradient(135deg, #22C55E22, #2563EB22)",
                 border: "1.5px solid #22C55E55",
@@ -281,20 +319,21 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             </div>
           </div>
 
-          {/* Persona Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 sm:mb-16">
+          {/* Persona Cards — REAL PHOTO VERSION */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 mb-14 sm:mb-20">
             {personas.map((persona, i) => (
               <div
                 key={persona.name}
                 data-ocid={`easy_loans.item.${i + 1}`}
-                className="bg-white rounded-2xl overflow-hidden relative group shadow-lg"
+                className="persona-card bg-white rounded-2xl overflow-hidden relative group shadow-lg"
                 style={{
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible
                     ? "translateY(0)"
                     : "translateY(40px)",
                   transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
-                  boxShadow: "0 4px 20px rgba(37, 99, 235, 0.08)",
+                  boxShadow:
+                    "0 6px 28px rgba(37, 99, 235, 0.10), 0 2px 8px rgba(0,0,0,0.06)",
                 }}
               >
                 {/* Top gradient accent bar */}
@@ -304,8 +343,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
 
                 {/* Persona Image — full width, top of card */}
                 <div
-                  className="w-full overflow-hidden"
-                  style={{ height: "120px" }}
+                  className="w-full overflow-hidden relative"
+                  style={{ height: "140px" }}
                 >
                   <img
                     src={persona.image}
@@ -313,24 +352,56 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     className="persona-card-img"
                     loading="lazy"
                   />
+                  {/* Approval Badge overlay on the image */}
+                  <div
+                    className="approval-badge-pill absolute bottom-2.5 left-3 z-20"
+                    style={{
+                      background: "rgba(255,255,255,0.96)",
+                      border: `1.5px solid ${persona.approvalColor}50`,
+                      boxShadow: `0 4px 14px ${persona.approvalColor}30`,
+                      borderRadius: "50px",
+                      padding: "4px 10px",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      color: persona.approvalColor,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      backdropFilter: "blur(8px)",
+                      WebkitBackdropFilter: "blur(8px)",
+                      animationDelay: `${0.6 + i * 0.15}s`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: "50%",
+                        background: persona.approvalColor,
+                        display: "inline-block",
+                        flexShrink: 0,
+                      }}
+                    />
+                    {persona.approvalLabel}
+                  </div>
                 </div>
 
                 {/* Card body */}
                 <div className="p-4 sm:p-5">
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">
                     {persona.tag}
                   </p>
                   <h3
-                    className="font-bold text-sm mb-1"
+                    className="font-bold text-sm mb-2 leading-snug"
                     style={{ color: "#1E293B" }}
                   >
                     {persona.name}
                   </h3>
                   <p
-                    className="text-xs leading-snug"
-                    style={{ color: "rgba(30, 41, 59, 0.7)" }}
+                    className="text-xs leading-relaxed italic"
+                    style={{ color: "rgba(30, 41, 59, 0.65)" }}
                   >
-                    "{persona.quote}"
+                    &ldquo;{persona.quote}&rdquo;
                   </p>
                 </div>
               </div>
@@ -339,7 +410,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
 
           {/* CIBIL Journey */}
           <div
-            className="mb-12 sm:mb-16"
+            className="mb-14 sm:mb-20"
             style={{
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(32px)",
@@ -347,16 +418,16 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <h3
-              className="text-center text-base sm:text-lg font-bold mb-6"
+              className="text-center text-base sm:text-lg font-bold mb-8"
               style={{ color: "#1E293B" }}
             >
               Even with Low or Zero CIBIL Score — We Always Say Yes!
             </h3>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {cibilSteps.map((step, i) => (
                 <div
                   key={step.id}
-                  className="flex flex-col items-center text-center gap-2"
+                  className="flex flex-col items-center text-center gap-2.5"
                   style={{
                     opacity: sectionVisible ? 1 : 0,
                     transform: sectionVisible
@@ -397,7 +468,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
 
           {/* Gamified Progress */}
           <div
-            className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 mb-10 sm:mb-14 relative overflow-hidden"
+            className="rounded-2xl sm:rounded-3xl p-6 sm:p-10 mb-12 sm:mb-16 relative overflow-hidden"
             style={{
               background: "linear-gradient(135deg, #0f172a 0%, #0c1f35 100%)",
               boxShadow: "0 16px 48px rgba(37, 99, 235, 0.2)",
@@ -407,7 +478,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <div className="relative">
-              <div className="text-center mb-6">
+              <div className="text-center mb-8">
                 <span
                   className="inline-block text-xs font-bold tracking-widest uppercase mb-2 px-3 py-1 rounded-full"
                   style={{
@@ -448,7 +519,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
                 {loanSteps.map((step, i) => {
                   const isActive = i === activeStep;
                   const isDone = i < activeStep;
@@ -549,11 +620,11 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               <div
                 key={badge.text}
                 data-ocid={`easy_loans.item.${i + 8}`}
-                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-white font-semibold text-sm w-full sm:w-auto justify-center"
+                className="flex items-center gap-2 rounded-full px-6 py-3 text-white font-semibold text-sm w-full sm:w-auto justify-center"
                 style={{
                   background: "linear-gradient(135deg, #2563EB, #1D4ED8)",
                   boxShadow: "0 4px 16px rgba(37, 99, 235, 0.25)",
-                  minHeight: "44px",
+                  minHeight: "48px",
                 }}
               >
                 <span className="text-lg">{badge.icon}</span>
@@ -572,7 +643,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <p
-              className="mb-4 text-sm"
+              className="mb-5 text-sm"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               Join <strong style={{ color: "#1E293B" }}>2 lakh+</strong> Indians
@@ -581,7 +652,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             <button
               type="button"
               data-ocid="easy_loans.primary_button"
-              className="cta-btn-easy inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base w-full sm:w-auto"
+              className="cta-btn-easy inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-4 text-white font-bold text-sm sm:text-base w-full sm:w-auto"
               style={{
                 background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
                 minHeight: "52px",
