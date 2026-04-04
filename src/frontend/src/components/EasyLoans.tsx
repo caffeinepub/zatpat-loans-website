@@ -11,7 +11,7 @@ const personas = [
     quote: "Loan approved in 4 mins! No CIBIL needed. Pure magic 🙌",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
-    image: "/assets/generated/persona-student-riya.dim_600x400.jpg",
+    image: "/assets/generated/persona-student-riya-v2.dim_400x520.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -21,7 +21,7 @@ const personas = [
     quote: "₹5,000 when I needed it most. Low CIBIL, instantly approved!",
     tag: "Gig Worker",
     color: "from-orange-500 to-orange-600",
-    image: "/assets/generated/persona-gig-arjun.dim_600x400.jpg",
+    image: "/assets/generated/persona-gig-arjun-v2.dim_400x520.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -31,7 +31,7 @@ const personas = [
     quote: "Stocked up my shop with ₹4,000. No credit history needed at all!",
     tag: "Small Business",
     color: "from-emerald-500 to-teal-600",
-    image: "/assets/generated/persona-shop-priya.dim_600x400.jpg",
+    image: "/assets/generated/persona-shop-priya-v2.dim_400x520.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -223,9 +223,9 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         }
         .persona-card-img {
           width: 100%;
-          height: 140px;
+          height: 200px;
           object-fit: cover;
-          object-position: top center;
+          object-position: center center;
           border-radius: 12px 12px 0 0;
           display: block;
           transition: transform 0.4s ease;
@@ -341,10 +341,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${persona.color} z-10`}
                 />
 
-                {/* Persona Image — full width, top of card */}
+                {/* Persona Image — full width, top of card, no overlay */}
                 <div
-                  className="w-full overflow-hidden relative"
-                  style={{ height: "140px" }}
+                  className="w-full overflow-hidden"
+                  style={{ height: "200px" }}
                 >
                   <img
                     src={persona.image}
@@ -352,38 +352,35 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     className="persona-card-img"
                     loading="lazy"
                   />
-                  {/* Approval Badge overlay on the image */}
-                  <div
-                    className="approval-badge-pill absolute bottom-2.5 left-3 z-20"
+                </div>
+
+                {/* Approval Badge — below image, above card body */}
+                <div
+                  className="approval-badge-pill inline-flex items-center gap-1.5 mx-4 mt-3 mb-0"
+                  style={{
+                    background: "#fff",
+                    border: `1.5px solid ${persona.approvalColor}55`,
+                    borderRadius: "50px",
+                    padding: "4px 12px",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    color: persona.approvalColor,
+                    animationDelay: `${0.6 + i * 0.15}s`,
+                    display: "inline-flex",
+                  }}
+                >
+                  <span
                     style={{
-                      background: "rgba(255,255,255,0.96)",
-                      border: `1.5px solid ${persona.approvalColor}50`,
-                      boxShadow: `0 4px 14px ${persona.approvalColor}30`,
-                      borderRadius: "50px",
-                      padding: "4px 10px",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      color: persona.approvalColor,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      backdropFilter: "blur(8px)",
-                      WebkitBackdropFilter: "blur(8px)",
-                      animationDelay: `${0.6 + i * 0.15}s`,
+                      width: 7,
+                      height: 7,
+                      borderRadius: "50%",
+                      background: persona.approvalColor,
+                      display: "inline-block",
+                      flexShrink: 0,
+                      boxShadow: `0 0 6px ${persona.approvalColor}`,
                     }}
-                  >
-                    <span
-                      style={{
-                        width: 7,
-                        height: 7,
-                        borderRadius: "50%",
-                        background: persona.approvalColor,
-                        display: "inline-block",
-                        flexShrink: 0,
-                      }}
-                    />
-                    {persona.approvalLabel}
-                  </div>
+                  />
+                  {persona.approvalLabel}
                 </div>
 
                 {/* Card body */}

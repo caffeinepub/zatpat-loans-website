@@ -93,14 +93,14 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
     opacity: isVisible ? 1 : 0,
     transform: isVisible
       ? hovered
-        ? "translateY(-4px) scale(1.02)"
+        ? "translateY(-6px) scale(1.03) rotateX(2deg)"
         : "translateY(0) scale(1)"
       : "translateY(48px)",
     transition: isVisible
       ? `opacity 0.7s ease ${index * 80}ms, transform 0.3s ease`
       : `opacity 0.7s ease ${index * 80}ms, transform 0.7s ease ${index * 80}ms`,
     boxShadow: hovered
-      ? `0 16px 48px ${config.glowColor}, 0 4px 16px rgba(0,0,0,0.12)`
+      ? `0 20px 56px ${config.glowColor}, 0 4px 16px rgba(0,0,0,0.14)`
       : `0 6px 24px ${config.glowColor}, 0 2px 8px rgba(0,0,0,0.08)`,
   };
 
@@ -121,8 +121,9 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
     width: "52px",
     height: "52px",
     borderRadius: "50%",
-    background: "rgba(255,255,255,0.18)",
-    boxShadow: "0 0 0 6px rgba(255,255,255,0.08)",
+    background: "rgba(255,255,255,0.22)",
+    boxShadow:
+      "0 0 0 2px rgba(255,255,255,0.25), 0 0 0 8px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.15)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -138,7 +139,25 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      {/* Shimmer sweep */}
       <div style={shimmerStyle} />
+
+      {/* Top-left glow orb */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20px",
+          left: "-20px",
+          width: "80px",
+          height: "80px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.12)",
+          filter: "blur(20px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Bottom-right decorative circle */}
       <div
         style={{
           position: "absolute",
@@ -151,9 +170,35 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
           pointerEvents: "none",
         }}
       />
+
+      {/* Bottom gradient accent line */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "2px",
+          background:
+            "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Icon */}
       <div style={iconWrapStyle}>
-        <Icon size={22} color="white" />
+        <Icon
+          size={22}
+          color="white"
+          style={{
+            filter: hovered
+              ? "drop-shadow(0 0 8px rgba(255,255,255,0.5))"
+              : "none",
+            transition: "filter 0.2s ease",
+          }}
+        />
       </div>
+
       <h3
         style={{
           color: "#ffffff",
@@ -197,6 +242,10 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
       style={{ background: "#F8FAFC" }}
     >
       <style>{`
+        @keyframes features-badge-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.3); }
+        }
         @media (prefers-reduced-motion: reduce) {
           [data-ocid^="features.item"] {
             transition: none !important;
@@ -217,8 +266,21 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
             transition: "opacity 0.7s ease, transform 0.7s ease",
           }}
         >
-          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+          <span
+            className="inline-flex items-center gap-2 text-xs font-black tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #EFF6FF, #DBEAFE)",
+              border: "1px solid rgba(37,99,235,0.25)",
+              color: "#1D4ED8",
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full inline-block flex-shrink-0"
+              style={{
+                background: "#2563EB",
+                animation: "features-badge-pulse 2s infinite",
+              }}
+            />
             WHY ROCKET.MONEY
           </span>
           <h2
@@ -240,8 +302,11 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8">
+        {/* Cards Grid — perspective enables 3D tilt */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8"
+          style={{ perspective: "1000px" }}
+        >
           {CARD_CONFIGS.map((config, index) => (
             <FeatureCard
               key={config.title}

@@ -83,9 +83,9 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           padding: "48px 0 64px",
         }}
       >
-        {/* Background orbs — reduced on mobile */}
+        {/* Background orbs — visible on all screens */}
         <div
-          className="absolute pointer-events-none rounded-full hidden sm:block"
+          className="absolute pointer-events-none rounded-full"
           style={{
             width: "280px",
             height: "280px",
@@ -97,7 +97,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           }}
         />
         <div
-          className="absolute pointer-events-none rounded-full hidden sm:block"
+          className="absolute pointer-events-none rounded-full"
           style={{
             width: "240px",
             height: "240px",
@@ -106,6 +106,20 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             background:
               "radial-gradient(circle, rgba(255,106,0,0.14) 0%, transparent 70%)",
             animation: "cibil-orb-pulse 8s ease-in-out infinite",
+          }}
+        />
+        {/* Third orb — bottom center green */}
+        <div
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            width: "320px",
+            height: "200px",
+            bottom: "-10%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background:
+              "radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%)",
+            animation: "cibil-orb-pulse 10s ease-in-out infinite",
           }}
         />
 
@@ -152,14 +166,20 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                   '"Plus Jakarta Sans", "Inter", system-ui, sans-serif',
               }}
             >
-              <span style={{ color: "#F1F5F9", display: "block" }}>
+              <span
+                style={{
+                  color: "#F1F5F9",
+                  display: "block",
+                  textShadow: "0 2px 20px rgba(255,255,255,0.1)",
+                }}
+              >
                 Low CIBIL?
               </span>
               <span
                 style={{
                   display: "block",
                   background:
-                    "linear-gradient(135deg, #FF6A00 0%, #FFAC60 100%)",
+                    "linear-gradient(135deg, #FF6A00 0%, #FFCA60 60%, #FF8C2E 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -198,10 +218,11 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                 key={card.range}
                 data-ocid={`cibil.item.${i + 1}`}
                 style={{
+                  position: "relative",
                   background: "rgba(255,255,255,0.04)",
                   border: `1px solid ${card.borderColor}`,
-                  borderRadius: "16px",
-                  padding: "18px 16px",
+                  borderRadius: "20px",
+                  padding: "20px 18px",
                   backdropFilter: "blur(8px)",
                   boxShadow: `0 0 24px ${card.bgGlow}`,
                   opacity: cardsVisible ? 1 : 0,
@@ -211,6 +232,34 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                   transition: `opacity 0.6s ease ${i * 100}ms, transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 100}ms`,
                 }}
               >
+                {/* Top accent line */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: "3px",
+                    background: `linear-gradient(90deg, transparent, ${card.barColor}, transparent)`,
+                    borderRadius: "3px 3px 0 0",
+                  }}
+                />
+
+                {/* Micro-sparkle top-right */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: card.barColor,
+                    opacity: 0.6,
+                    boxShadow: `0 0 8px ${card.barColor}`,
+                  }}
+                />
+
                 {/* Score range */}
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -305,10 +354,10 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                   />
                   <span
                     style={{
-                      fontSize: "0.68rem",
-                      fontWeight: 800,
+                      fontSize: "0.72rem",
+                      fontWeight: 900,
                       color: "#4ADE80",
-                      letterSpacing: "0.06em",
+                      letterSpacing: "0.08em",
                     }}
                   >
                     APPROVED
@@ -330,8 +379,11 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
               className="cibil-stat-pulse inline-flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full"
               style={{
                 background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,106,0,0.3)",
-                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255,106,0,0.4)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                boxShadow:
+                  "0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)",
               }}
             >
               <span style={{ fontSize: "1.4rem" }}>🎉</span>
@@ -376,8 +428,10 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
               style={{
                 background: "linear-gradient(135deg, #FF6A00 0%, #FF9500 100%)",
                 padding: "16px 32px",
-                fontSize: "0.95rem",
-                boxShadow: "0 8px 32px rgba(255,106,0,0.45)",
+                fontSize: "1rem",
+                letterSpacing: "-0.01em",
+                boxShadow:
+                  "0 8px 32px rgba(255,106,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)",
                 minHeight: "56px",
               }}
             >
