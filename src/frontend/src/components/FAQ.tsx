@@ -5,7 +5,7 @@ import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 const faqs = [
   {
     q: "What is the maximum loan amount I can borrow?",
-    a: "You can borrow up to ₹5,00,000 through Zatpat.loans. The exact amount depends on your credit profile, income, and repayment history. First-time borrowers may have a lower starting limit which increases over time.",
+    a: "You can borrow up to ₹5,00,000 through Rocket.Money. The exact amount depends on your credit profile, income, and repayment history. First-time borrowers may have a lower starting limit which increases over time.",
   },
   {
     q: "How quickly will I receive the loan amount?",
@@ -21,10 +21,10 @@ const faqs = [
   },
   {
     q: "Can I prepay my loan without penalties?",
-    a: "Yes! Zatpat.loans offers zero prepayment charges. You can pay off your loan early at any time without any additional fees. Early repayment also helps improve your credit score.",
+    a: "Yes! Rocket.Money offers zero prepayment charges. You can pay off your loan early at any time without any additional fees. Early repayment also helps improve your credit score.",
   },
   {
-    q: "Is my personal data secure with Zatpat.loans?",
+    q: "Is my personal data secure with Rocket.Money?",
     a: "Absolutely. We use 256-bit bank-grade encryption for all data storage and transmission. Your personal information is never sold to third parties. We comply with all RBI guidelines and data protection regulations.",
   },
   {
@@ -117,7 +117,7 @@ export default function FAQ() {
             Frequently Asked <span style={{ color: "#2563EB" }}>Questions</span>
           </h2>
           <p className="text-gray-500 mt-6 text-lg">
-            Everything you need to know about Zatpat.loans.
+            Everything you need to know about Rocket.Money.
           </p>
         </div>
 

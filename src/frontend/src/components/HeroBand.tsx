@@ -1,50 +1,50 @@
 import {
   Banknote,
   CheckCircle,
-  Clock,
   FileText,
   Percent,
   Shield,
   Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import {
-  useCounterAnimation,
-  useIntersectionObserver,
-} from "../hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
 
-const FEATURE_CARDS = [
+const CAROUSEL_CARDS = [
   {
     icon: Zap,
     title: "Instant Approval",
     description: "AI-powered decisions in under 5 minutes",
-    color: "#2563EB",
-    bgTint: "#EFF6FF",
+    gradient: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
+    glow: "rgba(37,99,235,0.55)",
+    angle: 0,
   },
   {
     icon: Percent,
     title: "Low Interest",
     description: "Rates starting at just 1.5% per month",
-    color: "#FF6A00",
-    bgTint: "#FFF7ED",
+    gradient: "linear-gradient(135deg, #FF6A00 0%, #EA580C 100%)",
+    glow: "rgba(255,106,0,0.55)",
+    angle: 90,
   },
   {
-    icon: Clock,
+    icon: Banknote,
     title: "Quick Disbursal",
     description: "Funds in your account within 2–4 hours",
-    color: "#22C55E",
-    bgTint: "#F0FDF4",
+    gradient: "linear-gradient(135deg, #22C55E 0%, #16A34A 100%)",
+    glow: "rgba(34,197,94,0.55)",
+    angle: 180,
   },
   {
     icon: Shield,
     title: "100% Secure",
     description: "RBI registered, bank-grade encryption",
-    color: "#2563EB",
-    bgTint: "#EFF6FF",
+    gradient: "linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)",
+    glow: "rgba(124,58,237,0.55)",
+    angle: 270,
   },
 ];
 
@@ -69,186 +69,151 @@ const PROCESS_STEPS = [
   },
 ];
 
-const STATS = [
-  {
-    target: 50000,
-    suffix: "+",
-    prefix: "",
-    label: "Loans Disbursed",
-    barColor: "#2563EB",
-  },
-  {
-    target: 8,
-    suffix: "★",
-    prefix: "4.",
-    label: "App Rating",
-    barColor: "#FF6A00",
-  },
-  {
-    target: 5,
-    suffix: " Min",
-    prefix: "<",
-    label: "Processing Time",
-    barColor: "#22C55E",
-  },
-];
-
 // ─────────────────────────────────────────────
-// Sub-component: Feature Card
+// 3D Revolving Carousel
 // ─────────────────────────────────────────────
 
-function FeatureCard({
-  card,
-  index,
-  isVisible,
-}: {
-  card: (typeof FEATURE_CARDS)[0];
-  index: number;
-  isVisible: boolean;
-}) {
-  const Icon = card.icon;
-  const [hovered, setHovered] = useState(false);
+const CARD_WIDTH = 240;
+const CARD_HEIGHT = 180;
+const RADIUS = 300;
 
+function Carousel3D({ isVisible }: { isVisible: boolean }) {
   return (
     <div
-      data-ocid={`hero_band.feature.card.${index + 1}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      data-ocid="hero_band.carousel.section"
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible
-          ? hovered
-            ? "translateY(-4px) rotate(1deg)"
-            : "translateY(0px) rotate(0deg)"
-          : "translateY(28px) rotate(0deg)",
-        transition: `opacity 0.7s ease-in-out ${index * 120}ms, transform 0.3s ease`,
-        background: "#FFFFFF",
-        borderRadius: "16px",
-        boxShadow: hovered
-          ? "0 12px 40px rgba(37,99,235,0.18), 0 2px 8px rgba(0,0,0,0.06)"
-          : "0 4px 24px rgba(37,99,235,0.08)",
-        border: "1px solid rgba(37,99,235,0.10)",
-        padding: "24px",
-        minWidth: "260px",
-        flex: "0 0 auto",
-        cursor: "default",
+        position: "relative",
+        width: "100%",
+        height: 440,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
       }}
     >
+      {/* Radial glow behind carousel */}
       <div
+        aria-hidden="true"
         style={{
-          width: 52,
-          height: 52,
-          borderRadius: "12px",
-          background: card.bgTint,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "16px",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 480,
+          height: 480,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(37,99,235,0.12) 0%, rgba(124,58,237,0.08) 40%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      {/* 3D scene container */}
+      <div
+        className="carousel-scene"
+        style={{
+          perspective: "1100px",
+          width: CARD_WIDTH,
+          height: CARD_HEIGHT,
+          position: "relative",
+          zIndex: 1,
         }}
       >
+        {/* Rotating track */}
         <div
-          className="hero-band-icon"
+          className="carousel-track"
           style={{
-            color: card.color,
+            width: "100%",
+            height: "100%",
+            position: "relative",
+            transformStyle: "preserve-3d",
             animation: isVisible
-              ? `icon-pop 0.6s ease-out ${index * 120 + 300}ms both, icon-pulse 2.5s ease-in-out ${index * 120 + 1100}ms infinite`
+              ? "carousel-revolve 12s linear infinite"
               : "none",
           }}
         >
-          <Icon size={24} />
+          {CAROUSEL_CARDS.map((card, i) => {
+            const Icon = card.icon;
+            return (
+              <div
+                key={card.title}
+                data-ocid={`hero_band.carousel.item.${i + 1}`}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: CARD_WIDTH,
+                  height: CARD_HEIGHT,
+                  transform: `rotateY(${card.angle}deg) translateZ(${RADIUS}px) rotateX(5deg)`,
+                  background: card.gradient,
+                  borderRadius: "20px",
+                  padding: "24px 20px",
+                  color: "#FFFFFF",
+                  boxShadow: `0 8px 40px ${card.glow}, 0 2px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2)`,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  backfaceVisibility: "visible",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                }}
+              >
+                {/* Icon bubble */}
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: "12px",
+                    background: "rgba(255,255,255,0.2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Icon size={22} color="#FFFFFF" />
+                </div>
+
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "17px",
+                      fontWeight: 800,
+                      color: "#FFFFFF",
+                      marginBottom: "4px",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: "rgba(255,255,255,0.85)",
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {card.description}
+                  </p>
+                </div>
+
+                {/* Bottom shimmer line */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "12px",
+                    right: "12px",
+                    height: "2px",
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+                    borderRadius: "0 0 20px 20px",
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
-      </div>
-      <h3
-        style={{
-          fontSize: "16px",
-          fontWeight: 700,
-          color: "#1E293B",
-          marginBottom: "6px",
-        }}
-      >
-        {card.title}
-      </h3>
-      <p style={{ fontSize: "14px", color: "#64748B", lineHeight: 1.5 }}>
-        {card.description}
-      </p>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Sub-component: Stat Item
-// ─────────────────────────────────────────────
-
-function StatItem({
-  stat,
-  index,
-  isVisible,
-}: {
-  stat: (typeof STATS)[0];
-  index: number;
-  isVisible: boolean;
-}) {
-  const count = useCounterAnimation(stat.target, isVisible, 2000);
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        flex: 1,
-        padding: "0 24px",
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(16px)",
-        transition: `opacity 0.7s ease-in-out ${index * 200}ms, transform 0.7s ease-in-out ${index * 200}ms`,
-      }}
-    >
-      <div
-        style={{
-          fontSize: "clamp(2rem, 5vw, 3rem)",
-          fontWeight: 900,
-          color: stat.barColor,
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-        }}
-      >
-        {stat.prefix}
-        {count.toLocaleString()}
-        {stat.suffix}
-      </div>
-      <div
-        style={{
-          fontSize: "13px",
-          color: "#6B7280",
-          marginTop: "6px",
-          marginBottom: "10px",
-          fontWeight: 500,
-        }}
-      >
-        {stat.label}
-      </div>
-      {/* Expanding bar */}
-      <div
-        style={{
-          width: "80px",
-          height: "3px",
-          background: "#F1F5F9",
-          borderRadius: "99px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          className="stat-bar"
-          style={{
-            height: "100%",
-            width: isVisible ? "100%" : "0%",
-            background: stat.barColor,
-            opacity: 0.7,
-            borderRadius: "99px",
-            transition: `width 1.2s ease-in-out ${index * 300}ms`,
-          }}
-        />
       </div>
     </div>
   );
@@ -259,16 +224,11 @@ function StatItem({
 // ─────────────────────────────────────────────
 
 export default function HeroBand() {
-  // Intersection observers — one per sub-section for independent staggered triggers
   const { ref: cardsRef, isVisible: cardsVisible } = useIntersectionObserver({
     threshold: 0.15,
     triggerOnce: true,
   });
   const { ref: stepsRef, isVisible: stepsVisible } = useIntersectionObserver({
-    threshold: 0.2,
-    triggerOnce: true,
-  });
-  const { ref: statsRef, isVisible: statsVisible } = useIntersectionObserver({
     threshold: 0.2,
     triggerOnce: true,
   });
@@ -303,10 +263,10 @@ export default function HeroBand() {
         position: "relative",
         overflow: "hidden",
         paddingTop: "48px",
-        paddingBottom: "32px",
+        paddingBottom: "48px",
       }}
     >
-      {/* ── Keyframes + prefers-reduced-motion ── */}
+      {/* ── Keyframes ── */}
       <style>{`
         @keyframes hero-blob-float-1 {
           0%, 100% { transform: translateY(0px) translateX(0px); }
@@ -330,22 +290,14 @@ export default function HeroBand() {
           0%, 100% { transform: translateY(0px) translateX(0px); }
           60%  { transform: translateY(-12px) translateX(8px); }
         }
-        @keyframes icon-pop {
-          0%   { transform: scale(0.6); }
-          60%  { transform: scale(1.12); }
-          100% { transform: scale(1.0); }
-        }
-        @keyframes icon-pulse {
-          0%, 100% { transform: scale(1); }
-          50%       { transform: scale(1.08); }
+        @keyframes carousel-revolve {
+          from { transform: rotateY(0deg); }
+          to   { transform: rotateY(360deg); }
         }
         @media (prefers-reduced-motion: reduce) {
           .hero-band * {
             animation: none !important;
             transition: none !important;
-          }
-          .hero-band .stat-bar {
-            width: 100% !important;
           }
         }
       `}</style>
@@ -360,7 +312,6 @@ export default function HeroBand() {
           zIndex: 0,
         }}
       >
-        {/* blob 1 — large blue, top-left */}
         <div
           style={{
             position: "absolute",
@@ -374,7 +325,6 @@ export default function HeroBand() {
             animation: "hero-blob-float-1 11s ease-in-out infinite",
           }}
         />
-        {/* blob 2 — medium orange, top-right */}
         <div
           style={{
             position: "absolute",
@@ -388,7 +338,6 @@ export default function HeroBand() {
             animation: "hero-blob-float-2 9s ease-in-out infinite 1.5s",
           }}
         />
-        {/* blob 3 — large blue, bottom-right */}
         <div
           style={{
             position: "absolute",
@@ -402,7 +351,6 @@ export default function HeroBand() {
             animation: "hero-blob-float-3 13s ease-in-out infinite 0.8s",
           }}
         />
-        {/* blob 4 — small orange, bottom-left */}
         <div
           style={{
             position: "absolute",
@@ -416,7 +364,6 @@ export default function HeroBand() {
             animation: "hero-blob-float-4 10s ease-in-out infinite 2.2s",
           }}
         />
-        {/* blob 5 — tiny blue, center */}
         <div
           style={{
             position: "absolute",
@@ -430,7 +377,6 @@ export default function HeroBand() {
             animation: "hero-blob-float-5 8s ease-in-out infinite 3s",
           }}
         />
-        {/* Dot grid overlay */}
         <div
           style={{
             position: "absolute",
@@ -453,15 +399,15 @@ export default function HeroBand() {
         }}
       >
         {/* ══════════════════════════════════════
-            SUB-SECTION 1: FEATURE CARDS
+            SUB-SECTION 1: 3D REVOLVING CAROUSEL
         ══════════════════════════════════════ */}
         <div
           data-ocid="hero_band.features.section"
           ref={cardsRef as React.RefObject<HTMLDivElement>}
-          style={{ marginBottom: "64px" }}
+          style={{ marginBottom: "72px" }}
         >
           {/* Section header */}
-          <div style={{ textAlign: "center", marginBottom: "32px" }}>
+          <div style={{ textAlign: "center", marginBottom: "16px" }}>
             <p
               style={{
                 fontSize: "13px",
@@ -472,7 +418,7 @@ export default function HeroBand() {
                 marginBottom: "8px",
               }}
             >
-              Why choose Zatpat.loans
+              Why choose Rocket.Money
             </p>
             <h2
               style={{
@@ -486,29 +432,8 @@ export default function HeroBand() {
             </h2>
           </div>
 
-          {/* Cards row — horizontal scroll on mobile, 4-col grid on desktop */}
-          <div
-            data-ocid="hero_band.features.list"
-            className="lg:grid lg:grid-cols-4"
-            style={{
-              display: "flex",
-              overflowX: "auto",
-              gap: "16px",
-              scrollSnapType: "x mandatory",
-              WebkitOverflowScrolling: "touch",
-              paddingBottom: "8px",
-              msOverflowStyle: "none",
-            }}
-          >
-            {FEATURE_CARDS.map((card, i) => (
-              <FeatureCard
-                key={card.title}
-                card={card}
-                index={i}
-                isVisible={cardsVisible}
-              />
-            ))}
-          </div>
+          {/* 3D Carousel */}
+          <Carousel3D isVisible={cardsVisible} />
         </div>
 
         {/* ══════════════════════════════════════
@@ -517,7 +442,6 @@ export default function HeroBand() {
         <div
           data-ocid="hero_band.process.section"
           ref={stepsRef as React.RefObject<HTMLDivElement>}
-          style={{ marginBottom: "64px" }}
         >
           {/* Section header */}
           <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -547,7 +471,7 @@ export default function HeroBand() {
 
           {/* Steps layout */}
           <div style={{ position: "relative" }}>
-            {/* Desktop SVG dashed connector line — decorative, hidden from AT */}
+            {/* Desktop SVG dashed connector line */}
             <svg
               role="presentation"
               aria-hidden="true"
@@ -580,7 +504,7 @@ export default function HeroBand() {
               />
             </svg>
 
-            {/* Steps flex/grid */}
+            {/* Steps */}
             <div
               data-ocid="hero_band.process.list"
               className="flex flex-col lg:flex-row lg:justify-center"
@@ -688,63 +612,6 @@ export default function HeroBand() {
                 );
               })}
             </div>
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════════
-            SUB-SECTION 3: STATS BAR
-        ══════════════════════════════════════ */}
-        <div
-          data-ocid="hero_band.stats.section"
-          ref={statsRef as React.RefObject<HTMLDivElement>}
-          style={{
-            borderRadius: "20px",
-            background:
-              "linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F8FAFC 100%)",
-            border: "1px solid rgba(37,99,235,0.10)",
-            boxShadow: "0 4px 32px rgba(37,99,235,0.08)",
-            padding: "40px 24px",
-            opacity: statsVisible ? 1 : 0,
-            transform: statsVisible ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.7s ease-in-out, transform 0.7s ease-in-out",
-          }}
-        >
-          <div
-            data-ocid="hero_band.stats.list"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "stretch",
-              flexWrap: "wrap",
-              gap: "8px",
-            }}
-          >
-            {STATS.map((stat, i) => (
-              <div
-                key={stat.label}
-                style={{
-                  display: "flex",
-                  flex: 1,
-                  minWidth: 120,
-                  alignItems: "stretch",
-                }}
-              >
-                <StatItem stat={stat} index={i} isVisible={statsVisible} />
-                {i < STATS.length - 1 && (
-                  <div
-                    aria-hidden="true"
-                    className="hidden lg:block"
-                    style={{
-                      width: 1,
-                      background: "rgba(37,99,235,0.12)",
-                      margin: "8px 0",
-                      flexShrink: 0,
-                    }}
-                  />
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>

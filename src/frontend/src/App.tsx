@@ -12,7 +12,6 @@ import HeroBand from "./components/HeroBand";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
-import Stats from "./components/Stats";
 import Testimonials from "./components/Testimonials";
 import TrustBanner from "./components/TrustBanner";
 
@@ -25,7 +24,6 @@ export default function App() {
       <main>
         <Hero onApplyNow={() => setModalOpen(true)} />
         <HeroBand />
-        <Stats />
         <Features />
         <EasyLoans onApplyNow={() => setModalOpen(true)} />
         <HowItWorks />

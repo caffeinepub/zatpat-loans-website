@@ -31,7 +31,7 @@ export default function AppDownload() {
               Download Now
             </span>
             <h2 className="text-3xl lg:text-5xl font-black text-white mb-4 leading-tight">
-              Download the <span className="text-white/80">Zatpat.loans</span>{" "}
+              Download the <span className="text-white/80">Rocket.Money</span>{" "}
               App
             </h2>
             <p className="text-white/80 text-lg mb-8 leading-relaxed">
@@ -108,7 +108,7 @@ export default function AppDownload() {
             <div className="animate-float relative z-10">
               <img
                 src="/assets/generated/app-download-phone.dim_400x700.png"
-                alt="Zatpat.loans Mobile App"
+                alt="Rocket.Money Mobile App"
                 className="w-56 lg:w-72 object-contain drop-shadow-2xl"
               />
             </div>

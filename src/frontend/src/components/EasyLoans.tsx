@@ -39,7 +39,7 @@ const cibilSteps = [
   },
   {
     icon: "📱",
-    text: "Apply with Zatpat Loans",
+    text: "Apply with Rocket.Money",
     badge: "Easy Apply",
     badgeColor: "#2563EB",
     badgeBg: "#EFF6FF",
@@ -622,7 +622,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               Join <strong style={{ color: "#1E293B" }}>2 lakh+</strong> Indians
-              who already trust Zatpat.loans
+              who already trust Rocket.Money
             </p>
             <button
               type="button"

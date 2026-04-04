@@ -335,8 +335,8 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 }}
               >
                 <img
-                  src="/assets/generated/indian-family-fintech-banner.dim_1920x1080.jpg"
-                  alt="Zatpat.loans - Happy Indian Family Financial Security"
+                  src="/assets/generated/rocket-money-hero-banner.dim_1920x1080.jpg"
+                  alt="Rocket.Money - Premium fintech hero banner"
                   className="w-full object-cover rounded-2xl"
                   style={{
                     aspectRatio: "16/9",

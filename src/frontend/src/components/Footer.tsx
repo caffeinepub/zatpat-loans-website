@@ -31,14 +31,14 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-0.5 mb-4">
-              <span className="text-2xl font-black text-gray-900">Zatpat</span>
+              <span className="text-2xl font-black text-gray-900">Rocket</span>
               <span
                 className="text-2xl font-black"
                 style={{ color: "#FF6A00" }}
               >
                 .
               </span>
-              <span className="text-2xl font-black text-gray-900">loans</span>
+              <span className="text-2xl font-black text-gray-900">Money</span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               India's fastest and most trusted instant personal loan platform.
@@ -128,10 +128,10 @@ export default function Footer() {
               <div className="text-sm text-gray-500">
                 <div className="font-semibold text-gray-700 mb-1">Email</div>
                 <a
-                  href="mailto:support@zatpat.loans"
+                  href="mailto:support@rocket.money"
                   className="hover:text-blue-600 transition-colors"
                 >
-                  support@zatpat.loans
+                  support@rocket.money
                 </a>
               </div>
               <div className="text-sm text-gray-500">
@@ -156,7 +156,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-400">
-            © {year} Zatpat.loans. All rights reserved. | RBI Registered NBFC
+            © {year} Rocket.Money. All rights reserved. | RBI Registered NBFC
             Partner
           </p>
           <p className="text-xs text-gray-400">

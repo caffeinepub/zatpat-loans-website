@@ -408,7 +408,7 @@ export default function CreditScore() {
             className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed"
             style={{ color: "rgba(30,41,59,0.7)" }}
           >
-            Every timely repayment with Zatpat.loans is reported to credit
+            Every timely repayment with Rocket.Money is reported to credit
             bureaus — turning your loan journey into a{" "}
             <span style={{ color: "#2563EB", fontWeight: 600 }}>
               credit-building engine.

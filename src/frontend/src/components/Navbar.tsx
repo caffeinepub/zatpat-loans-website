@@ -43,26 +43,18 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             type="button"
             data-ocid="navbar.link"
             onClick={() => handleNavClick("#home")}
-            className="flex items-center gap-0.5 group bg-transparent border-none p-0 cursor-pointer"
+            className="flex items-center bg-transparent border-none p-0 cursor-pointer"
             aria-label="Go to home"
           >
-            <span
-              className={`text-2xl font-black tracking-tight transition-colors ${
-                scrolled ? "text-gray-900" : "text-white"
-              }`}
-            >
-              Zatpat
-            </span>
-            <span className="text-2xl font-black" style={{ color: "#FF6A00" }}>
-              .
-            </span>
-            <span
-              className={`text-2xl font-black tracking-tight transition-colors ${
-                scrolled ? "text-gray-900" : "text-white"
-              }`}
-            >
-              loans
-            </span>
+            <img
+              src="/assets/generated/rocket-money-logo-transparent.dim_600x200.png"
+              alt="Rocket.Money"
+              className="h-10 w-auto object-contain"
+              style={{
+                filter: scrolled ? "none" : "brightness(0) invert(1)",
+                transition: "filter 0.3s ease",
+              }}
+            />
           </button>
 
           {/* Desktop nav */}

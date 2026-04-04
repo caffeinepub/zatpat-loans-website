@@ -7,7 +7,7 @@ const testimonials = [
     location: "Mumbai",
     rating: 5,
     quote:
-      "Got ₹50,000 in my account within 3 hours of applying! The entire process was so smooth. Highly recommend Zatpat.loans to everyone.",
+      "Got ₹50,000 in my account within 3 hours of applying! The entire process was so smooth. Highly recommend Rocket.Money to everyone.",
     color: "#2563EB",
   },
   {
@@ -25,7 +25,7 @@ const testimonials = [
     location: "Bengaluru",
     rating: 5,
     quote:
-      "Needed emergency funds for a medical situation. Zatpat.loans came through in under 4 hours. Truly a lifesaver!",
+      "Needed emergency funds for a medical situation. Rocket.Money came through in under 4 hours. Truly a lifesaver!",
     color: "#22C55E",
   },
   {
@@ -129,7 +129,7 @@ export default function Testimonials() {
             What Our <span style={{ color: "#2563EB" }}>Customers Say</span>
           </h2>
           <p className="text-gray-500 mt-6 text-lg max-w-xl mx-auto">
-            Over 50,000 happy customers trust Zatpat.loans for their financial
+            Over 50,000 happy customers trust Rocket.Money for their financial
             needs.
           </p>
         </div>

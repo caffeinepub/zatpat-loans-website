@@ -285,7 +285,7 @@ export default function TrustBanner() {
               transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
             }}
           >
-            Zatpat.loans — Your Trusted Financial Partner
+            Rocket.Money — Your Trusted Financial Partner
           </p>
         </div>
 

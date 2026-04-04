@@ -70,7 +70,7 @@ export default function Features() {
             Our Benefits
           </span>
           <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
-            Why Choose <span style={{ color: "#FF6A00" }}>Zatpat.loans</span>?
+            Why Choose <span style={{ color: "#FF6A00" }}>Rocket.Money</span>?
           </h2>
           <p
             className="mt-6 text-lg max-w-2xl mx-auto"
