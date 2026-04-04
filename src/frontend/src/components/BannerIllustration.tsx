@@ -1,12 +1,12 @@
 import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Floating persona badge overlay data
 const PERSONA_BADGES = [
   {
     id: "student",
-    label: "Riya — Student",
-    sub: "₹3,000 approved in 4 min",
+    label: "Savita — Student",
+    sub: "₹2,500 approved in 4 min",
     color: "#2563EB",
     bg: "rgba(37,99,235,0.1)",
     border: "rgba(37,99,235,0.35)",
@@ -16,7 +16,7 @@ const PERSONA_BADGES = [
   },
   {
     id: "gig",
-    label: "Arjun — Gig Worker",
+    label: "Ramesh — Delivery Worker",
     sub: "₹5,000 approved instantly",
     color: "#FF6A00",
     bg: "rgba(255,106,0,0.1)",
@@ -27,8 +27,8 @@ const PERSONA_BADGES = [
   },
   {
     id: "shop",
-    label: "Priya — Shop Owner",
-    sub: "₹5,000 approved, no CIBIL",
+    label: "Kamla — Kirana Owner",
+    sub: "₹4,000 approved, no CIBIL",
     color: "#22C55E",
     bg: "rgba(34,197,94,0.1)",
     border: "rgba(34,197,94,0.35)",
@@ -89,6 +89,112 @@ const FLOAT_PARTICLES = [
   },
 ];
 
+const STATS = [
+  {
+    value: 50000,
+    display: "50,000+",
+    label: "Loans Approved",
+    color: "#2563EB",
+    suffix: "+",
+  },
+  {
+    value: 5,
+    display: "< 5 Min",
+    label: "Average Approval",
+    color: "#FF6A00",
+    prefix: "< ",
+    suffix: " Min",
+  },
+  {
+    value: 0,
+    display: "0 CIBIL",
+    label: "Minimum Score",
+    color: "#22C55E",
+    suffix: " CIBIL",
+  },
+  {
+    value: 5000,
+    display: "₹5,000",
+    label: "Max Loan Amount",
+    color: "#2563EB",
+    prefix: "₹",
+    suffix: ",000",
+  },
+];
+
+function useCountUp(target: number, inView: boolean, delay = 0) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const timer = setTimeout(() => {
+      const steps = 40;
+      const increment = target / steps;
+      let current = 0;
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          setCount(target);
+          clearInterval(interval);
+        } else {
+          setCount(Math.floor(current));
+        }
+      }, 35);
+      return () => clearInterval(interval);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [inView, target, delay]);
+  return count;
+}
+
+function StatCard({
+  stat,
+  inView,
+  index,
+}: { stat: (typeof STATS)[0]; inView: boolean; index: number }) {
+  const count = useCountUp(stat.value, inView, 1800 + index * 150);
+
+  let displayVal = stat.display;
+  if (inView && stat.value > 0) {
+    if (stat.value === 50000) displayVal = `${count.toLocaleString("en-IN")}+`;
+    else if (stat.value === 5) displayVal = `< ${count} Min`;
+    else if (stat.value === 5000)
+      displayVal = `₹${count.toLocaleString("en-IN")}`;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+      transition={{
+        delay: 1.8 + index * 0.12,
+        duration: 0.5,
+        type: "spring",
+        bounce: 0.35,
+      }}
+      whileHover={{ scale: 1.05, y: -2 }}
+      className="flex flex-col items-center px-4 py-3 rounded-2xl min-w-[110px] cursor-default"
+      style={{
+        background: "rgba(255,255,255,0.95)",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+        border: "1px solid rgba(0,0,0,0.07)",
+      }}
+    >
+      <span
+        className="text-lg sm:text-2xl font-black"
+        style={{ color: stat.color }}
+      >
+        {displayVal}
+      </span>
+      <span
+        className="text-[11px] sm:text-xs font-medium text-center"
+        style={{ color: "#64748B" }}
+      >
+        {stat.label}
+      </span>
+    </motion.div>
+  );
+}
+
 export default function BannerIllustration() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -96,10 +202,10 @@ export default function BannerIllustration() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-14 sm:py-20"
+      className="relative overflow-hidden py-10 sm:py-20"
       style={{
         background:
-          "linear-gradient(160deg, #EFF6FF 0%, #F0FDF4 50%, #FFF7ED 100%)",
+          "linear-gradient(160deg, #F0F7FF 0%, #EEF2FF 50%, #F0FDF4 100%)",
       }}
     >
       <style>{`
@@ -120,6 +226,20 @@ export default function BannerIllustration() {
           70% { transform: scale(2.2); opacity: 0; }
           100% { transform: scale(1); opacity: 0; }
         }
+        @keyframes shimmer-sweep {
+          0% { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+          30% { opacity: 1; }
+          100% { transform: translateX(250%) skewX(-12deg); opacity: 0; }
+        }
+        .illustr-card:hover .shimmer-overlay {
+          animation: shimmer-sweep 0.85s ease-in-out;
+        }
+        .illustr-float {
+          animation: illustr-float 5s ease-in-out infinite;
+        }
+        .illustr-particle {
+          animation: illustr-particle 3.4s ease-in-out infinite;
+        }
         @media (prefers-reduced-motion: reduce) {
           .illustr-float, .illustr-particle { animation: none !important; }
         }
@@ -130,7 +250,7 @@ export default function BannerIllustration() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(37,99,235,0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(37,99,235,0.09) 0%, transparent 70%)",
         }}
       />
 
@@ -141,7 +261,7 @@ export default function BannerIllustration() {
           backgroundImage:
             "radial-gradient(rgba(37,99,235,0.12) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
-          opacity: 0.5,
+          opacity: 0.7,
         }}
       />
 
@@ -164,12 +284,12 @@ export default function BannerIllustration() {
       ))}
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section label */}
+        {/* Section label + heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center text-center mb-8 sm:mb-12"
+          className="flex flex-col items-center text-center mb-4 sm:mb-8"
         >
           <span
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold mb-3 tracking-wide uppercase"
@@ -180,35 +300,83 @@ export default function BannerIllustration() {
             }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-            Loans for Every Indian
+            Loans for Bharat
           </span>
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight"
+            className="text-xl sm:text-3xl lg:text-4xl font-black leading-tight"
             style={{ color: "#1E293B" }}
           >
-            Whether you're a <span style={{ color: "#2563EB" }}>Student</span>,{" "}
-            <span style={{ color: "#FF6A00" }}>Gig Worker</span>, or{" "}
-            <span style={{ color: "#22C55E" }}>Shop Owner</span>
+            Loans for Every Bharatvasi —{" "}
+            <span className="block sm:inline">
+              <span style={{ color: "#2563EB" }}>Students</span>,{" "}
+              <span style={{ color: "#FF6A00" }}>Workers</span> &{" "}
+              <span style={{ color: "#22C55E" }}>Shop Owners</span>
+            </span>
           </h2>
           <p
             className="mt-2 text-sm sm:text-base max-w-xl"
             style={{ color: "#64748B" }}
           >
-            Rocket.Money approves your loan in minutes — No CIBIL needed, no
-            paperwork.
+            Rocket.Money approves in minutes — Savita, Ramesh, and Kamla all got
+            loans. No CIBIL, no paperwork.
           </p>
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 mb-8"
+        >
+          <motion.button
+            data-ocid="banner.see_how_button"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() =>
+              document
+                .getElementById("how-it-works")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="w-full sm:w-auto px-7 py-3 rounded-full font-bold text-white text-sm sm:text-base transition-all"
+            style={{
+              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+              boxShadow: "0 4px 20px rgba(255,106,0,0.35)",
+            }}
+          >
+            See How It Works →
+          </motion.button>
+          <motion.a
+            data-ocid="banner.apply_button"
+            href="#apply"
+            whileHover={{
+              scale: 1.04,
+              y: -2,
+              backgroundColor: "#2563EB",
+              color: "#ffffff",
+            }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto px-7 py-3 rounded-full font-bold text-sm sm:text-base transition-all text-center"
+            style={{
+              border: "2px solid #2563EB",
+              color: "#2563EB",
+              background: "transparent",
+            }}
+          >
+            Apply Now — Free
+          </motion.a>
         </motion.div>
 
         {/* Main illustration container */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.3 }}
           className="relative w-full"
         >
           {/* Illustration card */}
           <div
-            className="relative rounded-3xl overflow-hidden illustr-float"
+            className="relative rounded-2xl sm:rounded-3xl overflow-hidden illustr-float illustr-card"
             style={{
               boxShadow:
                 "0 32px 80px rgba(37,99,235,0.14), 0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(37,99,235,0.12)",
@@ -217,24 +385,34 @@ export default function BannerIllustration() {
               animationIterationCount: "infinite",
             }}
           >
-            {/* Subtle shimmer overlay on image */}
+            {/* Static subtle shimmer overlay */}
             <div
-              className="absolute inset-0 z-10 pointer-events-none rounded-3xl"
+              className="absolute inset-0 z-10 pointer-events-none rounded-2xl sm:rounded-3xl"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(37,99,235,0.05) 100%)",
               }}
             />
 
+            {/* Hover shimmer sweep overlay */}
+            <div
+              className="shimmer-overlay absolute inset-0 z-20 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%)",
+                animationFillMode: "forwards",
+              }}
+            />
+
             <img
-              src="/assets/generated/hero-banner-illustration.dim_1400x700.png"
-              alt="Three happy Indians — student, gig worker, and kirana shop owner — celebrating loan approvals with Rocket.Money"
+              src="/assets/generated/banner-illustration-photorealistic.dim_1400x600.jpg"
+              alt="Savita, Ramesh, and Kamla — happy Indians celebrating loan approvals with Rocket.Money"
               className="w-full object-cover"
-              style={{ display: "block", aspectRatio: "2/1" }}
+              style={{ display: "block", aspectRatio: "7/3" }}
             />
           </div>
 
-          {/* Persona approval badges — overlaid smartly */}
+          {/* Persona approval badges — overlaid on desktop */}
           <div className="hidden sm:flex absolute -bottom-5 left-0 right-0 justify-between px-6 lg:px-12 z-20">
             {PERSONA_BADGES.map((badge) => (
               <motion.div
@@ -247,7 +425,8 @@ export default function BannerIllustration() {
                   type: "spring",
                   bounce: 0.45,
                 }}
-                className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl pointer-events-none"
+                whileHover={{ scale: 1.04, y: -2 }}
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl cursor-default"
                 style={{
                   background: "rgba(255,255,255,0.97)",
                   border: `1px solid ${badge.border}`,
@@ -289,7 +468,7 @@ export default function BannerIllustration() {
           </div>
 
           {/* Mobile: stacked badges below */}
-          <div className="flex sm:hidden flex-col gap-2 mt-4">
+          <div className="flex sm:hidden flex-col gap-2.5 mt-4">
             {PERSONA_BADGES.map((badge) => (
               <motion.div
                 key={`mob-${badge.id}`}
@@ -298,8 +477,10 @@ export default function BannerIllustration() {
                 transition={{ delay: badge.delay, duration: 0.5 }}
                 className="flex items-center gap-3 px-4 py-3 rounded-2xl"
                 style={{
-                  background: badge.bg,
+                  background: "rgba(255,255,255,0.9)",
                   border: `1px solid ${badge.border}`,
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                  borderLeft: `4px solid ${badge.color}`,
                 }}
               >
                 <div
@@ -310,7 +491,10 @@ export default function BannerIllustration() {
                   <p className="text-xs font-bold" style={{ color: "#1E293B" }}>
                     ✅ {badge.label}
                   </p>
-                  <p className="text-[11px]" style={{ color: badge.color }}>
+                  <p
+                    className="text-[11px] font-medium"
+                    style={{ color: badge.color }}
+                  >
                     {badge.sub}
                   </p>
                 </div>
@@ -320,42 +504,11 @@ export default function BannerIllustration() {
         </motion.div>
 
         {/* Bottom stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1.8, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-12 sm:mt-16"
-        >
-          {[
-            { value: "50,000+", label: "Loans Approved", color: "#2563EB" },
-            { value: "< 5 Min", label: "Average Approval", color: "#FF6A00" },
-            { value: "0 CIBIL", label: "Minimum Score", color: "#22C55E" },
-            { value: "₹5,000", label: "Max Loan Amount", color: "#7C3AED" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center px-4 py-3 rounded-2xl min-w-[110px]"
-              style={{
-                background: "rgba(255,255,255,0.9)",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-                border: "1px solid rgba(0,0,0,0.06)",
-              }}
-            >
-              <span
-                className="text-lg sm:text-2xl font-black"
-                style={{ color: stat.color }}
-              >
-                {stat.value}
-              </span>
-              <span
-                className="text-[11px] sm:text-xs font-medium text-center"
-                style={{ color: "#64748B" }}
-              >
-                {stat.label}
-              </span>
-            </div>
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-8 mt-10 sm:mt-16">
+          {STATS.map((stat, i) => (
+            <StatCard key={stat.label} stat={stat} inView={inView} index={i} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
