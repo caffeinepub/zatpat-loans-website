@@ -11,7 +11,8 @@ const personas = [
     quote: "Loan approved in 4 mins! No CIBIL needed. Pure magic 🙌",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
-    image: "/assets/generated/persona-student-riya-v2.dim_400x520.jpg",
+    accentColor: "#2563EB",
+    image: "/assets/generated/persona-student-riya-v3.dim_400x500.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -21,7 +22,8 @@ const personas = [
     quote: "₹5,000 when I needed it most. Low CIBIL, instantly approved!",
     tag: "Gig Worker",
     color: "from-orange-500 to-orange-600",
-    image: "/assets/generated/persona-gig-arjun-v2.dim_400x520.jpg",
+    accentColor: "#FF6A00",
+    image: "/assets/generated/persona-gig-arjun-v3.dim_400x500.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -31,7 +33,8 @@ const personas = [
     quote: "Stocked up my shop with ₹4,000. No credit history needed at all!",
     tag: "Small Business",
     color: "from-emerald-500 to-teal-600",
-    image: "/assets/generated/persona-shop-priya-v2.dim_400x520.jpg",
+    accentColor: "#22C55E",
+    image: "/assets/generated/persona-shop-priya-v3.dim_400x500.jpg",
     approvalLabel: "✅ Approved",
     approvalColor: "#22C55E",
   },
@@ -223,15 +226,22 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         }
         .persona-card-img {
           width: 100%;
-          height: 200px;
+          height: 260px;
           object-fit: cover;
-          object-position: center center;
+          object-position: top center;
           border-radius: 12px 12px 0 0;
           display: block;
-          transition: transform 0.4s ease;
+          transition: transform 0.5s ease;
         }
         .persona-card:hover .persona-card-img {
-          transform: scale(1.04);
+          transform: scale(1.05);
+        }
+        .persona-card {
+          transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .persona-card:hover {
+          box-shadow: 0 16px 56px rgba(37, 99, 235, 0.22), 0 4px 20px rgba(0,0,0,0.12) !important;
+          transform: translateY(-4px);
         }
         .approval-badge-pill {
           animation: approval-badge-enter 0.45s ease forwards;
@@ -241,6 +251,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         @media (prefers-reduced-motion: reduce) {
           .cta-btn-easy { animation: none !important; }
           .persona-card-img { transition: none !important; }
+          .persona-card { transition: none !important; }
+          .persona-card:hover { transform: none !important; }
           .approval-badge-pill { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
@@ -325,7 +337,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               <div
                 key={persona.name}
                 data-ocid={`easy_loans.item.${i + 1}`}
-                className="persona-card bg-white rounded-2xl overflow-hidden relative group shadow-lg"
+                className="persona-card bg-white rounded-2xl overflow-hidden relative group"
                 style={{
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible
@@ -333,7 +345,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     : "translateY(40px)",
                   transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
                   boxShadow:
-                    "0 6px 28px rgba(37, 99, 235, 0.10), 0 2px 8px rgba(0,0,0,0.06)",
+                    "0 8px 40px rgba(37, 99, 235, 0.13), 0 2px 12px rgba(0,0,0,0.07)",
                 }}
               >
                 {/* Top gradient accent bar */}
@@ -341,10 +353,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${persona.color} z-10`}
                 />
 
-                {/* Persona Image — full width, top of card, no overlay */}
+                {/* Persona Image — full width, top of card, face always visible */}
                 <div
                   className="w-full overflow-hidden"
-                  style={{ height: "200px" }}
+                  style={{ height: "260px", position: "relative" }}
                 >
                   <img
                     src={persona.image}
@@ -352,6 +364,40 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                     className="persona-card-img"
                     loading="lazy"
                   />
+                  {/* Gradient fade at bottom of image for smooth transition */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: "80px",
+                      background:
+                        "linear-gradient(to bottom, transparent, white)",
+                      zIndex: 2,
+                      pointerEvents: "none",
+                    }}
+                  />
+                  {/* Persona tag pill — top right corner */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "12px",
+                      right: "12px",
+                      zIndex: 3,
+                      background: `linear-gradient(135deg, ${persona.accentColor}ee, ${persona.accentColor}cc)`,
+                      color: "white",
+                      fontSize: "10px",
+                      fontWeight: 800,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      padding: "4px 10px",
+                      borderRadius: "50px",
+                      backdropFilter: "blur(8px)",
+                    }}
+                  >
+                    {persona.tag}
+                  </div>
                 </div>
 
                 {/* Approval Badge — below image, above card body */}
@@ -385,9 +431,6 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
 
                 {/* Card body */}
                 <div className="p-4 sm:p-5">
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">
-                    {persona.tag}
-                  </p>
                   <h3
                     className="font-bold text-sm mb-2 leading-snug"
                     style={{ color: "#1E293B" }}

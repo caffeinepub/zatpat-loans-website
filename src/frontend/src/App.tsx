@@ -15,6 +15,7 @@ import HeroBand from "./components/HeroBand";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
+import PremiumHeroSection from "./components/PremiumHeroSection";
 import SocialProofTicker from "./components/SocialProofTicker";
 import StickyCTA from "./components/StickyCTA";
 import Testimonials from "./components/Testimonials";
@@ -49,6 +50,9 @@ export default function App() {
 
         {/* 4. Banner Illustration — inclusive personas, emotional trust visual */}
         <BannerIllustration />
+
+        {/* 4b. Premium Hero Section — loans for every Indian */}
+        <PremiumHeroSection />
 
         {/* 5. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />

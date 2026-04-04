@@ -233,109 +233,114 @@ export default function BannerIllustration() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="flex-none w-full lg:w-[58%] order-1 lg:order-2"
           >
-            <div className="relative">
-              {/* Main image with float animation */}
+            {/* Outer relative container — badges positioned relative to this */}
+            <div className="relative banner-image-float">
+              {/* Image wrapper with overflow hidden to clip without cutting faces */}
               <div
-                className="banner-image-float relative"
-                style={{ borderRadius: 20 }}
+                style={{
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  boxShadow:
+                    "0 24px 64px rgba(37,99,235,0.16), 0 8px 24px rgba(0,0,0,0.10)",
+                }}
               >
                 <img
-                  src="/assets/generated/banner-trio-illustration.dim_1200x500.png"
+                  src="/assets/generated/banner-trio-v2.dim_1200x500.jpg"
                   alt="Three happy Indian people — student, gig worker, and kirana shop owner — each with approved loan notifications"
-                  className="w-full"
                   style={{
-                    borderRadius: 20,
-                    boxShadow:
-                      "0 24px 64px rgba(37,99,235,0.16), 0 8px 24px rgba(0,0,0,0.10)",
-                    display: "block",
+                    width: "100%",
+                    height: "auto",
+                    minHeight: "220px",
+                    maxHeight: "380px",
                     objectFit: "cover",
-                    aspectRatio: "12/5",
+                    objectPosition: "center top",
+                    display: "block",
                   }}
                   loading="lazy"
                 />
-
-                {/* Floating approval badge chips on image */}
-                {PERSONA_BADGES.map((badge) => (
-                  <motion.div
-                    key={badge.id}
-                    initial={{
-                      opacity: 0,
-                      scale: 0.7,
-                      y:
-                        badge.position === "topLeft" ||
-                        badge.position === "topRight"
-                          ? -12
-                          : 12,
-                    }}
-                    animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-                    transition={{
-                      delay: badge.delay,
-                      duration: 0.5,
-                      type: "spring",
-                      bounce: 0.45,
-                    }}
-                    className="banner-badge"
-                    style={{
-                      ...getBadgeStyle(badge.position),
-                      background: "rgba(255,255,255,0.97)",
-                      border: `1.5px solid ${badge.border}`,
-                      borderRadius: 14,
-                      padding: "7px 12px",
-                      backdropFilter: "blur(10px)",
-                      WebkitBackdropFilter: "blur(10px)",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-                    }}
-                  >
-                    {/* Pulsing dot */}
-                    <div className="relative flex-shrink-0">
-                      <div
-                        style={{
-                          width: 9,
-                          height: 9,
-                          borderRadius: "50%",
-                          background: badge.dot,
-                          flexShrink: 0,
-                        }}
-                      />
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: "50%",
-                          background: badge.dot,
-                          animation: `approval-ping 2s ease-out infinite ${badge.delay}s`,
-                        }}
-                      />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <span
-                        style={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          color: badge.color,
-                          lineHeight: 1.2,
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {badge.label}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 9,
-                          color: "#64748B",
-                          fontWeight: 500,
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {badge.sub}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
               </div>
+
+              {/* Floating approval badge chips — positioned over the image */}
+              {PERSONA_BADGES.map((badge) => (
+                <motion.div
+                  key={badge.id}
+                  initial={{
+                    opacity: 0,
+                    scale: 0.7,
+                    y:
+                      badge.position === "topLeft" ||
+                      badge.position === "topRight"
+                        ? -12
+                        : 12,
+                  }}
+                  animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+                  transition={{
+                    delay: badge.delay,
+                    duration: 0.5,
+                    type: "spring",
+                    bounce: 0.45,
+                  }}
+                  className="banner-badge"
+                  style={{
+                    ...getBadgeStyle(badge.position),
+                    background: "rgba(255,255,255,0.97)",
+                    border: `1.5px solid ${badge.border}`,
+                    borderRadius: 14,
+                    padding: "7px 12px",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 7,
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+                  }}
+                >
+                  {/* Pulsing dot */}
+                  <div className="relative flex-shrink-0">
+                    <div
+                      style={{
+                        width: 9,
+                        height: 9,
+                        borderRadius: "50%",
+                        background: badge.dot,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: "50%",
+                        background: badge.dot,
+                        animation: `approval-ping 2s ease-out infinite ${badge.delay}s`,
+                      }}
+                    />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: badge.color,
+                        lineHeight: 1.2,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {badge.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        color: "#64748B",
+                        fontWeight: 500,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {badge.sub}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
