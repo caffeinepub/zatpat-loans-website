@@ -1,11 +1,5 @@
-import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
 import type React from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-
-interface FAQProps {
-  onApplyNow: () => void;
-}
 
 const faqs = [
   {
@@ -37,6 +31,13 @@ const faqs = [
     a: "Absolutely. We use 256-bit bank-grade encryption for all data storage and transmission. Your personal information is never sold to third parties.",
   },
 ];
+
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
+
+interface FAQProps {
+  onApplyNow: () => void;
+}
 
 function FAQItem({
   faq,
@@ -143,7 +144,7 @@ export default function FAQ({ onApplyNow }: FAQProps) {
         {/* Still have questions card */}
         <div
           data-ocid="faq.card"
-          className="rounded-xl sm:rounded-2xl px-5 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          className="rounded-xl sm:rounded-2xl px-5 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
           style={{
             background: "#EFF6FF",
             border: "1px solid #BFDBFE",
@@ -152,7 +153,7 @@ export default function FAQ({ onApplyNow }: FAQProps) {
             transition: "opacity 0.7s ease 0.7s, transform 0.7s ease 0.7s",
           }}
         >
-          <div>
+          <div className="text-center sm:text-left">
             <p
               className="font-bold text-sm sm:text-base"
               style={{ color: "#1E293B" }}

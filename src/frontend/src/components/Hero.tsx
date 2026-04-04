@@ -66,24 +66,29 @@ function LiveLoanCounter() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.5 }}
-      className="inline-flex items-center gap-2 mt-4 sm:mt-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold"
-      style={{
-        background: "rgba(34,197,94,0.12)",
-        border: "1px solid rgba(34,197,94,0.3)",
-        color: "#86EFAC",
-      }}
+      className="flex justify-center sm:justify-start"
+      style={{ marginTop: "16px" }}
     >
-      <span
-        className="w-2 h-2 rounded-full flex-shrink-0"
+      <div
+        className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold"
         style={{
-          background: "#22C55E",
-          boxShadow: "0 0 6px #22C55E",
-          animation: "pulse 1.5s ease-in-out infinite",
+          background: "rgba(34,197,94,0.12)",
+          border: "1px solid rgba(34,197,94,0.3)",
+          color: "#86EFAC",
         }}
-      />
-      <span style={{ fontVariantNumeric: "tabular-nums" }}>
-        ✅ {count} loans approved today
-      </span>
+      >
+        <span
+          className="w-2 h-2 rounded-full flex-shrink-0"
+          style={{
+            background: "#22C55E",
+            boxShadow: "0 0 6px #22C55E",
+            animation: "pulse 1.5s ease-in-out infinite",
+          }}
+        />
+        <span style={{ fontVariantNumeric: "tabular-nums" }}>
+          ✅ {count} loans approved today
+        </span>
+      </div>
     </motion.div>
   );
 }
@@ -99,7 +104,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
           "linear-gradient(135deg, #0F172A 0%, #0D1F3C 50%, #0F172A 100%)",
       }}
     >
-      {/* Decorative blobs — smaller on mobile */}
+      {/* Decorative blobs */}
       <div
         className="absolute top-[-40px] right-[-40px] sm:top-[-80px] sm:right-[-80px] w-[240px] h-[240px] sm:w-[480px] sm:h-[480px] rounded-full pointer-events-none"
         style={{
@@ -159,6 +164,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center sm:items-start text-center sm:text-left"
           >
             {/* Badge */}
             <motion.div
@@ -207,7 +213,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             </p>
 
             {/* Key points */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-3 mb-6 sm:mb-8">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-3 mb-6 sm:mb-8 w-full">
               {[
                 "Up to ₹5,000 Loans",
                 "5-Min Approval",
@@ -235,7 +241,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-3"
+              className="flex flex-col sm:flex-row gap-3 items-center w-full sm:w-auto"
             >
               <button
                 type="button"
@@ -265,7 +271,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
 
             {/* Trust micro-copy */}
             <p
-              className="mt-3 text-xs"
+              className="mt-3 text-xs text-center sm:text-left"
               style={{ color: "rgba(148,163,184,0.7)" }}
             >
               No CIBIL check • Low credit welcome • Same day disbursal
@@ -276,7 +282,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex items-center gap-4 sm:gap-5 mt-6 pt-6"
+              className="flex items-center justify-center sm:justify-start gap-4 sm:gap-5 mt-6 pt-6 w-full"
               style={{ borderTop: "1px solid rgba(37,99,235,0.25)" }}
             >
               {[
@@ -284,7 +290,10 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 { label: "4.8★", sub: "App rating" },
                 { label: "₹50 Cr+", sub: "Disbursed" },
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
+                <div
+                  key={stat.label}
+                  className="flex flex-col items-center sm:items-start"
+                >
                   <span
                     className="text-base sm:text-xl font-black"
                     style={{ color: "#FF6A00" }}

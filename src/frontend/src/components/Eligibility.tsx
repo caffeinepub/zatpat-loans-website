@@ -1,25 +1,24 @@
-import { Banknote, Briefcase, FileCheck, Smartphone, User } from "lucide-react";
 import type React from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 const criteria = [
-  { icon: User, label: "Age", detail: "18 – 55 years" },
+  { icon: "👤", label: "Age", detail: "18 – 55 years" },
   {
-    icon: Briefcase,
+    icon: "💼",
     label: "Employment",
     detail: "Salaried, Self-employed, or Student",
   },
   {
-    icon: Banknote,
+    icon: "💰",
     label: "Monthly Income",
     detail: "Any income level accepted",
   },
   {
-    icon: Smartphone,
+    icon: "📊",
     label: "CIBIL / Credit Score",
     detail: "No minimum — all credit scores welcome",
   },
-  { icon: FileCheck, label: "Documents", detail: "Aadhaar + PAN (that's it!)" },
+  { icon: "📄", label: "Documents", detail: "Aadhaar + PAN (that's it!)" },
 ];
 
 export default function Eligibility() {
@@ -150,10 +149,10 @@ export default function Eligibility() {
               transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
             }}
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 text-center lg:text-left">
               Eligibility Criteria
             </h3>
-            <p className="text-xs sm:text-sm text-slate-500 mb-4">
+            <p className="text-xs sm:text-sm text-slate-500 mb-4 text-center lg:text-left">
               Super simple — almost everyone qualifies.
             </p>
             <div className="space-y-3">
@@ -169,10 +168,10 @@ export default function Eligibility() {
                   }}
                 >
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-lg"
                     style={{ background: "#EFF6FF" }}
                   >
-                    <item.icon size={16} style={{ color: "#2563EB" }} />
+                    {item.icon}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">

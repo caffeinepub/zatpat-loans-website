@@ -40,7 +40,7 @@ export default function Footer({ onApplyNow }: FooterProps) {
           className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-semibold"
           style={{ color: "#475569" }}
         >
-          <span>🏛️ RBI Registered NBFC</span>
+          <span>🏗️ RBI Registered NBFC</span>
           <span className="text-slate-300 hidden sm:inline">|</span>
           <span>🔒 ISO 27001</span>
           <span className="text-slate-300 hidden sm:inline">|</span>
@@ -54,7 +54,7 @@ export default function Footer({ onApplyNow }: FooterProps) {
         {/* Main footer grid — 1-col mobile, 2-col sm, 4-col lg */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-10 border-b border-gray-200">
           {/* Brand column */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="flex items-center gap-0.5 mb-3">
               <span className="text-xl font-black text-gray-900">Rocket</span>
               <span className="text-xl font-black" style={{ color: "#FF6A00" }}>
@@ -66,7 +66,7 @@ export default function Footer({ onApplyNow }: FooterProps) {
               India's fastest and most trusted instant personal loan platform.
               Get funds in your account within hours, not days.
             </p>
-            <div className="flex gap-2.5">
+            <div className="flex gap-2.5 justify-center sm:justify-start">
               {[
                 { Icon: SiFacebook, href: "#", label: "Facebook" },
                 { Icon: SiX, href: "#", label: "X / Twitter" },
@@ -95,17 +95,17 @@ export default function Footer({ onApplyNow }: FooterProps) {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="flex flex-col items-center sm:items-start">
             <h4 className="font-bold text-gray-900 mb-4 text-xs uppercase tracking-widest">
               Quick Links
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 w-full">
               {quickLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.label} className="text-center sm:text-left">
                   <a
                     href={link.href}
                     data-ocid="footer.link"
-                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors flex items-center gap-2 group"
+                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors inline-flex items-center gap-2 group justify-center sm:justify-start"
                     onClick={(e) => {
                       e.preventDefault();
                       const el = document.querySelector(link.href);
@@ -121,17 +121,17 @@ export default function Footer({ onApplyNow }: FooterProps) {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="flex flex-col items-center sm:items-start">
             <h4 className="font-bold text-gray-900 mb-4 text-xs uppercase tracking-widest">
               Our Services
             </h4>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 w-full">
               {services.map((svc) => (
-                <li key={svc.label}>
+                <li key={svc.label} className="text-center sm:text-left">
                   <a
                     href={svc.href}
                     data-ocid="footer.link"
-                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors flex items-center gap-2 group"
+                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors inline-flex items-center gap-2 group justify-center sm:justify-start"
                   >
                     <span className="w-1 h-1 rounded-full bg-gray-300 group-hover:bg-blue-500 transition-colors flex-shrink-0" />
                     {svc.label}
@@ -142,11 +142,11 @@ export default function Footer({ onApplyNow }: FooterProps) {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="flex flex-col items-center sm:items-start">
             <h4 className="font-bold text-gray-900 mb-4 text-xs uppercase tracking-widest">
               Contact Us
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 text-center sm:text-left">
               <div className="text-sm text-gray-500">
                 <div className="font-semibold text-gray-700 mb-0.5 text-xs">
                   Email
@@ -186,7 +186,10 @@ export default function Footer({ onApplyNow }: FooterProps) {
           className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3"
           style={{ borderBottom: "1px solid #E2E8F0" }}
         >
-          <p className="text-sm font-bold" style={{ color: "#1E293B" }}>
+          <p
+            className="text-sm font-bold text-center sm:text-left"
+            style={{ color: "#1E293B" }}
+          >
             Ready to get your loan?
           </p>
           <button
@@ -210,7 +213,7 @@ export default function Footer({ onApplyNow }: FooterProps) {
             © {year} Rocket.Money. All rights reserved. | RBI Registered NBFC
             Partner
           </p>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-400 text-center">
             Built with ❤️ using{" "}
             <a
               href={utmLink}

@@ -197,7 +197,7 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
         </text>
       </svg>
 
-      {/* Bureau badges — scrollable on mobile */}
+      {/* Bureau badges */}
       <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2 max-w-[240px] sm:max-w-full">
         {["CIBIL", "Experian", "Equifax", "CRIF"].map((bureau) => (
           <div
@@ -430,13 +430,13 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
           </div>
         </div>
 
-        {/* Stat cards — 2-col on mobile, 3-col on sm+ */}
+        {/* Stat cards — centered on mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {statCards.map((stat, index) => (
             <div
               key={stat.label}
               data-ocid={`creditscore.card.${index + 1}`}
-              className="relative rounded-2xl p-4 sm:p-5 overflow-hidden"
+              className="relative rounded-2xl p-4 sm:p-5 overflow-hidden text-center sm:text-left"
               style={{
                 background: "#0F172A",
                 borderLeft: "4px solid #2563EB",
@@ -447,7 +447,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
               }}
             >
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 mx-auto sm:mx-0"
                 style={{ background: "rgba(37,99,235,0.15)" }}
               >
                 <stat.icon size={16} style={{ color: "#FF6A00" }} />

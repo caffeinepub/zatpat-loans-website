@@ -132,29 +132,111 @@
     transform: translateY(0);
   }
 
+  /* === PREMIUM UI POLISH === */
+
+  /* Floating animation */
+  @keyframes animate-float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: animate-float 4s ease-in-out infinite;
+  }
+
+  /* Blob pulse */
+  @keyframes blob-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  /* === PRIMARY CTA BUTTON — premium press feel === */
   .btn-brand {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-white font-semibold text-sm transition-all duration-200;
-    background-color: #ff6a00;
-    box-shadow: 0 4px 16px rgba(255, 106, 0, 0.3);
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-white font-semibold text-sm;
+    background: linear-gradient(135deg, #ff6a00 0%, #ff8c38 100%);
+    box-shadow: 0 4px 16px rgba(255, 106, 0, 0.35), inset 0 1px 0
+      rgba(255, 255, 255, 0.15);
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow
+      0.15s ease, background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
 
   .btn-brand:hover {
-    transform: scale(1.04);
-    box-shadow: 0 8px 28px rgba(255, 106, 0, 0.4), 0 0 0 3px
-      rgba(37, 99, 235, 0.15);
-    background-color: #e05e00;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 32px rgba(255, 106, 0, 0.5), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-brand:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 8px rgba(255, 106, 0, 0.35);
+  }
+
+  .btn-brand:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.5);
+    outline-offset: 3px;
   }
 
   .btn-outline-brand {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-sm transition-all duration-200 bg-white;
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-sm bg-white;
     color: #ff6a00;
     border: 2px solid #ff6a00;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s
+      ease;
   }
 
   .btn-outline-brand:hover {
-    transform: scale(1.04);
+    transform: translateY(-1px);
     background-color: #fff1e8;
     box-shadow: 0 4px 16px rgba(255, 106, 0, 0.2);
+  }
+
+  .btn-outline-brand:active {
+    transform: scale(0.97);
+  }
+
+  /* === SECTION HEADER CENTERING HELPER === */
+  .section-header {
+    @apply text-center mx-auto;
+  }
+
+  /* === EYEBROW BADGE — consistent pill across all sections === */
+  .eyebrow-badge {
+    @apply inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100;
+  }
+
+  /* === INTERACTIVE CARD — hover lift === */
+  .card-interactive {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow
+      0.2s ease;
+  }
+  .card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(37, 99, 235, 0.12);
+  }
+
+  /* === ORANGE GRADIENT BUTTONS — global consistent style === */
+  button[style*="#FF6A00"],
+  button[style*="FF6A00"] {
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  }
+
+  /* === SMOOTH SCROLL OFFSET for fixed navbar === */
+  [id] {
+    scroll-margin-top: 80px;
   }
 
   .orange-blob {
@@ -198,9 +280,11 @@
   }
 
   .card-feature {
-    @apply bg-white rounded-2xl p-6 transition-all duration-300 cursor-default;
+    @apply bg-white rounded-2xl p-6 cursor-default;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     border: 1px solid #f1f5f9;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow
+      0.2s ease, border-color 0.2s ease;
   }
 
   .card-feature:hover {
@@ -233,8 +317,22 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
-  /* Eyebrow badge — consistent across sections */
-  .eyebrow-badge {
-    @apply inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100;
+  /* === MOBILE SAFE-AREA === */
+  @supports (padding: max(0px)) {
+    .safe-pb {
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+  }
+
+  /* === REDUCED MOTION === */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .btn-brand,
+    .btn-outline-brand,
+    .card-feature,
+    .card-interactive {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }

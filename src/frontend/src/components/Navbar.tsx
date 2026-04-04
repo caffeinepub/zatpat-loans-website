@@ -45,7 +45,7 @@ function RocketMoneyLogo({ compact = false }: { compact?: boolean }) {
       </svg>
       <span
         style={{
-          fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "'Plus Jakarta Sans', Inter, system-ui, sans-serif",
           fontWeight: 800,
           fontSize: compact ? "1rem" : "1.2rem",
           letterSpacing: "-0.02em",
@@ -73,7 +73,6 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) setMobileOpen(false);
@@ -81,6 +80,18 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
@@ -90,248 +101,360 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
   };
 
   return (
-    <header
-      data-ocid="navbar.section"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        backgroundColor: "#ffffff",
-        boxShadow: scrolled
-          ? "0 2px 16px 0 rgba(30,41,59,0.10)"
-          : "0 1px 4px 0 rgba(30,41,59,0.07)",
-        transition: "box-shadow 0.3s ease",
-      }}
-    >
-      {/* Main navbar bar */}
-      <div
+    <>
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-drawer { transition: none !important; }
+          .mobile-overlay { transition: none !important; }
+        }
+        .nav-link-desktop:hover {
+          background-color: #EFF6FF !important;
+          color: #2563EB !important;
+        }
+        .nav-cta-desktop:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 24px rgba(255,106,0,0.5) !important;
+        }
+        .mobile-nav-link:hover {
+          background-color: #EFF6FF !important;
+          color: #2563EB !important;
+        }
+        .mobile-cta-btn:hover {
+          filter: brightness(1.08);
+        }
+        .mobile-cta-btn:active {
+          transform: scale(0.98) !important;
+        }
+      `}</style>
+
+      {/* Full-page overlay backdrop for mobile menu — premium UX */}
+      {mobileOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          className="mobile-overlay lg:hidden"
+          onClick={() => setMobileOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 40,
+            background: "rgba(15,23,42,0.45)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
+            border: "none",
+            cursor: "default",
+            animation: "fadeIn 0.2s ease",
+          }}
+        />
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
+
+      <header
+        data-ocid="navbar.section"
         style={{
-          maxWidth: "100%",
-          paddingLeft: "clamp(16px, 4vw, 60px)",
-          paddingRight: "clamp(16px, 4vw, 60px)",
-          height: "64px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "12px",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          backgroundColor: "#ffffff",
+          boxShadow: scrolled
+            ? "0 2px 20px 0 rgba(30,41,59,0.12)"
+            : "0 1px 4px 0 rgba(30,41,59,0.07)",
+          transition: "box-shadow 0.3s ease",
+          borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
         }}
       >
-        {/* LEFT — Logo */}
-        <div style={{ flex: "0 0 auto", minWidth: 0 }}>
-          <button
-            type="button"
-            data-ocid="navbar.link"
-            onClick={() => handleNavClick("#home")}
-            style={{
-              background: "none",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-            }}
-            aria-label="Go to home"
-          >
-            {/* Compact logo on mobile, full on desktop */}
-            <span className="block lg:hidden">
-              <RocketMoneyLogo compact={true} />
-            </span>
-            <span className="hidden lg:block">
-              <RocketMoneyLogo compact={false} />
-            </span>
-          </button>
-        </div>
-
-        {/* CENTER — Navigation (desktop only) */}
-        <nav
-          className="hidden lg:flex"
+        {/* Main navbar bar */}
+        <div
           style={{
-            flex: "1 1 auto",
+            maxWidth: "100%",
+            paddingLeft: "clamp(16px, 4vw, 60px)",
+            paddingRight: "clamp(16px, 4vw, 60px)",
+            height: "68px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            gap: "4px",
+            justifyContent: "space-between",
+            gap: "12px",
           }}
         >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href;
-            return (
-              <button
-                key={link.label}
-                type="button"
-                data-ocid="navbar.link"
-                onClick={() => handleNavClick(link.href)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "8px 12px",
-                  borderRadius: "8px",
-                  fontSize: "0.875rem",
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? "#2563EB" : "#374151",
-                  backgroundColor: isActive
-                    ? "rgba(37,99,235,0.08)"
-                    : "transparent",
-                  transition: "color 0.2s ease, background-color 0.2s ease",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </button>
-            );
-          })}
-        </nav>
+          {/* LEFT — Logo */}
+          <div style={{ flex: "0 0 auto", minWidth: 0 }}>
+            <button
+              type="button"
+              data-ocid="navbar.link"
+              onClick={() => handleNavClick("#home")}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+              aria-label="Go to home"
+            >
+              <span className="block lg:hidden">
+                <RocketMoneyLogo compact={true} />
+              </span>
+              <span className="hidden lg:block">
+                <RocketMoneyLogo compact={false} />
+              </span>
+            </button>
+          </div>
 
-        {/* RIGHT — CTA Button (desktop only) */}
-        <div
-          className="hidden lg:flex"
-          style={{ flex: "0 0 auto", alignItems: "center" }}
-        >
-          <button
-            type="button"
-            data-ocid="navbar.primary_button"
-            onClick={onApplyNow}
+          {/* CENTER — Navigation (desktop only) */}
+          <nav
+            className="hidden lg:flex"
             style={{
-              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "50px",
-              padding: "10px 24px",
-              fontSize: "0.875rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(255,106,0,0.35)",
-              transition: "transform 0.18s ease, box-shadow 0.18s ease",
-              whiteSpace: "nowrap",
-              minHeight: "44px",
-            }}
-          >
-            Apply Now
-          </button>
-        </div>
-
-        {/* Mobile: Apply Now + Hamburger */}
-        <div className="lg:hidden flex items-center gap-2">
-          <button
-            type="button"
-            data-ocid="navbar.primary_button"
-            onClick={onApplyNow}
-            style={{
-              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "50px",
-              padding: "8px 16px",
-              fontSize: "0.8rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-              minHeight: "40px",
-            }}
-          >
-            Apply
-          </button>
-          <button
-            type="button"
-            data-ocid="navbar.toggle"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#374151",
-              padding: "8px",
-              borderRadius: "8px",
+              flex: "1 1 auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "44px",
-              minWidth: "44px",
+              gap: "4px",
             }}
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </div>
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <button
+                  key={link.label}
+                  type="button"
+                  data-ocid="navbar.link"
+                  onClick={() => handleNavClick(link.href)}
+                  className="nav-link-desktop"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "8px 14px",
+                    borderRadius: "10px",
+                    fontSize: "0.875rem",
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? "#2563EB" : "#374151",
+                    backgroundColor: isActive
+                      ? "rgba(37,99,235,0.08)"
+                      : "transparent",
+                    transition: "color 0.2s ease, background-color 0.2s ease",
+                    whiteSpace: "nowrap",
+                    borderLeft: isActive
+                      ? "3px solid #2563EB"
+                      : "3px solid transparent",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
+          </nav>
 
-      {/* Mobile menu drawer */}
-      <div
-        className="lg:hidden"
-        style={{
-          maxHeight: mobileOpen ? "360px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.3s ease",
-          backgroundColor: "#ffffff",
-          borderTop: mobileOpen ? "1px solid #f1f5f9" : "none",
-          boxShadow: mobileOpen ? "0 8px 24px rgba(30,41,59,0.10)" : "none",
-        }}
-      >
-        <nav
+          {/* RIGHT — CTA Button (desktop only) */}
+          <div
+            className="hidden lg:flex"
+            style={{ flex: "0 0 auto", alignItems: "center" }}
+          >
+            <button
+              type="button"
+              data-ocid="navbar.primary_button"
+              onClick={onApplyNow}
+              className="nav-cta-desktop"
+              style={{
+                background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "50px",
+                padding: "11px 26px",
+                fontSize: "0.875rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(255,106,0,0.35)",
+                transition: "transform 0.18s ease, box-shadow 0.18s ease",
+                whiteSpace: "nowrap",
+                minHeight: "44px",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Apply Now
+            </button>
+          </div>
+
+          {/* Mobile: Apply Now + Hamburger */}
+          <div className="lg:hidden flex items-center gap-2">
+            <button
+              type="button"
+              data-ocid="navbar.primary_button"
+              onClick={onApplyNow}
+              style={{
+                background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "50px",
+                padding: "9px 18px",
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+                minHeight: "40px",
+                boxShadow: "0 2px 10px rgba(255,106,0,0.3)",
+              }}
+            >
+              Apply
+            </button>
+            <button
+              type="button"
+              data-ocid="navbar.toggle"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              style={{
+                background: mobileOpen ? "#EFF6FF" : "none",
+                border: mobileOpen
+                  ? "1px solid #BFDBFE"
+                  : "1px solid transparent",
+                cursor: "pointer",
+                color: mobileOpen ? "#2563EB" : "#374151",
+                padding: "8px",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "44px",
+                minWidth: "44px",
+                transition:
+                  "background 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+              }}
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu drawer — premium slide-in panel */}
+        <div
+          className="mobile-drawer lg:hidden"
           style={{
-            padding: "12px 16px 20px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "2px",
+            maxHeight: mobileOpen ? "520px" : "0",
+            overflow: "hidden",
+            transition: "max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
+            background: "white",
+            borderTop: mobileOpen ? "2px solid rgba(37,99,235,0.12)" : "none",
+            boxShadow: mobileOpen
+              ? "0 20px 60px rgba(30,41,59,0.20), 0 8px 24px rgba(30,41,59,0.10)"
+              : "none",
           }}
         >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href;
-            return (
-              <button
-                key={link.label}
-                type="button"
-                data-ocid="navbar.link"
-                onClick={() => handleNavClick(link.href)}
-                style={{
-                  background: isActive ? "rgba(37,99,235,0.07)" : "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "14px 16px",
-                  borderRadius: "10px",
-                  textAlign: "left",
-                  fontSize: "1rem",
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? "#2563EB" : "#374151",
-                  width: "100%",
-                  minHeight: "48px",
-                  transition: "background-color 0.2s ease, color 0.2s ease",
-                }}
-              >
-                {link.label}
-              </button>
-            );
-          })}
-          <button
-            type="button"
-            data-ocid="navbar.primary_button"
-            onClick={() => {
-              setMobileOpen(false);
-              onApplyNow();
-            }}
+          <nav
             style={{
-              marginTop: "10px",
-              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "50px",
-              padding: "14px 28px",
-              fontSize: "1rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              width: "100%",
-              minHeight: "52px",
-              boxShadow: "0 4px 14px rgba(255,106,0,0.30)",
+              padding: "12px 20px 0",
+              display: "flex",
+              flexDirection: "column",
+              gap: "2px",
             }}
           >
-            Apply Now — No CIBIL Needed
-          </button>
-        </nav>
-      </div>
-    </header>
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <button
+                  key={link.label}
+                  type="button"
+                  data-ocid="navbar.link"
+                  onClick={() => handleNavClick(link.href)}
+                  className="mobile-nav-link"
+                  style={{
+                    background: isActive
+                      ? "rgba(37,99,235,0.07)"
+                      : "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "14px 20px",
+                    borderRadius: "12px",
+                    textAlign: "center",
+                    fontSize: "1rem",
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? "#2563EB" : "#374151",
+                    width: "100%",
+                    minHeight: "50px",
+                    transition: "background-color 0.2s ease, color 0.2s ease",
+                    borderLeft: isActive
+                      ? "3px solid #2563EB"
+                      : "3px solid transparent",
+                    letterSpacing: "-0.01em",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
+
+            {/* Divider above CTA */}
+            <div
+              style={{
+                height: "1px",
+                background: "#F1F5F9",
+                margin: "12px 0 8px",
+              }}
+            />
+
+            {/* Full-width CTA */}
+            <div style={{ paddingBottom: "24px", paddingTop: "4px" }}>
+              <button
+                type="button"
+                data-ocid="navbar.primary_button"
+                className="mobile-cta-btn"
+                onClick={() => {
+                  setMobileOpen(false);
+                  onApplyNow();
+                }}
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+                  color: "#ffffff",
+                  border: "none",
+                  borderRadius: "16px",
+                  padding: "16px 28px",
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  width: "100%",
+                  minHeight: "56px",
+                  boxShadow: "0 6px 24px rgba(255,106,0,0.40)",
+                  letterSpacing: "-0.01em",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  transition:
+                    "transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease",
+                }}
+              >
+                🚀 Apply Now — No CIBIL Needed
+              </button>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "0.7rem",
+                  color: "#94A3B8",
+                  marginTop: "10px",
+                  lineHeight: 1.5,
+                }}
+              >
+                ✓ Free to apply &nbsp;·&nbsp; No credit score required
+                &nbsp;·&nbsp; Results in 5 min
+              </p>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </>
   );
 }

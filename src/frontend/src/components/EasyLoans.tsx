@@ -11,20 +11,23 @@ const personas = [
     quote: "First loan ₹1,000 approved in minutes. No CIBIL needed!",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
+    image: "/assets/generated/persona-student.dim_600x400.jpg",
   },
   {
     icon: "⚙️",
-    name: "Ramesh – Worker",
+    name: "Arjun – Gig Worker",
     quote: "Got ₹3,000 when I needed it most. Low CIBIL, still approved!",
-    tag: "Factory Worker",
+    tag: "Gig Worker",
     color: "from-blue-700 to-indigo-700",
+    image: "/assets/generated/persona-gig-worker.dim_600x400.jpg",
   },
   {
     icon: "🏪",
-    name: "Priya – Business Owner",
+    name: "Priya – Shop Owner",
     quote: "No credit score? No problem. Got ₹5,000 same day!",
     tag: "Small Business",
     color: "from-emerald-500 to-teal-600",
+    image: "/assets/generated/persona-shopowner.dim_600x400.jpg",
   },
 ];
 
@@ -208,6 +211,14 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           font-variant-numeric: tabular-nums;
           animation: number-pop 0.5s ease forwards;
         }
+        .persona-card-img {
+          width: 100%;
+          height: 120px;
+          object-fit: cover;
+          object-position: top center;
+          border-radius: 12px;
+          display: block;
+        }
       `}</style>
 
       <section
@@ -266,7 +277,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 color: "#166534",
               }}
             >
-              ✅ No CIBIL · Bad Credit Welcome · Max ₹5,000
+              ✅ No CIBIL · Low Credit Welcome · Max ₹5,000
             </div>
           </div>
 
@@ -276,7 +287,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               <div
                 key={persona.name}
                 data-ocid={`easy_loans.item.${i + 1}`}
-                className="bg-white rounded-2xl p-4 sm:p-5 shadow-lg overflow-hidden relative group"
+                className="bg-white rounded-2xl overflow-hidden relative group shadow-lg"
                 style={{
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible
@@ -286,35 +297,41 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                   boxShadow: "0 4px 20px rgba(37, 99, 235, 0.08)",
                 }}
               >
+                {/* Top gradient accent bar */}
                 <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${persona.color}`}
+                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${persona.color} z-10`}
                 />
-                <div className="flex items-start gap-3">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                    style={{
-                      background: "linear-gradient(135deg, #EFF6FF, #f0fdf4)",
-                    }}
+
+                {/* Persona Image — full width, top of card */}
+                <div
+                  className="w-full overflow-hidden"
+                  style={{ height: "120px" }}
+                >
+                  <img
+                    src={persona.image}
+                    alt={persona.name}
+                    className="persona-card-img"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Card body */}
+                <div className="p-4 sm:p-5">
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">
+                    {persona.tag}
+                  </p>
+                  <h3
+                    className="font-bold text-sm mb-1"
+                    style={{ color: "#1E293B" }}
                   >
-                    {persona.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">
-                      {persona.tag}
-                    </p>
-                    <h3
-                      className="font-bold text-sm"
-                      style={{ color: "#1E293B" }}
-                    >
-                      {persona.name}
-                    </h3>
-                    <p
-                      className="text-xs mt-1 leading-snug"
-                      style={{ color: "rgba(30, 41, 59, 0.7)" }}
-                    >
-                      "{persona.quote}"
-                    </p>
-                  </div>
+                    {persona.name}
+                  </h3>
+                  <p
+                    className="text-xs leading-snug"
+                    style={{ color: "rgba(30, 41, 59, 0.7)" }}
+                  >
+                    "{persona.quote}"
+                  </p>
                 </div>
               </div>
             ))}

@@ -22,6 +22,7 @@ export default function AppDownload() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Content */}
           <div
+            className="flex flex-col items-center lg:items-start text-center lg:text-left"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateX(0)" : "translateX(-40px)",
@@ -50,7 +51,7 @@ export default function AppDownload() {
             </p>
 
             {/* Rating badges */}
-            <div className="flex flex-wrap items-center gap-3 mb-5">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-5">
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
                 style={{
@@ -74,7 +75,7 @@ export default function AppDownload() {
             </div>
 
             {/* Store badges */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3">
               <button
                 type="button"
                 data-ocid="app-download.primary_button"
@@ -84,7 +85,7 @@ export default function AppDownload() {
                   size={24}
                   className="text-green-400 group-hover:text-green-300 flex-shrink-0"
                 />
-                <div>
+                <div className="text-left">
                   <div className="text-xs text-gray-400">GET IT ON</div>
                   <div className="text-sm font-bold">Google Play</div>
                 </div>
@@ -98,7 +99,7 @@ export default function AppDownload() {
                   size={24}
                   className="text-blue-400 group-hover:text-blue-300 flex-shrink-0"
                 />
-                <div>
+                <div className="text-left">
                   <div className="text-xs text-gray-400">DOWNLOAD ON THE</div>
                   <div className="text-sm font-bold">App Store</div>
                 </div>
@@ -106,13 +107,16 @@ export default function AppDownload() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-6 mt-8">
+            <div className="flex gap-6 mt-8 justify-center lg:justify-start">
               {[
                 { label: "4.8★", sub: "App Rating" },
                 { label: "1M+", sub: "Downloads" },
                 { label: "50K+", sub: "Active Users" },
               ].map((stat) => (
-                <div key={stat.label}>
+                <div
+                  key={stat.label}
+                  className="flex flex-col items-center lg:items-start"
+                >
                   <div className="text-xl sm:text-2xl font-black text-white">
                     {stat.label}
                   </div>
