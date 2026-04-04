@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 import AppDownload from "./components/AppDownload";
 import CreditScore from "./components/CreditScore";
+import EMICalculator from "./components/EMICalculator";
 import EasyLoans from "./components/EasyLoans";
 import Eligibility from "./components/Eligibility";
 import FAQ from "./components/FAQ";
@@ -12,52 +13,79 @@ import HeroBand from "./components/HeroBand";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
+import SocialProofTicker from "./components/SocialProofTicker";
+import StickyCTA from "./components/StickyCTA";
 import Testimonials from "./components/Testimonials";
 import TrustBanner from "./components/TrustBanner";
+import TrustBar from "./components/TrustBar";
 
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
 
   return (
     <div className="min-h-screen font-sans antialiased">
-      <Navbar onApplyNow={() => setModalOpen(true)} />
+      <Navbar onApplyNow={openModal} />
+
+      {/* Social proof ticker — immediately below Navbar */}
+      <div className="pt-16 lg:pt-20">
+        <SocialProofTicker />
+      </div>
+
       <main>
         {/* 1. Hero — first impression, emotional hook */}
-        <Hero onApplyNow={() => setModalOpen(true)} />
+        <Hero onApplyNow={openModal} />
+
+        {/* Gradient bridge: dark → light */}
+        <div className="h-10 bg-gradient-to-b from-[#0F172A] to-[#F8FAFC]" />
 
         {/* 2. HeroBand — trust signals, stats, and process preview */}
         <HeroBand />
 
-        {/* 3. Features — immediate value proposition after hero */}
-        <Features />
+        {/* 3. TrustBar — compliance / partner logos */}
+        <TrustBar />
 
-        {/* 4. HowItWorks — process clarity, how easy it is */}
-        <HowItWorks />
+        {/* 4. Features — immediate value proposition after hero */}
+        <Features onApplyNow={openModal} />
 
-        {/* 5. EasyLoans — inclusivity, loan growth gamification */}
-        <EasyLoans onApplyNow={() => setModalOpen(true)} />
+        {/* 5. HowItWorks — process clarity, how easy it is */}
+        <HowItWorks onApplyNow={openModal} />
 
-        {/* 6. Eligibility — who qualifies */}
+        {/* 6. EasyLoans — inclusivity, loan growth gamification */}
+        <EasyLoans onApplyNow={openModal} />
+
+        {/* 7. Eligibility — who qualifies */}
         <Eligibility />
 
-        {/* 7. CreditScore — long-term benefit, retention hook */}
-        <CreditScore />
+        {/* 8. EMI Calculator — interactive engagement */}
+        <EMICalculator openModal={openModal} />
 
-        {/* 8. Testimonials — social proof before trust commitment */}
-        <Testimonials />
+        {/* 9. CreditScore — long-term benefit, retention hook */}
+        <CreditScore onApplyNow={openModal} />
 
-        {/* 9. TrustBanner — emotional trust anchor */}
+        {/* 10. Testimonials — social proof before trust commitment */}
+        <Testimonials onApplyNow={openModal} />
+
+        {/* 11. TrustBanner — emotional trust anchor */}
         <TrustBanner />
 
-        {/* 10. AppDownload — conversion CTA */}
+        {/* Gradient bridge: dark → light */}
+        <div className="h-10 bg-gradient-to-b from-[#0F172A] to-[#F8FAFC]" />
+
+        {/* 12. AppDownload — conversion CTA */}
         <AppDownload />
 
-        {/* 11. FAQ — objection handling */}
-        <FAQ />
+        {/* 13. FAQ — objection handling */}
+        <FAQ onApplyNow={openModal} />
       </main>
-      <Footer />
+
+      <Footer onApplyNow={openModal} />
+
       <LoanModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <Toaster />
+
+      {/* Sticky CTA — fixed overlay */}
+      <StickyCTA openModal={openModal} />
     </div>
   );
 }

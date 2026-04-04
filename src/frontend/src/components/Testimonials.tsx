@@ -1,11 +1,17 @@
 import { Star } from "lucide-react";
 
+interface TestimonialsProps {
+  onApplyNow: () => void;
+}
+
 const testimonials = [
   {
     name: "Priya Sharma",
     initials: "PS",
     location: "Mumbai",
     rating: 5,
+    loanAmount: "₹50,000",
+    approvalTime: "3 hours",
     quote:
       "Got ₹50,000 in my account within 3 hours of applying! The entire process was so smooth. Highly recommend Rocket.Money to everyone.",
     color: "#2563EB",
@@ -15,8 +21,10 @@ const testimonials = [
     initials: "RM",
     location: "Delhi",
     rating: 5,
+    loanAmount: "₹30,000",
+    approvalTime: "4 minutes",
     quote:
-      "I was skeptical at first, but the minimal documents requirement and quick disbursal completely won me over. Amazing service!",
+      "I was skeptical at first, but minimal documents and quick disbursal completely won me over. Got ₹30,000 in 4 minutes!",
     color: "#2563EB",
   },
   {
@@ -24,17 +32,21 @@ const testimonials = [
     initials: "DN",
     location: "Bengaluru",
     rating: 5,
+    loanAmount: "₹75,000",
+    approvalTime: "4 hours",
     quote:
-      "Needed emergency funds for a medical situation. Rocket.Money came through in under 4 hours. Truly a lifesaver!",
+      "Needed emergency funds for a medical situation. Rocket.Money approved ₹75,000 in under 4 hours. Truly a lifesaver!",
     color: "#22C55E",
   },
   {
     name: "Arjun Patel",
     initials: "AP",
     location: "Ahmedabad",
-    rating: 4,
+    rating: 5,
+    loanAmount: "₹40,000",
+    approvalTime: "2 hours",
     quote:
-      "Transparent interest rates, zero hidden charges, flexible EMI options. This is how personal loans should work.",
+      "Transparent interest rates, zero hidden charges, flexible EMIs. Got ₹40,000 in 2 hours. This is how personal loans should work.",
     color: "#059669",
   },
   {
@@ -42,8 +54,10 @@ const testimonials = [
     initials: "SR",
     location: "Hyderabad",
     rating: 5,
+    loanAmount: "₹55,000",
+    approvalTime: "5 minutes",
     quote:
-      "The app is super intuitive. Applied in 10 minutes, got approved in 5, and money was in my account the same day!",
+      "Applied in 10 minutes, got approved in 5 minutes, and ₹55,000 was in my account the same day! Incredible experience.",
     color: "#2563EB",
   },
   {
@@ -51,8 +65,10 @@ const testimonials = [
     initials: "KK",
     location: "Chennai",
     rating: 5,
+    loanAmount: "₹1,00,000",
+    approvalTime: "3 hours",
     quote:
-      "Best fintech app for personal loans in India. Customer support is responsive and the process is completely paperless.",
+      "Best fintech app for personal loans in India. ₹1,00,000 approved in 3 hours, customer support is excellent and the process is paperless.",
     color: "#FF6A00",
   },
   {
@@ -60,8 +76,10 @@ const testimonials = [
     initials: "PG",
     location: "Pune",
     rating: 5,
+    loanAmount: "₹60,000",
+    approvalTime: "same day",
     quote:
-      "Incredible experience! Repayment reminders, easy EMI tracking, and zero stress throughout the entire loan tenure.",
+      "Incredible experience! ₹60,000 disbursed on the same day, repayment reminders, easy EMI tracking, and zero stress throughout.",
     color: "#0891B2",
   },
 ];
@@ -72,23 +90,46 @@ function TestimonialCard({
   testimonial: (typeof testimonials)[0];
 }) {
   return (
-    <div className="flex-shrink-0 w-72 lg:w-80 bg-white rounded-2xl p-6 shadow-card mx-3 border border-gray-100">
+    <div className="flex-shrink-0 w-72 lg:w-80 bg-white rounded-2xl p-6 shadow-card mx-3 border border-gray-100 relative">
+      {/* Verified badge */}
+      <span
+        className="absolute top-4 right-4 inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full"
+        style={{
+          background: "#F0FDF4",
+          color: "#22C55E",
+          border: "1px solid #BBF7D0",
+        }}
+      >
+        ✅ Verified Borrower
+      </span>
+
       {/* Stars */}
-      <div className="flex gap-0.5 mb-4">
+      <div className="flex gap-0.5 mb-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
-            // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length star rating
+            // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length 5-star rating
             key={i}
-            size={16}
+            size={14}
             fill={i < testimonial.rating ? "#FBBF24" : "#E5E7EB"}
             stroke={i < testimonial.rating ? "#FBBF24" : "#E5E7EB"}
           />
         ))}
       </div>
+
+      {/* Loan highlight */}
+      <div
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold mb-3"
+        style={{ background: "#EFF6FF", color: "#2563EB" }}
+      >
+        <span style={{ color: "#FF6A00" }}>{testimonial.loanAmount}</span>
+        <span style={{ color: "#94A3B8" }}>in {testimonial.approvalTime}</span>
+      </div>
+
       {/* Quote */}
       <p className="text-gray-600 text-sm leading-relaxed mb-5">
         &quot;{testimonial.quote}&quot;
       </p>
+
       {/* Author */}
       <div className="flex items-center gap-3">
         <div
@@ -108,27 +149,41 @@ function TestimonialCard({
   );
 }
 
-export default function Testimonials() {
-  // Duplicate for seamless loop
+export default function Testimonials({ onApplyNow }: TestimonialsProps) {
   const doubled = [...testimonials, ...testimonials];
 
   return (
     <section
       data-ocid="testimonials.section"
-      className="py-20 lg:py-28 bg-white overflow-hidden"
+      className="py-16 md:py-24 bg-white overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="text-center">
-          <span
-            className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#EFF6FF", color: "#2563EB" }}
-          >
-            Customer Stories
+          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+            CUSTOMER STORIES
           </span>
-          <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900">
             What Our <span style={{ color: "#2563EB" }}>Customers Say</span>
           </h2>
-          <p className="text-gray-500 mt-6 text-lg max-w-xl mx-auto">
+
+          {/* Satisfaction summary */}
+          <div className="flex items-center justify-center gap-2 mt-5 mb-3">
+            <div className="flex gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star display row
+                <Star key={i} size={18} fill="#FBBF24" stroke="#FBBF24" />
+              ))}
+            </div>
+            <span className="font-black text-lg" style={{ color: "#1E293B" }}>
+              4.8
+            </span>
+            <span className="text-sm" style={{ color: "#64748B" }}>
+              from 12,400+ verified reviews
+            </span>
+          </div>
+
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
             Over 50,000 happy customers trust Rocket.Money for their financial
             needs.
           </p>
@@ -137,7 +192,6 @@ export default function Testimonials() {
 
       {/* Carousel */}
       <div className="relative overflow-hidden">
-        {/* Fade edges */}
         <div
           className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
           style={{
@@ -150,10 +204,31 @@ export default function Testimonials() {
         />
 
         <div className="testimonial-track py-4">
-          {doubled.map((t, i) => (
-            <TestimonialCard key={`${t.name}-${i}`} testimonial={t} />
-          ))}
+          {doubled.map((t, i) => {
+            const key = `${t.name}-${i}`;
+            return <TestimonialCard key={key} testimonial={t} />;
+          })}
         </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="text-center mt-10 px-4">
+        <button
+          type="button"
+          data-ocid="testimonials.primary_button"
+          onClick={onApplyNow}
+          className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-white font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+          style={{
+            background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+            boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+          }}
+        >
+          Join 50,000+ Happy Borrowers →
+        </button>
+        <p className="text-xs text-slate-400 mt-3">
+          🔒 Safe &amp; Secure • RBI Regulated • ✅ No credit score required to
+          apply
+        </p>
       </div>
     </section>
   );

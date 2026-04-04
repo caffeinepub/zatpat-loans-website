@@ -2,6 +2,10 @@ import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
+interface FAQProps {
+  onApplyNow: () => void;
+}
+
 const faqs = [
   {
     q: "What is the maximum loan amount I can borrow?",
@@ -91,7 +95,7 @@ function FAQItem({
   );
 }
 
-export default function FAQ() {
+export default function FAQ({ onApplyNow }: FAQProps) {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true,
@@ -102,27 +106,25 @@ export default function FAQ() {
       id="contact"
       data-ocid="faq.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-20 lg:py-28 section-alt"
+      className="py-16 md:py-24 section-alt"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <span
-            className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#EFF6FF", color: "#2563EB" }}
-          >
-            Got Questions?
+          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+            GOT QUESTIONS?
           </span>
-          <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900">
             Frequently Asked <span style={{ color: "#2563EB" }}>Questions</span>
           </h2>
-          <p className="text-gray-500 mt-6 text-lg">
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
             Everything you need to know about Rocket.Money.
           </p>
         </div>
 
         {/* FAQ list */}
-        <div className="space-y-3">
+        <div className="space-y-3 mb-12">
           {faqs.map((faq, index) => (
             <FAQItem
               key={faq.q}
@@ -131,6 +133,40 @@ export default function FAQ() {
               isVisible={isVisible}
             />
           ))}
+        </div>
+
+        {/* Still have questions card */}
+        <div
+          data-ocid="faq.card"
+          className="rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{
+            background: "#EFF6FF",
+            border: "1px solid #BFDBFE",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.7s ease 0.7s, transform 0.7s ease 0.7s",
+          }}
+        >
+          <div>
+            <p className="font-bold text-base" style={{ color: "#1E293B" }}>
+              Still have questions?
+            </p>
+            <p className="text-sm mt-1" style={{ color: "#64748B" }}>
+              Our team is available 9 AM – 9 PM, 7 days a week
+            </p>
+          </div>
+          <button
+            type="button"
+            data-ocid="faq.primary_button"
+            onClick={onApplyNow}
+            className="flex-shrink-0 flex items-center gap-2 rounded-full px-7 py-3 font-bold text-white text-sm transition-all duration-200 hover:brightness-110 active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+              boxShadow: "0 4px 16px rgba(255,106,0,0.35)",
+            }}
+          >
+            Apply Anyway →
+          </button>
         </div>
       </div>
     </section>

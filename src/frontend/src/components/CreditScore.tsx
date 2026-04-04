@@ -13,26 +13,22 @@ import {
   useIntersectionObserver,
 } from "../hooks/useIntersectionObserver";
 
+interface CreditScoreProps {
+  onApplyNow: () => void;
+}
+
 // Animated SVG arc gauge
 function CreditGauge({ isVisible }: { isVisible: boolean }) {
   const scoreCount = useCounterAnimation(750, isVisible, 2200);
 
-  // SVG arc params
   const cx = 160;
   const cy = 160;
   const r = 120;
-  // Arc spans from 210° to 210+300° horseshoe shape
   const startAngleDeg = 210;
   const totalSweep = 300;
-
-  // Circumference of a full circle
   const circumference = 2 * Math.PI * r;
-
-  // Arc length for full 300 degrees
   const arcLength = (totalSweep / 360) * circumference;
-
-  // Score 750 out of 900. Score range: 300–900 = 600 points
-  const scoreFraction = isVisible ? (750 - 300) / 600 : 0; // 0.75
+  const scoreFraction = isVisible ? (750 - 300) / 600 : 0;
   const filledArcLength = scoreFraction * arcLength;
   const dashOffset = arcLength - filledArcLength;
 
@@ -52,14 +48,11 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
   }
 
   const trackPath = describeArc(startAngleDeg, startAngleDeg + totalSweep);
-
-  // Score label position on arc
   const scoreAngle = startAngleDeg + scoreFraction * totalSweep;
   const scoreDotPos = polarToCartesian(scoreAngle);
 
   return (
     <div className="relative flex flex-col items-center">
-      {/* Glowing backdrop */}
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
@@ -91,7 +84,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           </filter>
         </defs>
 
-        {/* Track (background arc) */}
         <path
           d={trackPath}
           fill="none"
@@ -100,7 +92,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           strokeLinecap="round"
         />
 
-        {/* Filled gradient arc */}
         <path
           d={trackPath}
           fill="none"
@@ -117,7 +108,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           filter="url(#glow)"
         />
 
-        {/* Score dot */}
         {isVisible && (
           <circle
             cx={scoreDotPos.x}
@@ -131,7 +121,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           />
         )}
 
-        {/* Center text */}
         <text
           x={cx}
           y={cy - 18}
@@ -154,7 +143,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           {scoreCount}
         </text>
 
-        {/* Excellent badge */}
         <rect
           x={cx - 46}
           y={cy + 48}
@@ -171,10 +159,9 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
           fontWeight="700"
           fill="white"
         >
-          ✦ Excellent
+          ❆ Excellent
         </text>
 
-        {/* Score range labels */}
         <text
           x="30"
           y="270"
@@ -238,7 +225,6 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-// Steps data
 const steps = [
   {
     num: 1,
@@ -274,7 +260,6 @@ const steps = [
   },
 ];
 
-// Stat cards
 const statCards = [
   {
     value: "₹0",
@@ -296,7 +281,6 @@ const statCards = [
   },
 ];
 
-// Floating particles config (static to avoid recreating)
 const particles = [
   { id: "p1", left: "10%", top: "20%", size: 6, color: "#2563EB", delay: "0s" },
   {
@@ -326,7 +310,7 @@ const particles = [
   },
 ];
 
-export default function CreditScore() {
+export default function CreditScore({ onApplyNow }: CreditScoreProps) {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true,
@@ -337,7 +321,7 @@ export default function CreditScore() {
       id="credit-score"
       data-ocid="creditscore.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-20 lg:py-28 bg-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-white relative overflow-hidden"
     >
       {/* Background decorations */}
       <div
@@ -354,14 +338,6 @@ export default function CreditScore() {
           background:
             "radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 70%)",
           transform: "translate(30%, 30%)",
-        }}
-      />
-      <div
-        className="absolute top-1/2 right-1/4 w-48 h-48 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(255,106,0,0.05) 0%, transparent 70%)",
-          transform: "translateY(-50%)",
         }}
       />
 
@@ -393,21 +369,15 @@ export default function CreditScore() {
             transition: "opacity 0.7s ease 0ms, transform 0.7s ease 0ms",
           }}
         >
-          <span
-            className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
-            style={{ background: "#EFF6FF", color: "#2563EB" }}
-          >
-            <Star size={12} />
-            Credit Score
+          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+            BUILD YOUR FUTURE
           </span>
-          <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900">
             Build Your <span style={{ color: "#FF6A00" }}>Credit Score</span>{" "}
             While Getting Loans
           </h2>
-          <p
-            className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed"
-            style={{ color: "rgba(30,41,59,0.7)" }}
-          >
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
             Every timely repayment with Rocket.Money is reported to credit
             bureaus — turning your loan journey into a{" "}
             <span style={{ color: "#2563EB", fontWeight: 600 }}>
@@ -437,7 +407,6 @@ export default function CreditScore() {
                   "0 20px 60px rgba(37,99,235,0.10), 0 4px 16px rgba(0,0,0,0.04)",
               }}
             >
-              {/* Top badge */}
               <div className="flex items-center justify-between mb-4">
                 <span
                   className="text-xs font-bold px-3 py-1 rounded-full"
@@ -472,7 +441,6 @@ export default function CreditScore() {
                 data-ocid={`creditscore.item.${index + 1}`}
                 className="relative"
               >
-                {/* Dashed connector line */}
                 {index < steps.length - 1 && (
                   <div
                     className="absolute z-0"
@@ -498,7 +466,6 @@ export default function CreditScore() {
                     transition: `opacity 0.6s ease ${0.2 + index * 0.15}s, transform 0.6s ease ${0.2 + index * 0.15}s`,
                   }}
                 >
-                  {/* Number circle */}
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0 z-10"
                     style={{
@@ -509,7 +476,6 @@ export default function CreditScore() {
                     {step.num}
                   </div>
 
-                  {/* Content */}
                   <div className="flex-1 pt-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h3
@@ -538,7 +504,7 @@ export default function CreditScore() {
           </div>
         </div>
 
-        {/* Bottom stat cards */}
+        {/* Stat cards */}
         <div className="grid sm:grid-cols-3 gap-6">
           {statCards.map((stat, index) => (
             <div
@@ -554,7 +520,6 @@ export default function CreditScore() {
                 transition: `opacity 0.7s ease ${0.5 + index * 0.12}s, transform 0.7s ease ${0.5 + index * 0.12}s`,
               }}
             >
-              {/* Glow decoration */}
               <div
                 className="absolute top-0 right-0 w-24 h-24 rounded-full pointer-events-none"
                 style={{
@@ -563,15 +528,12 @@ export default function CreditScore() {
                   transform: "translate(30%, -30%)",
                 }}
               />
-
-              {/* Icon */}
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                 style={{ background: "rgba(37,99,235,0.15)" }}
               >
                 <stat.icon size={18} style={{ color: "#FF6A00" }} />
               </div>
-
               <div
                 className="text-3xl font-black mb-1"
                 style={{ color: "#FF6A00" }}
@@ -587,8 +549,6 @@ export default function CreditScore() {
               >
                 {stat.sub}
               </div>
-
-              {/* Hover border overlay */}
               <div
                 className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ border: "1px solid rgba(37,99,235,0.4)" }}
@@ -621,6 +581,33 @@ export default function CreditScore() {
               </span>
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div
+          className="text-center mt-10"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.7s ease 1.0s, transform 0.7s ease 1.0s",
+          }}
+        >
+          <button
+            type="button"
+            data-ocid="creditscore.primary_button"
+            onClick={onApplyNow}
+            className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-white font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+              boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+            }}
+          >
+            Apply &amp; Build Credit →
+          </button>
+          <p className="text-xs text-slate-400 mt-3">
+            Most applicants see score improvement within 3 months
+          </p>
+          <Star size={0} className="hidden" />
         </div>
       </div>
     </section>

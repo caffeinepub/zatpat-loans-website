@@ -151,13 +151,8 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Shimmer sweep */}
       <div style={shimmerStyle} />
-
-      {/* Floating sparkle dot */}
       <div style={sparkleStyle} />
-
-      {/* Large background orb */}
       <div
         style={{
           position: "absolute",
@@ -182,13 +177,9 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
           pointerEvents: "none",
         }}
       />
-
-      {/* Icon */}
       <div style={iconWrapStyle}>
         <Icon size={26} color="white" />
       </div>
-
-      {/* Text */}
       <h3
         style={{
           color: "#ffffff",
@@ -213,7 +204,11 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
   );
 }
 
-export default function Features() {
+interface FeaturesProps {
+  onApplyNow: () => void;
+}
+
+export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true,
@@ -252,21 +247,9 @@ export default function Features() {
             transition: "opacity 0.7s ease, transform 0.7s ease",
           }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: "0.7rem",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "#2563EB",
-              background: "#EFF6FF",
-              padding: "6px 16px",
-              borderRadius: "999px",
-              marginBottom: "12px",
-            }}
-          >
-            Our Benefits
+          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+            WHY ROCKET.MONEY
           </span>
           <h2
             style={{
@@ -276,7 +259,6 @@ export default function Features() {
               lineHeight: 1.15,
               marginBottom: "16px",
             }}
-            className="section-title-underline"
           >
             Why Choose <span style={{ color: "#FF6A00" }}>Rocket.Money</span>?
           </h2>
@@ -289,7 +271,7 @@ export default function Features() {
               lineHeight: 1.7,
             }}
           >
-            We've reimagined personal lending to make it faster, simpler, and
+            We’ve reimagined personal lending to make it faster, simpler, and
             more transparent than ever before.
           </p>
         </div>
@@ -300,6 +282,7 @@ export default function Features() {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             gap: "24px",
+            marginBottom: "40px",
           }}
         >
           {CARD_CONFIGS.map((config, index) => (
@@ -310,6 +293,34 @@ export default function Features() {
               isVisible={isVisible}
             />
           ))}
+        </div>
+
+        {/* Secondary CTA link */}
+        <div
+          style={{
+            textAlign: "center",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s",
+          }}
+        >
+          <button
+            type="button"
+            data-ocid="features.secondary_button"
+            onClick={() => {
+              const el = document.querySelector("#how-it-works");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200"
+            style={{
+              color: "#2563EB",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            See How It Works →
+          </button>
         </div>
       </div>
     </section>

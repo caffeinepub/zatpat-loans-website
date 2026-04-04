@@ -1,5 +1,9 @@
 import { SiFacebook, SiInstagram, SiLinkedin, SiX } from "react-icons/si";
 
+interface FooterProps {
+  onApplyNow: () => void;
+}
+
 const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#features" },
@@ -16,18 +20,37 @@ const services = [
   { label: "Education Loans", href: "#" },
 ];
 
-export default function Footer() {
+export default function Footer({ onApplyNow }: FooterProps) {
   const year = new Date().getFullYear();
   const utmLink = `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`;
 
   return (
     <footer
       data-ocid="footer.section"
-      className="pt-16 pb-0"
+      className="pt-0 pb-0"
       style={{ background: "#F8FAFC" }}
     >
+      {/* Trust logos strip — top of footer */}
+      <div
+        className="w-full py-3 px-4"
+        style={{ background: "#E2E8F0", borderBottom: "1px solid #CBD5E1" }}
+      >
+        <div
+          className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs font-semibold"
+          style={{ color: "#475569" }}
+        >
+          <span>🏛️ RBI Registered NBFC</span>
+          <span className="text-slate-300">|</span>
+          <span>🔒 ISO 27001</span>
+          <span className="text-slate-300">|</span>
+          <span>🛡️ 256-bit SSL Secured</span>
+          <span className="text-slate-300">|</span>
+          <span>📊 CIBIL Partner</span>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gray-200">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12 border-b border-gray-200">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-0.5 mb-4">
@@ -41,7 +64,7 @@ export default function Footer() {
               <span className="text-2xl font-black text-gray-900">Money</span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              India's fastest and most trusted instant personal loan platform.
+              India’s fastest and most trusted instant personal loan platform.
               Get funds in your account within hours, not days.
             </p>
             <div className="flex gap-3">
@@ -151,6 +174,28 @@ export default function Footer() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Pre-copyright CTA row */}
+        <div
+          className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderBottom: "1px solid #E2E8F0" }}
+        >
+          <p className="text-base font-bold" style={{ color: "#1E293B" }}>
+            Ready to get your loan?
+          </p>
+          <button
+            type="button"
+            data-ocid="footer.primary_button"
+            onClick={onApplyNow}
+            className="flex items-center gap-2 rounded-full px-8 py-3 font-bold text-white text-sm transition-all duration-200 hover:brightness-110 active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+              boxShadow: "0 4px 16px rgba(255,106,0,0.35)",
+            }}
+          >
+            Apply Now →
+          </button>
         </div>
 
         {/* Bottom bar */}

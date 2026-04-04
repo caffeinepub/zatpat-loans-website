@@ -11,7 +11,7 @@ export default function AppDownload() {
     <section
       data-ocid="app-download.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-20 lg:py-28 overflow-hidden"
+      className="py-16 md:py-24 overflow-hidden"
       style={{
         background:
           "linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #163558 100%)",
@@ -27,14 +27,52 @@ export default function AppDownload() {
               transition: "opacity 0.8s ease 0ms, transform 0.8s ease 0ms",
             }}
           >
-            <span className="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full bg-white/20 text-white">
-              Download Now
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-full bg-white/20 text-white">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 inline-block animate-pulse" />
+              DOWNLOAD NOW
             </span>
-            <h2 className="text-3xl lg:text-5xl font-black text-white mb-4 leading-tight">
-              Download the <span className="text-white/80">Rocket.Money</span>{" "}
-              App
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+              Download &amp; Apply in{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #FF6A00, #FBBF24)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                5 Minutes
+              </span>
             </h2>
-            <p className="text-white/80 text-lg mb-8 leading-relaxed">
+            <p className="text-white/70 text-base font-semibold mb-2">
+              Free Forever — No subscription, no hidden charges.
+            </p>
+
+            {/* Rating badges */}
+            <div className="flex items-center gap-4 mb-6">
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                style={{
+                  background: "rgba(34,197,94,0.15)",
+                  color: "#86EFAC",
+                  border: "1px solid rgba(34,197,94,0.3)",
+                }}
+              >
+                ★ 4.8 on Google Play
+              </span>
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                style={{
+                  background: "rgba(96,165,250,0.15)",
+                  color: "#93C5FD",
+                  border: "1px solid rgba(96,165,250,0.3)",
+                }}
+              >
+                ★ 4.7 on App Store
+              </span>
+            </div>
+
+            <p className="text-white/60 text-sm mb-8 leading-relaxed">
               Experience the fastest loan application process at your
               fingertips. Available on both Android and iOS.
             </p>
@@ -97,7 +135,6 @@ export default function AppDownload() {
               transition: "opacity 0.8s ease 200ms, transform 0.8s ease 200ms",
             }}
           >
-            {/* Glow */}
             <div
               className="absolute inset-0 rounded-full opacity-40 blur-3xl pointer-events-none"
               style={{

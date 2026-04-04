@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
-// Particle config — static to avoid recreating on render
+// Particle config
 const PARTICLES = [
   { id: "tb-p1", left: "6%", top: "18%", size: 5, delay: "0s", dur: "3.8s" },
   { id: "tb-p2", left: "18%", top: "72%", size: 7, delay: "0.6s", dur: "4.5s" },
@@ -18,8 +19,19 @@ const WORDS = [
   { text: "Here for You.", delay: "420ms" },
 ];
 
+const TRUST_STATS = [
+  { value: "₹500 Cr+", label: "Disbursed", color: "#FF6A00" },
+  { value: "50,000+", label: "Loans", color: "#22C55E" },
+  { value: "4.8★", label: "Rating", color: "#FBBF24" },
+  { value: "< 5 Min", label: "Approval", color: "#60A5FA" },
+];
+
 export default function TrustBanner() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { ref: statsRef, isVisible: statsVisible } = useIntersectionObserver({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
   const [visible, setVisible] = useState(false);
   const [ovalDrawn, setOvalDrawn] = useState(false);
   const [lineVisible, setLineVisible] = useState(false);
@@ -72,6 +84,10 @@ export default function TrustBanner() {
         @keyframes tb-oval-draw {
           from { stroke-dashoffset: ${circumference}; }
           to   { stroke-dashoffset: 0; }
+        }
+        @keyframes tb-stat-in {
+          from { opacity: 0; transform: translateY(20px) scale(0.92); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         .tb-word {
           display: inline-block;
@@ -167,7 +183,7 @@ export default function TrustBanner() {
 
         {/* Main content */}
         <div className="relative z-10 flex flex-col items-center justify-center px-6 py-20 text-center w-full max-w-6xl mx-auto">
-          {/* Headline — word by word */}
+          {/* Headline */}
           <h2
             className="leading-tight tracking-tight"
             style={{
@@ -227,7 +243,6 @@ export default function TrustBanner() {
                           animationDuration: "1.25s",
                         }}
                       />
-                      {/* Inner offset ellipse — double-stroke hand-drawn feel */}
                       <ellipse
                         cx={cx + 3}
                         cy={cy + 1}
@@ -258,12 +273,12 @@ export default function TrustBanner() {
             ))}
           </h2>
 
-          {/* Golden underline accent */}
+          {/* Golden underline */}
           <div
             className={`tb-underline${lineVisible ? " tb-visible" : ""}`}
             style={{
               height: "3px",
-              marginTop: "clamp(1.5rem, 3vw, 2.5rem)",
+              marginTop: "clamp(1.5rem, 3vw, 2rem)",
               background:
                 "linear-gradient(90deg, #EAB308 0%, #FDE68A 50%, #EAB308 100%)",
               borderRadius: "2px",
@@ -271,7 +286,44 @@ export default function TrustBanner() {
             }}
           />
 
-          {/* Subtle tagline */}
+          {/* Trust stat pills — staggered fade-in */}
+          <div
+            ref={statsRef as React.RefObject<HTMLDivElement>}
+            className="flex flex-wrap items-center justify-center gap-3 mt-10"
+          >
+            {TRUST_STATS.map((stat, i) => (
+              <div
+                key={stat.label}
+                data-ocid={`trust.item.${i + 1}`}
+                className="flex flex-col items-center px-5 py-3 rounded-2xl"
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: `1px solid ${stat.color}44`,
+                  boxShadow: `0 0 16px ${stat.color}22`,
+                  opacity: statsVisible ? 1 : 0,
+                  transform: statsVisible
+                    ? "translateY(0) scale(1)"
+                    : "translateY(20px) scale(0.92)",
+                  transition: `opacity 0.6s ease ${i * 120}ms, transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 120}ms`,
+                }}
+              >
+                <span
+                  className="font-black text-lg"
+                  style={{ color: stat.color }}
+                >
+                  {stat.value}
+                </span>
+                <span
+                  className="text-xs font-medium"
+                  style={{ color: "rgba(241,245,249,0.6)" }}
+                >
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Tagline */}
           <p
             className="mt-6"
             style={{
@@ -289,7 +341,7 @@ export default function TrustBanner() {
           </p>
         </div>
 
-        {/* Decorative corner accents */}
+        {/* Decorative corners */}
         <div
           className="absolute top-0 left-0 pointer-events-none"
           style={{

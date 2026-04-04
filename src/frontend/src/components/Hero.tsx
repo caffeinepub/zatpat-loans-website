@@ -7,6 +7,7 @@ import {
   Star,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 interface HeroProps {
   onApplyNow: () => void;
@@ -55,6 +56,46 @@ const SPARKLE_DOTS = [
   },
 ];
 
+function LiveLoanCounter() {
+  const [count, setCount] = useState(243);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 4000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6, duration: 0.5 }}
+      className="inline-flex items-center gap-2 mt-6 px-4 py-2 rounded-full text-sm font-semibold"
+      style={{
+        background: "rgba(34,197,94,0.12)",
+        border: "1px solid rgba(34,197,94,0.3)",
+        color: "#86EFAC",
+      }}
+    >
+      <span
+        className="w-2 h-2 rounded-full flex-shrink-0"
+        style={{
+          background: "#22C55E",
+          boxShadow: "0 0 6px #22C55E",
+          animation: "pulse 1.5s ease-in-out infinite",
+        }}
+      />
+      <span style={{ fontVariantNumeric: "tabular-nums" }}>
+        ✅ {count} loans approved today
+      </span>
+    </motion.div>
+  );
+}
+
 export default function Hero({ onApplyNow }: HeroProps) {
   return (
     <section
@@ -101,7 +142,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
         }}
       />
 
-      {/* Sparkle / particle animation keyframes */}
+      {/* Keyframes */}
       <style>{`
         @keyframes sparkle-float {
           0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
@@ -115,9 +156,18 @@ export default function Hero({ onApplyNow }: HeroProps) {
           0% { transform: translate(-50%, -45%) rotate(0deg); }
           100% { transform: translate(-50%, -45%) rotate(360deg); }
         }
+        @keyframes cta-bounce-once {
+          0%   { transform: scale(1); }
+          40%  { transform: scale(1.05); }
+          70%  { transform: scale(0.98); }
+          100% { transform: scale(1); }
+        }
+        .cta-bounce {
+          animation: cta-bounce-once 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
+        }
       `}</style>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24 lg:py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text + CTAs */}
           <motion.div
@@ -142,7 +192,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             </motion.div>
 
             <h1
-              className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6"
+              className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-4"
               style={{ color: "#F8FAFC" }}
             >
               Get Instant{" "}
@@ -160,8 +210,11 @@ export default function Hero({ onApplyNow }: HeroProps) {
               in Minutes
             </h1>
 
+            {/* Live counter */}
+            <LiveLoanCounter />
+
             <p
-              className="text-lg lg:text-xl mb-8 max-w-xl leading-relaxed"
+              className="text-lg lg:text-xl mt-6 mb-6 max-w-xl leading-relaxed"
               style={{ color: "rgba(148, 163, 184, 0.9)" }}
             >
               Quick approvals, minimal paperwork, 100% digital process. Get
@@ -169,7 +222,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             </p>
 
             {/* Key points */}
-            <div className="flex flex-wrap gap-x-6 gap-y-3 mb-10">
+            <div className="flex flex-wrap gap-x-6 gap-y-3 mb-8">
               {[
                 "₹1K – ₹5L Loans",
                 "5-Min Approval",
@@ -203,7 +256,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 type="button"
                 data-ocid="hero.primary_button"
                 onClick={onApplyNow}
-                className="btn-brand flex items-center gap-2 text-base px-8 py-4"
+                className="cta-bounce btn-brand flex items-center gap-2 text-base px-8 py-4"
               >
                 Apply Now <ArrowRight size={18} />
               </button>
@@ -233,12 +286,20 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </button>
             </motion.div>
 
+            {/* Trust micro-copy */}
+            <p
+              className="mt-4 text-xs"
+              style={{ color: "rgba(148,163,184,0.7)" }}
+            >
+              No credit score required • 100% online • Same day disbursal
+            </p>
+
             {/* Trust badges row */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap items-center gap-5 mt-10 pt-8"
+              className="flex flex-wrap items-center gap-5 mt-8 pt-8"
               style={{ borderTop: "1px solid rgba(37,99,235,0.25)" }}
             >
               {[
@@ -344,7 +405,6 @@ export default function Hero({ onApplyNow }: HeroProps) {
                       "drop-shadow(0 20px 40px rgba(37,99,235,0.3)) drop-shadow(0 0 60px rgba(255,106,0,0.2))",
                   }}
                 />
-                {/* Subtle dark gradient overlay at bottom for badge readability */}
                 <div
                   className="absolute inset-0 rounded-2xl pointer-events-none"
                   style={{
@@ -355,7 +415,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </div>
 
-            {/* Floating badge: 5 Min Approval (top-left) */}
+            {/* Floating badge: 5 Min Approval */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7, x: -20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -392,7 +452,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating badge: 100% Safe (top-right) */}
+            {/* Floating badge: 100% Safe */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -429,7 +489,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating card: Loan Approved (bottom-right) */}
+            {/* Floating card: Loan Approved */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -459,7 +519,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating card: Rating (bottom-left) */}
+            {/* Floating card: Rating */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

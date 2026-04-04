@@ -2,6 +2,10 @@ import { Check, Download, IndianRupee, UserCheck } from "lucide-react";
 import { useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
+interface HowItWorksProps {
+  onApplyNow: () => void;
+}
+
 const STEP_COLORS = [
   {
     bg: "#2563EB",
@@ -9,6 +13,7 @@ const STEP_COLORS = [
     ring: "rgba(37, 99, 235, 0.2)",
     shadow: "0 8px 32px rgba(37, 99, 235, 0.35)",
     label: "blue",
+    time: "2 min",
   },
   {
     bg: "#FF6A00",
@@ -16,6 +21,7 @@ const STEP_COLORS = [
     ring: "rgba(255, 106, 0, 0.2)",
     shadow: "0 8px 32px rgba(255, 106, 0, 0.35)",
     label: "orange",
+    time: "1 min",
   },
   {
     bg: "#22C55E",
@@ -23,6 +29,7 @@ const STEP_COLORS = [
     ring: "rgba(34, 197, 94, 0.2)",
     shadow: "0 8px 32px rgba(34, 197, 94, 0.35)",
     label: "green",
+    time: "Same day",
   },
 ];
 
@@ -72,9 +79,13 @@ const KEYFRAMES = `
   from { opacity: 0; transform: translateX(-8px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
 `;
 
-export default function HowItWorks() {
+export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
   const { ref, isVisible } = useIntersectionObserver({
     threshold: 0.15,
     triggerOnce: true,
@@ -90,7 +101,7 @@ export default function HowItWorks() {
         data-ocid="how-it-works.section"
         ref={ref as React.RefObject<HTMLElement>}
         style={{ background: "#F8FAFC", overflow: "hidden" }}
-        className="py-20 lg:py-32 relative"
+        className="py-16 md:py-24 relative"
       >
         {/* Subtle background blobs */}
         <div
@@ -130,45 +141,14 @@ export default function HowItWorks() {
               transition: "opacity 0.7s ease, transform 0.7s ease",
             }}
           >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "#EFF6FF",
-                color: "#2563EB",
-                fontSize: "11px",
-                fontWeight: 800,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                padding: "6px 16px",
-                borderRadius: "999px",
-                marginBottom: "16px",
-                border: "1px solid rgba(37,99,235,0.2)",
-              }}
-            >
-              <span
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  borderRadius: "50%",
-                  background: "#2563EB",
-                  animation: isVisible
-                    ? "dotPulse 1.8s ease-in-out infinite"
-                    : "none",
-                }}
-              />
-              Simple Process
+            <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+              SIMPLE PROCESS
             </span>
 
             <h2
-              style={{
-                fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                fontWeight: 900,
-                color: "#1E293B",
-                lineHeight: 1.15,
-                margin: 0,
-              }}
+              className="text-3xl md:text-5xl font-bold"
+              style={{ color: "#1E293B" }}
             >
               How It{" "}
               <span
@@ -184,30 +164,34 @@ export default function HowItWorks() {
               </span>
             </h2>
 
-            <div
-              style={{
-                width: "56px",
-                height: "4px",
-                background: "linear-gradient(90deg, #2563EB, #FF6A00)",
-                borderRadius: "2px",
-                margin: "14px auto 0",
-              }}
-            />
-
-            <p
-              style={{
-                marginTop: "20px",
-                fontSize: "1.05rem",
-                color: "rgba(30, 41, 59, 0.68)",
-                maxWidth: "480px",
-                margin: "20px auto 0",
-                lineHeight: 1.7,
-              }}
-            >
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
               Getting a loan has never been this straightforward.{" "}
               <strong style={{ color: "#1E293B" }}>3 easy steps</strong> and
               you&apos;re done.
             </p>
+          </div>
+
+          {/* Animated progress bar across steps */}
+          <div
+            className="hidden md:block mb-4 mx-auto max-w-lg"
+            style={{
+              height: "4px",
+              borderRadius: "2px",
+              background: "#E2E8F0",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                height: "100%",
+                borderRadius: "2px",
+                background: "linear-gradient(90deg, #2563EB, #FF6A00, #22C55E)",
+                width: isVisible ? "100%" : "0%",
+                transition: isVisible
+                  ? "width 1.6s cubic-bezier(0.4,0,0.2,1) 0.4s"
+                  : "none",
+              }}
+            />
           </div>
 
           {/* Desktop Stepper */}
@@ -289,7 +273,7 @@ export default function HowItWorks() {
                       onMouseEnter={() => setHoveredStep(index)}
                       onMouseLeave={() => setHoveredStep(null)}
                     >
-                      {/* Icon circle with pulse ring */}
+                      {/* Icon circle */}
                       <div
                         style={{
                           position: "relative",
@@ -302,7 +286,6 @@ export default function HowItWorks() {
                           zIndex: 2,
                         }}
                       >
-                        {/* Pulse ring */}
                         <div
                           style={{
                             position: "absolute",
@@ -315,7 +298,6 @@ export default function HowItWorks() {
                                 : "none",
                           }}
                         />
-                        {/* Outer ring */}
                         <div
                           style={{
                             position: "absolute",
@@ -325,7 +307,6 @@ export default function HowItWorks() {
                             transition: "border-color 0.3s",
                           }}
                         />
-                        {/* Main icon circle */}
                         <div
                           style={{
                             width: "80px",
@@ -352,7 +333,6 @@ export default function HowItWorks() {
                             }}
                           />
                         </div>
-                        {/* Step number badge */}
                         <div
                           style={{
                             position: "absolute",
@@ -376,7 +356,7 @@ export default function HowItWorks() {
                         </div>
                       </div>
 
-                      {/* Check pop-in when visible */}
+                      {/* Check pop-in */}
                       {isVisible && (
                         <div
                           style={{
@@ -400,12 +380,29 @@ export default function HowItWorks() {
                           fontSize: "1.1rem",
                           fontWeight: 800,
                           color: "#1E293B",
-                          marginBottom: "10px",
+                          marginBottom: "6px",
                           letterSpacing: "-0.01em",
                         }}
                       >
                         {step.title}
                       </h3>
+
+                      {/* Time label */}
+                      <span
+                        style={{
+                          display: "inline-block",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: color.bg,
+                          background: `rgba(${color.bg === "#2563EB" ? "37,99,235" : color.bg === "#FF6A00" ? "255,106,0" : "34,197,94"},0.1)`,
+                          padding: "2px 10px",
+                          borderRadius: "999px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        ⏱ {color.time}
+                      </span>
+
                       <p
                         style={{
                           fontSize: "0.9rem",
@@ -418,7 +415,7 @@ export default function HowItWorks() {
                         {step.description}
                       </p>
 
-                      {/* Time tag */}
+                      {/* Tag */}
                       <span
                         style={{
                           display: "inline-flex",
@@ -438,7 +435,7 @@ export default function HowItWorks() {
                             : "none",
                         }}
                       >
-                        ⏱ {step.tag}
+                        {step.tag}
                       </span>
                     </div>
                   );
@@ -468,7 +465,6 @@ export default function HowItWorks() {
                     transition: `opacity 0.6s ease ${delay}ms, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`,
                   }}
                 >
-                  {/* Left rail */}
                   <div
                     style={{
                       display: "flex",
@@ -477,7 +473,6 @@ export default function HowItWorks() {
                       flexShrink: 0,
                     }}
                   >
-                    {/* Icon circle */}
                     <div
                       style={{
                         width: "52px",
@@ -514,7 +509,6 @@ export default function HowItWorks() {
                         {step.number}
                       </div>
                     </div>
-                    {/* Connector line */}
                     {!isLast && (
                       <div
                         style={{
@@ -531,7 +525,6 @@ export default function HowItWorks() {
                     )}
                   </div>
 
-                  {/* Content */}
                   <div
                     style={{
                       paddingBottom: isLast ? "0" : "28px",
@@ -577,6 +570,32 @@ export default function HowItWorks() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Bottom CTA */}
+          <div
+            className="text-center mt-16"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(24px)",
+              transition: "opacity 0.7s ease 0.9s, transform 0.7s ease 0.9s",
+            }}
+          >
+            <p className="text-sm mb-4" style={{ color: "#64748B" }}>
+              ⚡ Processing under 4 minutes for most applicants
+            </p>
+            <button
+              type="button"
+              data-ocid="how-it-works.primary_button"
+              onClick={onApplyNow}
+              className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-white font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+              style={{
+                background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+                boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+              }}
+            >
+              Start My Application →
+            </button>
           </div>
         </div>
       </section>
