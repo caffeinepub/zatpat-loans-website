@@ -16,16 +16,16 @@ const SCORE_CARDS = [
     borderColor: "rgba(239,68,68,0.3)",
   },
   {
-    range: "300 – 579",
-    label: "Poor Credit",
+    range: "580 – 699",
+    label: "Fair Credit",
     barColor: "#F59E0B",
     barWidth: "45%",
     bgGlow: "rgba(245,158,11,0.12)",
     borderColor: "rgba(245,158,11,0.3)",
   },
   {
-    range: "580+",
-    label: "Fair / Good Credit",
+    range: "700+",
+    label: "Good Credit",
     barColor: "#22C55E",
     barWidth: "75%",
     bgGlow: "rgba(34,197,94,0.12)",
@@ -153,7 +153,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
               }}
             >
               <span style={{ color: "#F1F5F9", display: "block" }}>
-                Bad CIBIL?
+                Low CIBIL?
               </span>
               <span
                 style={{
@@ -353,7 +353,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                     fontWeight: 500,
                   }}
                 >
-                  with Bad CIBIL — Approved &amp; Funded
+                  with Low CIBIL — Approved &amp; Funded
                 </div>
               </div>
             </div>

@@ -15,7 +15,7 @@ const personas = [
   {
     icon: "⚙️",
     name: "Ramesh – Worker",
-    quote: "Got ₹3,000 when I needed it most. Bad CIBIL, still approved!",
+    quote: "Got ₹3,000 when I needed it most. Low CIBIL, still approved!",
     tag: "Factory Worker",
     color: "from-blue-700 to-indigo-700",
   },
@@ -255,7 +255,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               className="mt-3 text-sm sm:text-base max-w-xl mx-auto leading-relaxed px-2"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
-              No CIBIL? Bad CIBIL? Zero credit history? We don't care. Up to
+              No CIBIL? Low CIBIL? Zero credit history? We don't care. Up to
               ₹5,000 instantly for every Indian.
             </p>
             <div
@@ -580,7 +580,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               </span>
             </button>
             <p className="text-xs text-slate-400 mt-3">
-              ✓ No CIBIL check &nbsp;·&nbsp; ✓ Bad credit welcome &nbsp;·&nbsp;
+              ✓ No CIBIL check &nbsp;·&nbsp; ✓ Low credit welcome &nbsp;·&nbsp;
               ✓ Max ₹5,000 loan
             </p>
           </div>

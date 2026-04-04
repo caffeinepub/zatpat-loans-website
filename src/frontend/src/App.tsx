@@ -49,7 +49,7 @@ export default function App() {
         {/* 4. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />
 
-        {/* 5. BadCIBILBanner — unmissable USP: bad CIBIL still approved */}
+        {/* 5. BadCIBILBanner — unmissable USP: low CIBIL still approved */}
         <BadCIBILBanner onApplyNow={openModal} />
 
         {/* 6. HowItWorks — process clarity, how easy it is */}

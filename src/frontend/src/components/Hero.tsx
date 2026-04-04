@@ -202,7 +202,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 mb-4 sm:mb-6 max-w-xl leading-relaxed"
               style={{ color: "rgba(148, 163, 184, 0.9)" }}
             >
-              Bad CIBIL? No CIBIL? No problem. Get up to ₹5,000 instantly — 100%
+              Low CIBIL? No CIBIL? No problem. Get up to ₹5,000 instantly — 100%
               digital, zero paperwork, same day disbursal.
             </p>
 
@@ -268,7 +268,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="mt-3 text-xs"
               style={{ color: "rgba(148,163,184,0.7)" }}
             >
-              No CIBIL check • Bad credit welcome • Same day disbursal
+              No CIBIL check • Low credit welcome • Same day disbursal
             </p>
 
             {/* Trust badges row */}
