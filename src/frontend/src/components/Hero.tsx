@@ -264,7 +264,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             </motion.div>
           </motion.div>
 
-          {/* Right: Indian model + floating cards + animated decorations */}
+          {/* Right: Family banner + floating cards + animated decorations */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -273,20 +273,20 @@ export default function Hero({ onApplyNow }: HeroProps) {
           >
             {/* Outer pulsing blue glow ring */}
             <div
-              className="absolute inset-0 rounded-full pointer-events-none"
+              className="absolute inset-0 rounded-2xl pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse 70% 80% at 50% 55%, rgba(37,99,235,0.38) 0%, transparent 65%)",
+                  "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(37,99,235,0.28) 0%, transparent 70%)",
                 animation: "ring-pulse 4s ease-in-out infinite",
               }}
             />
 
-            {/* Orange glow ring (matches model's outfit) */}
+            {/* Orange glow ring */}
             <div
-              className="absolute inset-0 rounded-full pointer-events-none"
+              className="absolute inset-0 rounded-2xl pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse 55% 65% at 55% 60%, rgba(255,106,0,0.22) 0%, transparent 65%)",
+                  "radial-gradient(ellipse 70% 60% at 50% 55%, rgba(255,106,0,0.18) 0%, transparent 65%)",
                 animation: "ring-pulse 4s ease-in-out infinite 1.5s",
               }}
             />
@@ -325,17 +325,34 @@ export default function Hero({ onApplyNow }: HeroProps) {
               />
             ))}
 
-            {/* Model image with float animation */}
-            <div className="animate-float relative z-10">
-              <img
-                src="/assets/generated/hero-indian-model-transparent.dim_500x650.png"
-                alt="Zatpat.loans - Easy Personal Loans for Indians"
-                className="w-64 lg:w-80 xl:w-96 object-contain drop-shadow-2xl"
+            {/* Family banner image */}
+            <div className="animate-float relative z-10 w-full">
+              <div
+                className="relative rounded-2xl overflow-hidden"
                 style={{
-                  filter:
-                    "drop-shadow(0 20px 40px rgba(37,99,235,0.3)) drop-shadow(0 0 60px rgba(255,106,0,0.2))",
+                  boxShadow:
+                    "0 0 0 1px rgba(37,99,235,0.35), 0 0 40px rgba(37,99,235,0.25), 0 0 80px rgba(255,106,0,0.12)",
                 }}
-              />
+              >
+                <img
+                  src="/assets/generated/indian-family-fintech-banner.dim_1920x1080.jpg"
+                  alt="Zatpat.loans - Happy Indian Family Financial Security"
+                  className="w-full object-cover rounded-2xl"
+                  style={{
+                    aspectRatio: "16/9",
+                    filter:
+                      "drop-shadow(0 20px 40px rgba(37,99,235,0.3)) drop-shadow(0 0 60px rgba(255,106,0,0.2))",
+                  }}
+                />
+                {/* Subtle dark gradient overlay at bottom for badge readability */}
+                <div
+                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(15,23,42,0.45) 0%, transparent 50%)",
+                  }}
+                />
+              </div>
             </div>
 
             {/* Floating badge: 5 Min Approval (top-left) */}
@@ -348,7 +365,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 type: "spring",
                 bounce: 0.45,
               }}
-              className="absolute top-8 left-0 z-20 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl shadow-xl pointer-events-none"
+              className="absolute top-4 left-4 z-20 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl shadow-xl pointer-events-none"
               style={{
                 background: "rgba(15,23,42,0.92)",
                 border: "1px solid rgba(37,99,235,0.4)",
@@ -375,7 +392,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating badge: 100% Safe (mid-right) */}
+            {/* Floating badge: 100% Safe (top-right) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -385,15 +402,12 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 type: "spring",
                 bounce: 0.45,
               }}
-              className="absolute z-20 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl shadow-xl pointer-events-none"
+              className="absolute top-4 right-4 z-20 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl shadow-xl pointer-events-none"
               style={{
                 background: "rgba(15,23,42,0.92)",
                 border: "1px solid rgba(34,197,94,0.35)",
                 boxShadow: "0 8px 32px rgba(34,197,94,0.2)",
                 backdropFilter: "blur(8px)",
-                top: "50%",
-                right: "-8px",
-                transform: "translateY(-50%)",
               }}
             >
               <div
@@ -415,9 +429,9 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating card: Loan Approved */}
+            {/* Floating card: Loan Approved (bottom-right) */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: -10 }}
+              initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{
                 delay: 1.1,
@@ -425,7 +439,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 type: "spring",
                 bounce: 0.4,
               }}
-              className="absolute top-6 right-0 z-20 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl shadow-xl pointer-events-none"
+              className="absolute bottom-4 right-4 z-20 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl shadow-xl pointer-events-none"
               style={{
                 background: "white",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
@@ -445,7 +459,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* Floating card: Rating */}
+            {/* Floating card: Rating (bottom-left) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -455,7 +469,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 type: "spring",
                 bounce: 0.35,
               }}
-              className="absolute bottom-16 -left-4 z-20 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl pointer-events-none"
+              className="absolute bottom-4 left-4 z-20 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl pointer-events-none"
               style={{
                 background: "white",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.18)",

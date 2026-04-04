@@ -8,11 +8,13 @@ import FAQ from "./components/FAQ";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
+import HeroBand from "./components/HeroBand";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
 import Stats from "./components/Stats";
 import Testimonials from "./components/Testimonials";
+import TrustBanner from "./components/TrustBanner";
 
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,12 +24,14 @@ export default function App() {
       <Navbar onApplyNow={() => setModalOpen(true)} />
       <main>
         <Hero onApplyNow={() => setModalOpen(true)} />
+        <HeroBand />
         <Stats />
         <Features />
         <EasyLoans onApplyNow={() => setModalOpen(true)} />
         <HowItWorks />
         <Eligibility />
         <CreditScore />
+        <TrustBanner />
         <AppDownload />
         <Testimonials />
         <FAQ />
