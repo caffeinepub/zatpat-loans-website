@@ -1,35 +1,54 @@
-# Zatpat.loans Website
+# Rocket.Money Website
 
 ## Current State
-The app has a full-featured fintech landing page with Hero, Stats, Features, EasyLoans, HowItWorks, Eligibility, CreditScore, TrustBanner, AppDownload, Testimonials, FAQ, and Footer. The current section order places Stats immediately after Hero.
-
-Existing utilities:
-- `useIntersectionObserver` hook with `triggerOnce: true` support
-- `useCounterAnimation` hook for number counting
-- Framer Motion (`motion/react`) installed and used in Hero
-- Tailwind + inline styles pattern throughout
+The app is a full-featured fintech landing page with sections in this order:
+1. Navbar
+2. Hero
+3. HeroBand (3D revolving carousel + process flow)
+4. Features ("Why Choose Rocket.Money?" — plain white cards, blue icon only)
+5. EasyLoans
+6. HowItWorks
+7. Eligibility
+8. CreditScore
+9. TrustBanner
+10. AppDownload
+11. Testimonials
+12. FAQ
+13. Footer
 
 ## Requested Changes (Diff)
 
 ### Add
-- New `HeroBand` component: a full animation band placed immediately after the Hero section (before Stats)
-  - **Sub-band 1 — Feature Cards**: 4 horizontally scrollable (mobile) / grid-based (desktop) cards: "Instant Approval", "Low Interest", "Quick Disbursal", "100% Secure". Each floats up with fade-in stagger on scroll. Cards have subtle tilt on hover (CSS transform). Desktop: SVG icons inside cards animate with scale-in + pulse.
-  - **Sub-band 2 — Process Flow**: 3-step process "Apply → Verify → Get Money". Steps light up sequentially with glow/color-shift animation. Connected by animated SVG dash-stroke line on desktop.
-  - **Sub-band 3 — Stats Bar**: 3 key stats ("50,000+ Loans Disbursed", "4.8★ App Rating", "< 5 Min Processing"). Numbers count up from 0 on scroll using existing `useCounterAnimation`. Subtle expanding bar below each stat.
-  - **Background**: Very light animated gradient/particle layer under entire band. Low opacity floating orbs + faint wave pattern. Does not overpower content.
-  - **Timing**: Staggered reveal using IntersectionObserver — cards first, then steps (after 300ms), then stats (after 600ms). Max duration 0.8–1.2s per element, ease-in-out.
-  - **Reduced motion**: All animations disabled / simplified when `prefers-reduced-motion: reduce`.
+- Best-in-class colorful card animations to the Features section ("Why Choose Rocket.Money?"). Each of the 6 cards should have a unique vivid gradient (blue, orange, green, purple, teal, pink), animated shimmer/glow on hover, staggered 3D tilt + float entrance animation, animated icon (scale pulse + color), and a floating particle or sparkle effect per card.
 
 ### Modify
-- `App.tsx`: Insert `<HeroBand />` between `<Hero />` and `<Stats />`
+- **Features.tsx**: Replace the existing plain white/blue cards with colorful gradient cards. Each card gets:
+  - Unique gradient background (blue, orange, green, purple, teal, crimson/rose)
+  - Animated icon with glow ring and scale-in pulse
+  - Subtle shimmer sweep animation across the card on hover
+  - 3D perspective tilt on hover (rotateX/rotateY)
+  - Staggered entrance: float up + fade in, starting from 0 with delay per card
+  - A bottom-left light streak or sparkle dot for premium feel
+  - Text adapts to white on colored background
+
+- **App.tsx**: Rearrange sections for world-class fintech UX flow:
+  1. Hero (brand + emotion, above the fold)
+  2. HeroBand (social proof, immediate trust below hero)
+  3. Features / "Why Choose Rocket.Money?" (value proposition, colorful, memorable)
+  4. HowItWorks (process clarity — how easy it is)
+  5. EasyLoans (inclusivity & loan growth gamification)
+  6. Eligibility (who qualifies — easy reassurance)
+  7. CreditScore (aspiration — build your future)
+  8. Testimonials (moved up — social proof reinforcement before CTA)
+  9. TrustBanner (climax trust moment)
+  10. AppDownload (conversion CTA)
+  11. FAQ
+  12. Footer
 
 ### Remove
 - Nothing removed
 
 ## Implementation Plan
-1. Create `src/frontend/src/components/HeroBand.tsx` with all 4 sub-sections
-2. Use `useIntersectionObserver` hook for scroll-triggered reveals
-3. Use CSS `@keyframes` + Tailwind for all animations, Framer Motion only if needed for complex spring effects
-4. Add `prefers-reduced-motion` media query wrapper
-5. Update `App.tsx` to import and render `<HeroBand />` after `<Hero />`
-6. Validate (lint + typecheck + build)
+1. Rewrite `Features.tsx` with 6 colorful gradient cards, each with unique gradient, animated SVG icon, 3D hover tilt, shimmer sweep, staggered float-in entrance, and sparkle accents.
+2. Update `App.tsx` section order as per the optimized fintech flow above.
+3. Validate (lint + typecheck + build).

@@ -22,16 +22,37 @@ export default function App() {
     <div className="min-h-screen font-sans antialiased">
       <Navbar onApplyNow={() => setModalOpen(true)} />
       <main>
+        {/* 1. Hero — first impression, emotional hook */}
         <Hero onApplyNow={() => setModalOpen(true)} />
+
+        {/* 2. HeroBand — trust signals, stats, and process preview */}
         <HeroBand />
+
+        {/* 3. Features — immediate value proposition after hero */}
         <Features />
-        <EasyLoans onApplyNow={() => setModalOpen(true)} />
+
+        {/* 4. HowItWorks — process clarity, how easy it is */}
         <HowItWorks />
+
+        {/* 5. EasyLoans — inclusivity, loan growth gamification */}
+        <EasyLoans onApplyNow={() => setModalOpen(true)} />
+
+        {/* 6. Eligibility — who qualifies */}
         <Eligibility />
+
+        {/* 7. CreditScore — long-term benefit, retention hook */}
         <CreditScore />
-        <TrustBanner />
-        <AppDownload />
+
+        {/* 8. Testimonials — social proof before trust commitment */}
         <Testimonials />
+
+        {/* 9. TrustBanner — emotional trust anchor */}
+        <TrustBanner />
+
+        {/* 10. AppDownload — conversion CTA */}
+        <AppDownload />
+
+        {/* 11. FAQ — objection handling */}
         <FAQ />
       </main>
       <Footer />
