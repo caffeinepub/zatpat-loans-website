@@ -31,7 +31,7 @@ const personas = [
 const cibilSteps = [
   {
     icon: "😟",
-    text: "Low or No CIBIL Score? Don't worry",
+    text: "Low or No CIBIL? Don't worry",
     badge: "Any Credit Score",
     badgeColor: "#ef4444",
     badgeBg: "#fef2f2",
@@ -94,36 +94,12 @@ const loanSteps = [
   },
 ];
 
-// Per-step active colors: blue → orange → orange-warm → green
 const stepColors = ["#2563EB", "#FF6A00", "#FF9500", "#22C55E"];
 
 const trustBadges = [
   { icon: "⚡", text: "Instant Approval" },
   { icon: "📄", text: "No Paperwork" },
   { icon: "🌏", text: "Anywhere in India" },
-];
-
-const floatingIcons = [
-  {
-    icon: "📱",
-    id: "fi-phone",
-    style: { top: "8%", left: "5%", animationDelay: "0s" },
-  },
-  {
-    icon: "💰",
-    id: "fi-money",
-    style: { top: "15%", right: "7%", animationDelay: "1.2s" },
-  },
-  {
-    icon: "✓",
-    id: "fi-check",
-    style: { bottom: "20%", left: "3%", animationDelay: "0.7s" },
-  },
-  {
-    icon: "🏆",
-    id: "fi-trophy",
-    style: { bottom: "10%", right: "4%", animationDelay: "1.8s" },
-  },
 ];
 
 function useCountUp(target: number, duration = 1000, active = false) {
@@ -133,7 +109,6 @@ function useCountUp(target: number, duration = 1000, active = false) {
   useEffect(() => {
     if (!active) return;
     const start = Date.now();
-
     function tick() {
       const elapsed = Date.now() - start;
       const progress = Math.min(elapsed / duration, 1);
@@ -143,7 +118,6 @@ function useCountUp(target: number, duration = 1000, active = false) {
         frameRef.current = requestAnimationFrame(tick);
       }
     }
-
     frameRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameRef.current);
   }, [target, duration, active]);
@@ -156,7 +130,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
   const [sectionVisible, setSectionVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [progressWidth, setProgressWidth] = useState(25);
-  const [lineWidth, setLineWidth] = useState(0);
+  const [_lineWidth, setLineWidth] = useState(0);
   const stepIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const currentAmount = loanSteps[activeStep].amount;
@@ -172,7 +146,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 },
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -210,39 +184,24 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
     <>
       <style>{`
         @keyframes float-slow {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-14px) rotate(6deg); }
-        }
-        @keyframes float-badge {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
+          50% { transform: translateY(-10px); }
         }
         @keyframes cta-glow {
           0%, 100% { box-shadow: 0 4px 20px rgba(255, 106, 0, 0.35); }
-          50% { box-shadow: 0 4px 36px rgba(255, 106, 0, 0.7), 0 0 0 6px rgba(37, 99, 235, 0.15); }
+          50% { box-shadow: 0 4px 32px rgba(255, 106, 0, 0.65); }
         }
         @keyframes number-pop {
           0% { transform: scale(0.85); opacity: 0; }
           60% { transform: scale(1.06); }
           100% { transform: scale(1); opacity: 1; }
         }
-        .trust-badge-anim {
-          animation: float-badge 3s ease-in-out infinite;
-        }
-        .trust-badge-anim:nth-child(2) { animation-delay: 0.6s; }
-        .trust-badge-anim:nth-child(3) { animation-delay: 1.2s; }
-        .float-icon {
-          animation: float-slow 5s ease-in-out infinite;
-          user-select: none;
-          pointer-events: none;
-        }
         .cta-btn-easy {
           animation: cta-glow 2.5s ease-in-out infinite;
           transition: transform 0.2s ease;
         }
         .cta-btn-easy:hover {
-          transform: scale(1.06);
-          box-shadow: 0 8px 36px rgba(255, 106, 0, 0.55);
+          transform: scale(1.04);
           animation: none;
         }
         .number-count-easy {
@@ -255,25 +214,15 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
         id="easy-loans"
         data-ocid="easy_loans.section"
         ref={sectionRef}
-        className="relative overflow-hidden py-24 lg:py-32"
+        className="relative overflow-hidden py-12 sm:py-16 lg:py-24"
         style={{
           background: "linear-gradient(135deg, #f0f9ff 0%, #f0fdf4 100%)",
         }}
       >
-        {floatingIcons.map(({ icon, id, style }) => (
-          <span
-            key={id}
-            className="float-icon absolute text-4xl select-none"
-            style={{ ...style, opacity: 0.08 } as React.CSSProperties}
-          >
-            {icon}
-          </span>
-        ))}
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           {/* Header */}
           <div
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-14"
             style={{
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(32px)",
@@ -281,13 +230,13 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <span
-              className="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
+              className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
               style={{ background: "#EFF6FF", color: "#2563EB" }}
             >
               Easy Loans
             </span>
             <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight"
+              className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 leading-tight"
               style={{ letterSpacing: "-0.02em" }}
             >
               Easy Loans for Every Indian,{" "}
@@ -303,85 +252,77 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               </span>
             </h2>
             <p
-              className="mt-5 text-lg max-w-2xl mx-auto leading-relaxed"
+              className="mt-3 text-sm sm:text-base max-w-xl mx-auto leading-relaxed px-2"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               No CIBIL? Bad CIBIL? Zero credit history? We don't care. Up to
               ₹5,000 instantly for every Indian.
             </p>
-            {/* USP pill */}
             <div
-              className="inline-flex items-center gap-2 mt-4 px-5 py-2 rounded-full text-sm font-bold"
+              className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full text-xs font-bold"
               style={{
                 background: "linear-gradient(135deg, #22C55E22, #2563EB22)",
                 border: "1.5px solid #22C55E55",
                 color: "#166534",
               }}
             >
-              ✅ No CIBIL Required  ·  Bad Credit Welcome  ·  Max ₹5,000
+              ✅ No CIBIL · Bad Credit Welcome · Max ₹5,000
             </div>
           </div>
 
           {/* Persona Cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 sm:mb-16">
             {personas.map((persona, i) => (
               <div
                 key={persona.name}
                 data-ocid={`easy_loans.item.${i + 1}`}
-                className="bg-white rounded-2xl p-6 shadow-lg overflow-hidden relative group"
+                className="bg-white rounded-2xl p-4 sm:p-5 shadow-lg overflow-hidden relative group"
                 style={{
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible
                     ? "translateY(0)"
                     : "translateY(40px)",
                   transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
-                  boxShadow:
-                    "0 4px 24px rgba(37, 99, 235, 0.1), 0 1px 4px rgba(0,0,0,0.06)",
+                  boxShadow: "0 4px 20px rgba(37, 99, 235, 0.08)",
                 }}
               >
                 <div
                   className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${persona.color}`}
                 />
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3">
                   <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
                     style={{
                       background: "linear-gradient(135deg, #EFF6FF, #f0fdf4)",
                     }}
                   >
                     {persona.icon}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">
                       {persona.tag}
                     </p>
                     <h3
-                      className="font-bold text-base"
+                      className="font-bold text-sm"
                       style={{ color: "#1E293B" }}
                     >
                       {persona.name}
                     </h3>
                     <p
-                      className="text-sm mt-1 leading-snug"
+                      className="text-xs mt-1 leading-snug"
                       style={{ color: "rgba(30, 41, 59, 0.7)" }}
                     >
                       "{persona.quote}"
                     </p>
                   </div>
                 </div>
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl pointer-events-none"
-                  style={{
-                    background: "linear-gradient(135deg, #2563EB, #22C55E)",
-                  }}
-                />
               </div>
             ))}
           </div>
 
           {/* CIBIL Journey */}
           <div
-            className="mb-20"
+            className="mb-12 sm:mb-16"
             style={{
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(32px)",
@@ -389,87 +330,69 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <h3
-              className="text-center text-xl font-bold mb-8"
+              className="text-center text-base sm:text-lg font-bold mb-6"
               style={{ color: "#1E293B" }}
             >
               Even with Low or Zero CIBIL Score — We Always Say Yes!
             </h3>
-            <div className="relative">
-              <div
-                className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #ef4444, #2563EB, #22C55E, #f59e0b)",
-                  clipPath: `inset(0 ${100 - lineWidth}% 0 0)`,
-                  transition: "clip-path 1.5s ease",
-                }}
-              />
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {cibilSteps.map((step, i) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {cibilSteps.map((step, i) => (
+                <div
+                  key={step.id}
+                  className="flex flex-col items-center text-center gap-2"
+                  style={{
+                    opacity: sectionVisible ? 1 : 0,
+                    transform: sectionVisible
+                      ? "translateY(0)"
+                      : "translateY(20px)",
+                    transition: `opacity 0.6s ease ${300 + i * 150}ms, transform 0.6s ease ${300 + i * 150}ms`,
+                  }}
+                >
                   <div
-                    key={step.id}
-                    className="flex flex-col items-center text-center gap-3"
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-sm"
                     style={{
-                      opacity: sectionVisible ? 1 : 0,
-                      transform: sectionVisible
-                        ? "translateY(0)"
-                        : "translateY(20px)",
-                      transition: `opacity 0.6s ease ${300 + i * 180}ms, transform 0.6s ease ${300 + i * 180}ms`,
+                      background: `linear-gradient(135deg, ${step.badgeBg}, white)`,
+                      border: `2px solid ${step.badgeColor}22`,
                     }}
                   >
-                    <div
-                      className="w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-md"
-                      style={{
-                        background: `linear-gradient(135deg, ${step.badgeBg}, white)`,
-                        border: `2px solid ${step.badgeColor}22`,
-                      }}
-                    >
-                      {step.icon}
-                    </div>
-                    <span
-                      className="text-xs font-bold px-3 py-1 rounded-full"
-                      style={{
-                        color: step.badgeColor,
-                        background: step.badgeBg,
-                        border: `1px solid ${step.badgeColor}33`,
-                      }}
-                    >
-                      {step.badge}
-                    </span>
-                    <p
-                      className="text-sm font-medium leading-snug max-w-[140px]"
-                      style={{ color: "rgba(30, 41, 59, 0.8)" }}
-                    >
-                      {step.text}
-                    </p>
+                    {step.icon}
                   </div>
-                ))}
-              </div>
+                  <span
+                    className="text-xs font-bold px-2 py-0.5 rounded-full"
+                    style={{
+                      color: step.badgeColor,
+                      background: step.badgeBg,
+                      border: `1px solid ${step.badgeColor}33`,
+                    }}
+                  >
+                    {step.badge}
+                  </span>
+                  <p
+                    className="text-xs font-medium leading-snug max-w-[120px]"
+                    style={{ color: "rgba(30, 41, 59, 0.8)" }}
+                  >
+                    {step.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Gamified Progress */}
           <div
-            className="rounded-3xl p-8 lg:p-10 mb-20 relative overflow-hidden"
+            className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 mb-10 sm:mb-14 relative overflow-hidden"
             style={{
               background: "linear-gradient(135deg, #0f172a 0%, #0c1f35 100%)",
-              boxShadow: "0 20px 60px rgba(37, 99, 235, 0.2)",
+              boxShadow: "0 16px 48px rgba(37, 99, 235, 0.2)",
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(40px)",
               transition: "opacity 0.9s ease 400ms, transform 0.9s ease 400ms",
             }}
           >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.15) 0%, transparent 70%)",
-              }}
-            />
             <div className="relative">
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <span
-                  className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-3 py-1 rounded-full"
+                  className="inline-block text-xs font-bold tracking-widest uppercase mb-2 px-3 py-1 rounded-full"
                   style={{
                     background: "rgba(37,99,235,0.15)",
                     color: "#93C5FD",
@@ -477,22 +400,21 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 >
                   🎮 Loan Growth Game
                 </span>
-                <h3 className="text-2xl lg:text-3xl font-black text-white">
+                <h3 className="text-xl sm:text-2xl font-black text-white">
                   Level Up Your Loan Limit!
                 </h3>
-                <p className="text-slate-400 mt-2 text-sm">
-                  Start at ₹1,000. Repay on time and unlock up to ₹5,000. No
-                  CIBIL required at any level.
+                <p className="text-slate-400 mt-1 text-xs sm:text-sm px-2">
+                  Start at ₹1,000. Repay on time and unlock up to ₹5,000.
                 </p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-6">
                 <div
-                  className="w-full h-3 rounded-full mb-2"
+                  className="w-full h-2.5 rounded-full mb-1.5"
                   style={{ background: "rgba(255,255,255,0.1)" }}
                 >
                   <div
-                    className="h-3 rounded-full"
+                    className="h-2.5 rounded-full"
                     style={{
                       width: `${progressWidth}%`,
                       background:
@@ -509,7 +431,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-8">
                 {loanSteps.map((step, i) => {
                   const isActive = i === activeStep;
                   const isDone = i < activeStep;
@@ -519,7 +441,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                       key={step.id}
                       type="button"
                       data-ocid={`easy_loans.item.${i + 4}`}
-                      className="rounded-2xl p-4 text-left transition-all duration-300 cursor-pointer"
+                      className="rounded-xl p-3 sm:p-4 text-left transition-all duration-300"
                       style={{
                         background: isActive
                           ? `rgba(${Number.parseInt(activeColor.slice(1, 3), 16)},${Number.parseInt(activeColor.slice(3, 5), 16)},${Number.parseInt(activeColor.slice(5, 7), 16)},0.22)`
@@ -531,11 +453,14 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                           : isDone
                             ? "1.5px solid rgba(34,197,94,0.3)"
                             : "1.5px solid rgba(255,255,255,0.07)",
+                        minHeight: "44px",
                       }}
                       onClick={() => setActiveStep(i)}
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xl">{step.icon}</span>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-base sm:text-lg">
+                          {step.icon}
+                        </span>
                         <span
                           className="text-xs font-bold uppercase tracking-wider"
                           style={{
@@ -555,7 +480,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                         )}
                       </div>
                       <p
-                        className="text-sm font-medium leading-snug"
+                        className="text-xs font-medium leading-snug"
                         style={{
                           color: isActive
                             ? "#f0f9ff"
@@ -572,12 +497,12 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               </div>
 
               <div className="text-center">
-                <p className="text-slate-400 text-sm mb-1">
+                <p className="text-slate-400 text-xs mb-1">
                   Current Loan Limit
                 </p>
                 <div
                   key={activeStep}
-                  className="number-count-easy text-5xl lg:text-6xl font-black"
+                  className="number-count-easy text-4xl sm:text-5xl font-black"
                   style={{
                     background: "linear-gradient(135deg, #2563EB, #22C55E)",
                     WebkitBackgroundClip: "text",
@@ -587,8 +512,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 >
                   {formatAmount(displayCount)}
                 </div>
-                <p className="text-slate-500 text-xs mt-2">
-                  Max limit: ₹5,000 · Keep repaying on time to unlock more
+                <p className="text-slate-500 text-xs mt-1">
+                  Max: ₹5,000 · Repay on time to unlock more
                 </p>
               </div>
             </div>
@@ -596,7 +521,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
 
           {/* Trust Badges */}
           <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 sm:mb-12"
             style={{
               opacity: sectionVisible ? 1 : 0,
               transform: sectionVisible ? "translateY(0)" : "translateY(32px)",
@@ -607,14 +532,14 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               <div
                 key={badge.text}
                 data-ocid={`easy_loans.item.${i + 8}`}
-                className="trust-badge-anim flex items-center gap-3 rounded-full px-6 py-3 text-white font-semibold text-sm"
+                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-white font-semibold text-sm w-full sm:w-auto justify-center"
                 style={{
                   background: "linear-gradient(135deg, #2563EB, #1D4ED8)",
-                  boxShadow:
-                    "0 4px 20px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(37,99,235,0.2)",
+                  boxShadow: "0 4px 16px rgba(37, 99, 235, 0.25)",
+                  minHeight: "44px",
                 }}
               >
-                <span className="text-xl">{badge.icon}</span>
+                <span className="text-lg">{badge.icon}</span>
                 <span>{badge.text}</span>
               </div>
             ))}
@@ -630,7 +555,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             }}
           >
             <p
-              className="mb-6 text-base"
+              className="mb-4 text-sm"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               Join <strong style={{ color: "#1E293B" }}>2 lakh+</strong> Indians
@@ -639,21 +564,22 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             <button
               type="button"
               data-ocid="easy_loans.primary_button"
-              className="cta-btn-easy inline-flex items-center gap-3 rounded-full px-10 py-4 text-white font-bold text-lg"
+              className="cta-btn-easy inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base w-full sm:w-auto"
               style={{
                 background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
+                minHeight: "52px",
               }}
               onClick={onApplyNow}
             >
-              <span>Apply Now — No CIBIL Needed</span>
+              Apply Now — No CIBIL Needed
               <span
-                className="w-7 h-7 rounded-full flex items-center justify-center text-sm"
+                className="w-6 h-6 rounded-full flex items-center justify-center text-xs"
                 style={{ background: "rgba(255,255,255,0.2)" }}
               >
                 →
               </span>
             </button>
-            <p className="text-xs text-slate-400 mt-4">
+            <p className="text-xs text-slate-400 mt-3">
               ✓ No CIBIL check &nbsp;·&nbsp; ✓ Bad credit welcome &nbsp;·&nbsp;
               ✓ Max ₹5,000 loan
             </p>

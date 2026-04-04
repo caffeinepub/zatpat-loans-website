@@ -11,7 +11,6 @@ export default function StickyCTA({ openModal }: StickyCTAProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check sessionStorage for dismissed state
     const wasDismissed =
       sessionStorage.getItem("sticky-cta-dismissed") === "true";
     if (wasDismissed) {
@@ -24,7 +23,6 @@ export default function StickyCTA({ openModal }: StickyCTAProps) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Set mounted after brief delay to allow CSS transitions
     const t = setTimeout(() => setMounted(true), 100);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,53 +58,52 @@ export default function StickyCTA({ openModal }: StickyCTAProps) {
         style={{
           background: "#0F172A",
           borderTop: "2px solid rgba(37,99,235,0.6)",
-          boxShadow: "0 -4px 32px rgba(37,99,235,0.2)",
+          boxShadow: "0 -4px 24px rgba(37,99,235,0.2)",
           display: visible ? "block" : "none",
+          paddingBottom: "env(safe-area-inset-bottom, 0px)",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 relative">
-            {/* Left text */}
+        <div className="max-w-7xl mx-auto px-4 py-2.5 sm:py-3.5">
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Left text — truncated on mobile */}
             <p
-              className="text-sm sm:text-base font-semibold text-center sm:text-left pr-6"
+              className="text-xs sm:text-sm font-semibold flex-1 min-w-0"
               style={{ color: "rgba(241,245,249,0.95)" }}
             >
               🚀{" "}
-              <span className="text-white font-bold">
-                Get up to ₹5 Lakhs in 5 Minutes
-              </span>{" "}
-              — 100% Online
+              <span className="text-white font-bold hidden sm:inline">
+                Get up to ₹5,000 in 5 Minutes
+              </span>
+              <span className="text-white font-bold sm:hidden">
+                Get ₹5,000 in 5 Min
+              </span>
+              <span className="hidden sm:inline"> — 100% Online</span>
             </p>
 
-            {/* Right CTA */}
+            {/* CTA */}
             <button
               type="button"
               data-ocid="sticky_cta.primary_button"
               onClick={openModal}
-              className="flex-shrink-0 flex items-center gap-2 rounded-full px-6 py-2.5 font-bold text-white text-sm transition-all duration-200 hover:brightness-110 active:scale-95"
+              className="flex-shrink-0 flex items-center gap-1.5 rounded-full px-4 sm:px-6 py-2 font-bold text-white text-xs sm:text-sm transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{
                 background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
                 boxShadow: "0 4px 16px rgba(255,106,0,0.4)",
+                minHeight: "40px",
+                whiteSpace: "nowrap",
               }}
             >
               Apply Now →
             </button>
 
-            {/* Dismiss button */}
+            {/* Dismiss */}
             <button
               type="button"
               data-ocid="sticky_cta.close_button"
               onClick={handleDismiss}
-              className="absolute top-1/2 -translate-y-1/2 right-0 sm:relative sm:top-auto sm:translate-y-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200"
-              style={{ color: "rgba(148,163,184,0.7)" }}
+              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200"
+              style={{ color: "rgba(148,163,184,0.7)", minWidth: "32px" }}
               aria-label="Dismiss"
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color = "white";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.color =
-                  "rgba(148,163,184,0.7)";
-              }}
             >
               <X size={16} />
             </button>

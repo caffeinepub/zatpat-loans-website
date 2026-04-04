@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 import AppDownload from "./components/AppDownload";
+import BadCIBILBanner from "./components/BadCIBILBanner";
 import CreditScore from "./components/CreditScore";
 import EMICalculator from "./components/EMICalculator";
 import EasyLoans from "./components/EasyLoans";
@@ -28,7 +29,7 @@ export default function App() {
       <Navbar onApplyNow={openModal} />
 
       {/* Social proof ticker — immediately below Navbar */}
-      <div className="pt-16 lg:pt-20">
+      <div className="pt-[84px]">
         <SocialProofTicker />
       </div>
 
@@ -48,34 +49,37 @@ export default function App() {
         {/* 4. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />
 
-        {/* 5. HowItWorks — process clarity, how easy it is */}
+        {/* 5. BadCIBILBanner — unmissable USP: bad CIBIL still approved */}
+        <BadCIBILBanner onApplyNow={openModal} />
+
+        {/* 6. HowItWorks — process clarity, how easy it is */}
         <HowItWorks onApplyNow={openModal} />
 
-        {/* 6. EasyLoans — inclusivity, loan growth gamification */}
+        {/* 7. EasyLoans — inclusivity, loan growth gamification */}
         <EasyLoans onApplyNow={openModal} />
 
-        {/* 7. Eligibility — who qualifies */}
+        {/* 8. Eligibility — who qualifies */}
         <Eligibility />
 
-        {/* 8. EMI Calculator — interactive engagement */}
+        {/* 9. EMI Calculator — interactive engagement */}
         <EMICalculator openModal={openModal} />
 
-        {/* 9. CreditScore — long-term benefit, retention hook */}
+        {/* 10. CreditScore — long-term benefit, retention hook */}
         <CreditScore onApplyNow={openModal} />
 
-        {/* 10. Testimonials — social proof before trust commitment */}
+        {/* 11. Testimonials — social proof before trust commitment */}
         <Testimonials onApplyNow={openModal} />
 
-        {/* 11. TrustBanner — emotional trust anchor */}
+        {/* 12. TrustBanner — emotional trust anchor */}
         <TrustBanner />
 
         {/* Gradient bridge: dark → light */}
         <div className="h-10 bg-gradient-to-b from-[#0F172A] to-[#F8FAFC]" />
 
-        {/* 12. AppDownload — conversion CTA */}
+        {/* 13. AppDownload — conversion CTA */}
         <AppDownload />
 
-        {/* 13. FAQ — objection handling */}
+        {/* 14. FAQ — objection handling */}
         <FAQ onApplyNow={openModal} />
       </main>
 

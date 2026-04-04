@@ -1,4 +1,5 @@
 import { Check, Download, IndianRupee, UserCheck } from "lucide-react";
+import type React from "react";
 import { useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
@@ -12,7 +13,6 @@ const STEP_COLORS = [
     glow: "rgba(37, 99, 235, 0.4)",
     ring: "rgba(37, 99, 235, 0.2)",
     shadow: "0 8px 32px rgba(37, 99, 235, 0.35)",
-    label: "blue",
     time: "2 min",
   },
   {
@@ -20,7 +20,6 @@ const STEP_COLORS = [
     glow: "rgba(255, 106, 0, 0.4)",
     ring: "rgba(255, 106, 0, 0.2)",
     shadow: "0 8px 32px rgba(255, 106, 0, 0.35)",
-    label: "orange",
     time: "1 min",
   },
   {
@@ -28,7 +27,6 @@ const STEP_COLORS = [
     glow: "rgba(34, 197, 94, 0.4)",
     ring: "rgba(34, 197, 94, 0.2)",
     shadow: "0 8px 32px rgba(34, 197, 94, 0.35)",
-    label: "green",
     time: "Same day",
   },
 ];
@@ -71,10 +69,6 @@ const KEYFRAMES = `
   60%  { transform: scale(1.25) rotate(4deg); opacity: 1; }
   100% { transform: scale(1) rotate(0deg);   opacity: 1; }
 }
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.85); }
-}
 @keyframes tagSlide {
   from { opacity: 0; transform: translateX(-8px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -87,7 +81,7 @@ const KEYFRAMES = `
 
 export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
   const { ref, isVisible } = useIntersectionObserver({
-    threshold: 0.15,
+    threshold: 0.1,
     triggerOnce: true,
   });
 
@@ -101,32 +95,19 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
         data-ocid="how-it-works.section"
         ref={ref as React.RefObject<HTMLElement>}
         style={{ background: "#F8FAFC", overflow: "hidden" }}
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-24 relative"
       >
-        {/* Subtle background blobs */}
+        {/* Background blobs */}
         <div
           style={{
             position: "absolute",
             top: "-80px",
             left: "-120px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-60px",
-            right: "-80px",
             width: "360px",
             height: "360px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -134,7 +115,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div
-            className="text-center mb-16 lg:mb-20"
+            className="text-center mb-10 sm:mb-14"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(24px)",
@@ -147,7 +128,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
             </span>
 
             <h2
-              className="text-3xl md:text-5xl font-bold"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold"
               style={{ color: "#1E293B" }}
             >
               How It{" "}
@@ -164,14 +145,14 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
               </span>
             </h2>
 
-            <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
+            <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3">
               Getting a loan has never been this straightforward.{" "}
               <strong style={{ color: "#1E293B" }}>3 easy steps</strong> and
               you&apos;re done.
             </p>
           </div>
 
-          {/* Animated progress bar across steps */}
+          {/* Animated progress bar — desktop only */}
           <div
             className="hidden md:block mb-4 mx-auto max-w-lg"
             style={{
@@ -199,11 +180,11 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
             <div style={{ position: "relative", marginBottom: "0" }}>
               {/* SVG connecting path */}
               <svg
-                aria-label="Step progress path from Download to Register to Get Money"
+                aria-label="Step progress path"
                 role="img"
                 style={{
                   position: "absolute",
-                  top: "60px",
+                  top: "56px",
                   left: "16.67%",
                   width: "66.66%",
                   height: "4px",
@@ -227,7 +208,6 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                     <stop offset="100%" stopColor="#22C55E" />
                   </linearGradient>
                 </defs>
-                {/* Background track */}
                 <path
                   d="M 0 2 L 600 2"
                   stroke="#E2E8F0"
@@ -235,7 +215,6 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                   fill="none"
                   strokeLinecap="round"
                 />
-                {/* Animated gradient path */}
                 <path
                   d="M 0 2 L 600 2"
                   stroke="url(#pathGrad)"
@@ -277,12 +256,12 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                       <div
                         style={{
                           position: "relative",
-                          width: "120px",
-                          height: "120px",
+                          width: "112px",
+                          height: "112px",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          marginBottom: "24px",
+                          marginBottom: "20px",
                           zIndex: 2,
                         }}
                       >
@@ -300,17 +279,8 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                         />
                         <div
                           style={{
-                            position: "absolute",
-                            inset: "8px",
-                            borderRadius: "50%",
-                            border: `1.5px solid ${color.ring}`,
-                            transition: "border-color 0.3s",
-                          }}
-                        />
-                        <div
-                          style={{
-                            width: "80px",
-                            height: "80px",
+                            width: "72px",
+                            height: "72px",
                             borderRadius: "50%",
                             background: isHovered ? color.bg : "#fff",
                             border: `2.5px solid ${color.bg}`,
@@ -326,7 +296,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                           }}
                         >
                           <step.icon
-                            size={30}
+                            size={26}
                             style={{
                               color: isHovered ? "#fff" : color.bg,
                               transition: "color 0.3s",
@@ -338,12 +308,12 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                             position: "absolute",
                             bottom: "4px",
                             right: "4px",
-                            width: "26px",
-                            height: "26px",
+                            width: "22px",
+                            height: "22px",
                             borderRadius: "50%",
                             background: color.bg,
                             color: "#fff",
-                            fontSize: "10px",
+                            fontSize: "9px",
                             fontWeight: 900,
                             display: "flex",
                             alignItems: "center",
@@ -356,48 +326,45 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                         </div>
                       </div>
 
-                      {/* Check pop-in */}
                       {isVisible && (
                         <div
                           style={{
-                            width: "20px",
-                            height: "20px",
+                            width: "18px",
+                            height: "18px",
                             borderRadius: "50%",
                             background: color.bg,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            marginBottom: "12px",
+                            marginBottom: "10px",
                             animation: `checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay + 600}ms both`,
                           }}
                         >
-                          <Check size={11} color="#fff" strokeWidth={3} />
+                          <Check size={10} color="#fff" strokeWidth={3} />
                         </div>
                       )}
 
                       <h3
                         style={{
-                          fontSize: "1.1rem",
+                          fontSize: "1rem",
                           fontWeight: 800,
                           color: "#1E293B",
-                          marginBottom: "6px",
-                          letterSpacing: "-0.01em",
+                          marginBottom: "4px",
                         }}
                       >
                         {step.title}
                       </h3>
 
-                      {/* Time label */}
                       <span
                         style={{
                           display: "inline-block",
-                          fontSize: "11px",
+                          fontSize: "10px",
                           fontWeight: 700,
                           color: color.bg,
                           background: `rgba(${color.bg === "#2563EB" ? "37,99,235" : color.bg === "#FF6A00" ? "255,106,0" : "34,197,94"},0.1)`,
                           padding: "2px 10px",
                           borderRadius: "999px",
-                          marginBottom: "10px",
+                          marginBottom: "8px",
                         }}
                       >
                         ⏱ {color.time}
@@ -405,17 +372,16 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
 
                       <p
                         style={{
-                          fontSize: "0.9rem",
+                          fontSize: "0.85rem",
                           color: "rgba(30,41,59,0.62)",
-                          lineHeight: 1.65,
-                          maxWidth: "220px",
-                          margin: "0 auto 16px",
+                          lineHeight: 1.6,
+                          maxWidth: "200px",
+                          margin: "0 auto 12px",
                         }}
                       >
                         {step.description}
                       </p>
 
-                      {/* Tag */}
                       <span
                         style={{
                           display: "inline-flex",
@@ -457,7 +423,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                   data-ocid={`how-it-works.mobile.item.${index + 1}`}
                   style={{
                     display: "flex",
-                    gap: "20px",
+                    gap: "16px",
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible
                       ? "translateX(0)"
@@ -475,8 +441,8 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                   >
                     <div
                       style={{
-                        width: "52px",
-                        height: "52px",
+                        width: "48px",
+                        height: "48px",
                         borderRadius: "50%",
                         background: color.bg,
                         display: "flex",
@@ -487,18 +453,18 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                         position: "relative",
                       }}
                     >
-                      <step.icon size={22} color="#fff" />
+                      <step.icon size={20} color="#fff" />
                       <div
                         style={{
                           position: "absolute",
-                          top: "-4px",
-                          right: "-4px",
-                          width: "18px",
-                          height: "18px",
+                          top: "-3px",
+                          right: "-3px",
+                          width: "16px",
+                          height: "16px",
                           borderRadius: "50%",
                           background: "#1E293B",
                           color: "#fff",
-                          fontSize: "8px",
+                          fontSize: "7px",
                           fontWeight: 900,
                           display: "flex",
                           alignItems: "center",
@@ -514,7 +480,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
                         style={{
                           width: "2px",
                           flex: 1,
-                          minHeight: "32px",
+                          minHeight: "28px",
                           background: isVisible
                             ? `linear-gradient(to bottom, ${color.bg}, ${STEP_COLORS[index + 1]?.bg ?? color.bg})`
                             : "#E2E8F0",
@@ -527,41 +493,43 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
 
                   <div
                     style={{
-                      paddingBottom: isLast ? "0" : "28px",
-                      paddingTop: "4px",
+                      paddingBottom: isLast ? "0" : "24px",
+                      paddingTop: "2px",
+                      flex: 1,
+                      minWidth: 0,
                     }}
                   >
                     <div
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        gap: "6px",
+                        gap: "5px",
                         background: `rgba(${color.bg === "#2563EB" ? "37,99,235" : color.bg === "#FF6A00" ? "255,106,0" : "34,197,94"},0.1)`,
                         color: color.bg,
-                        fontSize: "10px",
+                        fontSize: "9px",
                         fontWeight: 700,
-                        padding: "3px 10px",
+                        padding: "2px 8px",
                         borderRadius: "999px",
-                        marginBottom: "8px",
+                        marginBottom: "6px",
                       }}
                     >
                       ⏱ {step.tag}
                     </div>
                     <h3
                       style={{
-                        fontSize: "1rem",
+                        fontSize: "0.95rem",
                         fontWeight: 800,
                         color: "#1E293B",
-                        marginBottom: "6px",
+                        marginBottom: "4px",
                       }}
                     >
                       {step.title}
                     </h3>
                     <p
                       style={{
-                        fontSize: "0.85rem",
+                        fontSize: "0.8rem",
                         color: "rgba(30,41,59,0.62)",
-                        lineHeight: 1.65,
+                        lineHeight: 1.6,
                       }}
                     >
                       {step.description}
@@ -574,24 +542,25 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
 
           {/* Bottom CTA */}
           <div
-            className="text-center mt-16"
+            className="text-center mt-10 sm:mt-14"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(24px)",
               transition: "opacity 0.7s ease 0.9s, transform 0.7s ease 0.9s",
             }}
           >
-            <p className="text-sm mb-4" style={{ color: "#64748B" }}>
+            <p className="text-xs sm:text-sm mb-3" style={{ color: "#64748B" }}>
               ⚡ Processing under 4 minutes for most applicants
             </p>
             <button
               type="button"
               data-ocid="how-it-works.primary_button"
               onClick={onApplyNow}
-              className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-white font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+              className="inline-flex items-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto justify-center"
               style={{
                 background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
                 boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+                minHeight: "52px",
               }}
             >
               Start My Application →

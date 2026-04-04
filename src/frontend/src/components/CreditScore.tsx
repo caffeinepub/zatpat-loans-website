@@ -8,6 +8,7 @@ import {
   Star,
   TrendingUp,
 } from "lucide-react";
+import type React from "react";
 import {
   useCounterAnimation,
   useIntersectionObserver,
@@ -53,17 +54,9 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
 
   return (
     <div className="relative flex flex-col items-center">
-      <div
-        className="absolute inset-0 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 60%, rgba(37,99,235,0.10) 0%, transparent 70%)",
-        }}
-      />
-
       <svg
         viewBox="0 0 320 300"
-        className="w-full max-w-xs"
+        className="w-full max-w-[240px] sm:max-w-xs"
         role="img"
         aria-label="Credit score gauge showing 750 out of 900 — Excellent"
         style={{ filter: "drop-shadow(0 8px 32px rgba(37,99,235,0.15))" }}
@@ -204,19 +197,19 @@ function CreditGauge({ isVisible }: { isVisible: boolean }) {
         </text>
       </svg>
 
-      {/* Bureau badges */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
+      {/* Bureau badges — scrollable on mobile */}
+      <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2 max-w-[240px] sm:max-w-full">
         {["CIBIL", "Experian", "Equifax", "CRIF"].map((bureau) => (
           <div
             key={bureau}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold"
             style={{
               background: "#EFF6FF",
               color: "#2563EB",
               border: "1px solid #BFDBFE",
             }}
           >
-            <Building size={12} />
+            <Building size={10} />
             {bureau}
           </div>
         ))}
@@ -230,7 +223,7 @@ const steps = [
     num: 1,
     icon: FileText,
     title: "Apply for a Loan",
-    desc: "Get approved quickly with minimal docs. No lengthy paperwork.",
+    desc: "Get approved quickly with minimal docs.",
     color: "#2563EB",
     bg: "#EFF6FF",
   },
@@ -246,7 +239,7 @@ const steps = [
     num: 3,
     icon: BarChart3,
     title: "Score Gets Reported",
-    desc: "We report to CIBIL, Experian & Equifax every month automatically.",
+    desc: "We report to CIBIL, Experian & Equifax every month.",
     color: "#22C55E",
     bg: "#F0FDF4",
   },
@@ -254,7 +247,7 @@ const steps = [
     num: 4,
     icon: TrendingUp,
     title: "Watch Your Score Rise",
-    desc: "Unlock better interest rates and higher loan limits over time.",
+    desc: "Unlock better rates and higher loan limits over time.",
     color: "#EAB308",
     bg: "#FEFCE8",
   },
@@ -276,37 +269,8 @@ const statCards = [
   {
     value: "750+",
     label: "Average Score Gain",
-    sub: "Users see score rise within 6 months",
+    sub: "Users see improvement in 6 months",
     icon: TrendingUp,
-  },
-];
-
-const particles = [
-  { id: "p1", left: "10%", top: "20%", size: 6, color: "#2563EB", delay: "0s" },
-  {
-    id: "p2",
-    left: "88%",
-    top: "15%",
-    size: 8,
-    color: "#FF6A00",
-    delay: "0.5s",
-  },
-  { id: "p3", left: "15%", top: "75%", size: 5, color: "#22C55E", delay: "1s" },
-  {
-    id: "p4",
-    left: "85%",
-    top: "70%",
-    size: 7,
-    color: "#2563EB",
-    delay: "0.3s",
-  },
-  {
-    id: "p5",
-    left: "50%",
-    top: "5%",
-    size: 4,
-    color: "#EAB308",
-    delay: "0.8s",
   },
 ];
 
@@ -321,48 +285,22 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
       id="credit-score"
       data-ocid="creditscore.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-16 md:py-24 bg-white relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden"
     >
       {/* Background decorations */}
       <div
-        className="absolute top-0 left-0 w-80 h-80 rounded-full pointer-events-none"
+        className="absolute top-0 left-0 w-64 h-64 rounded-full pointer-events-none"
         style={{
           background:
             "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%)",
           transform: "translate(-40%, -40%)",
         }}
       />
-      <div
-        className="absolute bottom-0 right-0 w-96 h-96 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 70%)",
-          transform: "translate(30%, 30%)",
-        }}
-      />
 
-      {/* Floating particles */}
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            left: p.left,
-            top: p.top,
-            width: p.size,
-            height: p.size,
-            background: p.color,
-            opacity: isVisible ? 0.35 : 0,
-            transform: isVisible ? "scale(1)" : "scale(0)",
-            transition: `opacity 1s ease ${p.delay}, transform 1s ease ${p.delay}`,
-          }}
-        />
-      ))}
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div
-          className="text-center mb-14"
+          className="text-center mb-10 sm:mb-12"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(24px)",
@@ -373,11 +311,11 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
             BUILD YOUR FUTURE
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
             Build Your <span style={{ color: "#FF6A00" }}>Credit Score</span>{" "}
             While Getting Loans
           </h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
+          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3 px-2">
             Every timely repayment with Rocket.Money is reported to credit
             bureaus — turning your loan journey into a{" "}
             <span style={{ color: "#2563EB", fontWeight: 600 }}>
@@ -387,7 +325,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-14">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-10 sm:mb-12">
           {/* Left: Gauge */}
           <div
             className="flex flex-col items-center"
@@ -398,34 +336,22 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             }}
           >
             <div
-              className="w-full max-w-sm rounded-3xl p-8 relative"
+              className="w-full max-w-xs sm:max-w-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 relative"
               style={{
                 background:
                   "linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #F0FDF4 100%)",
                 border: "1px solid #E2E8F0",
-                boxShadow:
-                  "0 20px 60px rgba(37,99,235,0.10), 0 4px 16px rgba(0,0,0,0.04)",
+                boxShadow: "0 12px 40px rgba(37,99,235,0.08)",
               }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className="text-xs font-bold px-3 py-1 rounded-full"
-                  style={{ background: "#0F172A", color: "#22C55E" }}
-                >
-                  LIVE SCORE
-                </span>
-                <span
-                  className="text-xs font-medium"
-                  style={{ color: "#64748B" }}
-                >
+              <div className="flex justify-end mb-2">
+                <span className="text-xs" style={{ color: "#64748B" }}>
                   Scale: 300–900
                 </span>
               </div>
-
               <CreditGauge isVisible={isVisible} />
-
               <p
-                className="text-center text-xs mt-4"
+                className="text-center text-xs mt-3"
                 style={{ color: "#94A3B8" }}
               >
                 *Reported monthly to all 4 credit bureaus
@@ -445,10 +371,10 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
                   <div
                     className="absolute z-0"
                     style={{
-                      left: "22px",
-                      top: "52px",
+                      left: "19px",
+                      top: "48px",
                       width: "2px",
-                      height: "40px",
+                      height: "36px",
                       backgroundImage: isVisible
                         ? "repeating-linear-gradient(to bottom, #BFDBFE, #BFDBFE 4px, transparent 4px, transparent 8px)"
                         : "none",
@@ -459,7 +385,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
                 )}
 
                 <div
-                  className="flex items-start gap-4 p-4 rounded-2xl mb-2 cursor-default"
+                  className="flex items-start gap-3 p-3 sm:p-4 rounded-2xl mb-2"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateX(0)" : "translateX(40px)",
@@ -467,7 +393,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
                   }}
                 >
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0 z-10"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0 z-10"
                     style={{
                       background: `linear-gradient(135deg, ${step.color}, ${step.color}cc)`,
                       boxShadow: `0 4px 12px ${step.color}40`,
@@ -476,23 +402,23 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
                     {step.num}
                   </div>
 
-                  <div className="flex-1 pt-1">
+                  <div className="flex-1 pt-0.5 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3
-                        className="text-base font-bold"
+                        className="text-sm font-bold"
                         style={{ color: "#1E293B" }}
                       >
                         {step.title}
                       </h3>
                       <div
-                        className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                        className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
                         style={{ background: step.bg }}
                       >
-                        <step.icon size={14} style={{ color: step.color }} />
+                        <step.icon size={12} style={{ color: step.color }} />
                       </div>
                     </div>
                     <p
-                      className="text-sm leading-relaxed"
+                      className="text-xs sm:text-sm leading-relaxed"
                       style={{ color: "rgba(30,41,59,0.65)" }}
                     >
                       {step.desc}
@@ -504,13 +430,13 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
           </div>
         </div>
 
-        {/* Stat cards */}
-        <div className="grid sm:grid-cols-3 gap-6">
+        {/* Stat cards — 2-col on mobile, 3-col on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {statCards.map((stat, index) => (
             <div
               key={stat.label}
               data-ocid={`creditscore.card.${index + 1}`}
-              className="relative rounded-2xl p-6 overflow-hidden group cursor-default"
+              className="relative rounded-2xl p-4 sm:p-5 overflow-hidden"
               style={{
                 background: "#0F172A",
                 borderLeft: "4px solid #2563EB",
@@ -521,26 +447,18 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
               }}
             >
               <div
-                className="absolute top-0 right-0 w-24 h-24 rounded-full pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)",
-                  transform: "translate(30%, -30%)",
-                }}
-              />
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
                 style={{ background: "rgba(37,99,235,0.15)" }}
               >
-                <stat.icon size={18} style={{ color: "#FF6A00" }} />
+                <stat.icon size={16} style={{ color: "#FF6A00" }} />
               </div>
               <div
-                className="text-3xl font-black mb-1"
+                className="text-2xl sm:text-3xl font-black mb-1"
                 style={{ color: "#FF6A00" }}
               >
                 {stat.value}
               </div>
-              <div className="text-base font-bold text-white mb-1">
+              <div className="text-sm font-bold text-white mb-1">
                 {stat.label}
               </div>
               <div
@@ -549,17 +467,13 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
               >
                 {stat.sub}
               </div>
-              <div
-                className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ border: "1px solid rgba(37,99,235,0.4)" }}
-              />
             </div>
           ))}
         </div>
 
         {/* Trust row */}
         <div
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10"
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(16px)",
@@ -567,17 +481,17 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
           }}
         >
           {[
-            { text: "RBI Registered NBFC" },
-            { text: "ISO 27001 Certified" },
-            { text: "Bank-Grade 256-bit Encryption" },
+            "RBI Registered NBFC",
+            "ISO 27001 Certified",
+            "Bank-Grade Encryption",
           ].map((item) => (
-            <div key={item.text} className="flex items-center gap-2">
-              <CheckCircle size={16} style={{ color: "#22C55E" }} />
+            <div key={item} className="flex items-center gap-2">
+              <CheckCircle size={14} style={{ color: "#22C55E" }} />
               <span
-                className="text-sm font-medium"
+                className="text-xs sm:text-sm font-medium"
                 style={{ color: "rgba(30,41,59,0.65)" }}
               >
-                {item.text}
+                {item}
               </span>
             </div>
           ))}
@@ -585,7 +499,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
 
         {/* CTA */}
         <div
-          className="text-center mt-10"
+          className="text-center mt-8"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(20px)",
@@ -596,10 +510,11 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             type="button"
             data-ocid="creditscore.primary_button"
             onClick={onApplyNow}
-            className="inline-flex items-center gap-2 rounded-full px-10 py-4 text-white font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+            className="inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
             style={{
               background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
               boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+              minHeight: "52px",
             }}
           >
             Apply &amp; Build Credit →

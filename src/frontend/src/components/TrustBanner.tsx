@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
-// Particle config
 const PARTICLES = [
   { id: "tb-p1", left: "6%", top: "18%", size: 5, delay: "0s", dur: "3.8s" },
-  { id: "tb-p2", left: "18%", top: "72%", size: 7, delay: "0.6s", dur: "4.5s" },
-  { id: "tb-p3", left: "78%", top: "22%", size: 6, delay: "1.1s", dur: "3.3s" },
-  { id: "tb-p4", left: "88%", top: "65%", size: 8, delay: "0.3s", dur: "5.0s" },
-  { id: "tb-p5", left: "50%", top: "8%", size: 4, delay: "0.9s", dur: "4.2s" },
-  { id: "tb-p6", left: "33%", top: "88%", size: 5, delay: "1.4s", dur: "3.6s" },
-  { id: "tb-p7", left: "65%", top: "82%", size: 6, delay: "0.2s", dur: "4.8s" },
-  { id: "tb-p8", left: "92%", top: "42%", size: 4, delay: "0.7s", dur: "3.9s" },
+  { id: "tb-p2", left: "18%", top: "72%", size: 6, delay: "0.6s", dur: "4.5s" },
+  { id: "tb-p3", left: "78%", top: "22%", size: 5, delay: "1.1s", dur: "3.3s" },
+  { id: "tb-p4", left: "88%", top: "65%", size: 6, delay: "0.3s", dur: "5.0s" },
 ];
 
 const WORDS = [
@@ -39,7 +34,6 @@ export default function TrustBanner() {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -49,9 +43,8 @@ export default function TrustBanner() {
           observer.disconnect();
         }
       },
-      { threshold: 0.25 },
+      { threshold: 0.2 },
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -71,7 +64,7 @@ export default function TrustBanner() {
         }
         @keyframes tb-float {
           0%, 100% { opacity: 0.18; transform: translateY(0px) scale(1); }
-          50%       { opacity: 0.45; transform: translateY(-12px) scale(1.2); }
+          50%       { opacity: 0.45; transform: translateY(-10px) scale(1.2); }
         }
         @keyframes tb-word-in {
           from { opacity: 0; transform: translateY(28px); }
@@ -79,15 +72,11 @@ export default function TrustBanner() {
         }
         @keyframes tb-line-in {
           from { opacity: 0; width: 0px; }
-          to   { opacity: 1; width: 80px; }
+          to   { opacity: 1; width: 60px; }
         }
         @keyframes tb-oval-draw {
           from { stroke-dashoffset: ${circumference}; }
           to   { stroke-dashoffset: 0; }
-        }
-        @keyframes tb-stat-in {
-          from { opacity: 0; transform: translateY(20px) scale(0.92); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         .tb-word {
           display: inline-block;
@@ -117,6 +106,14 @@ export default function TrustBanner() {
           animation: tb-float var(--tb-dur) ease-in-out infinite;
           animation-delay: var(--tb-delay);
         }
+        @media (prefers-reduced-motion: reduce) {
+          .tb-glow, .tb-particle, .tb-word, .tb-oval-path, .tb-underline {
+            animation: none !important;
+          }
+          .tb-word { opacity: 1 !important; }
+          .tb-oval-path { stroke-dashoffset: 0 !important; }
+          .tb-underline { opacity: 1 !important; width: 60px !important; }
+        }
       `}</style>
 
       <section
@@ -125,7 +122,7 @@ export default function TrustBanner() {
         ref={sectionRef}
         className="relative w-full overflow-hidden"
         style={{
-          minHeight: "60vh",
+          minHeight: "50vh",
           backgroundColor: "#0F172A",
           display: "flex",
           alignItems: "center",
@@ -134,7 +131,7 @@ export default function TrustBanner() {
       >
         {/* Breathing radial glow */}
         <div
-          className="tb-glow absolute pointer-events-none"
+          className="tb-glow absolute pointer-events-none hidden sm:block"
           style={{
             width: "70%",
             height: "70%",
@@ -146,26 +143,11 @@ export default function TrustBanner() {
           }}
         />
 
-        {/* Secondary warm glow */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            width: "40%",
-            height: "40%",
-            left: "30%",
-            top: "30%",
-            background:
-              "radial-gradient(ellipse at center, rgba(234,179,8,0.06) 0%, transparent 70%)",
-            borderRadius: "50%",
-            animation: "tb-breathe 7s ease-in-out infinite reverse",
-          }}
-        />
-
-        {/* Floating particles */}
+        {/* Floating particles — hidden on mobile */}
         {PARTICLES.map((p) => (
           <div
             key={p.id}
-            className="tb-particle absolute rounded-full pointer-events-none"
+            className="tb-particle absolute rounded-full pointer-events-none hidden sm:block"
             style={{
               left: p.left,
               top: p.top,
@@ -182,12 +164,12 @@ export default function TrustBanner() {
         ))}
 
         {/* Main content */}
-        <div className="relative z-10 flex flex-col items-center justify-center px-6 py-20 text-center w-full max-w-6xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 py-14 sm:py-20 text-center w-full max-w-5xl mx-auto">
           {/* Headline */}
           <h2
             className="leading-tight tracking-tight"
             style={{
-              fontSize: "clamp(2.4rem, 6vw, 5.5rem)",
+              fontSize: "clamp(1.8rem, 7vw, 5.5rem)",
               fontWeight: 900,
               color: "#F1F5F9",
               fontFamily: '"Plus Jakarta Sans", "Inter", system-ui, sans-serif',
@@ -210,11 +192,11 @@ export default function TrustBanner() {
                     <span style={{ position: "relative", zIndex: 2 }}>
                       Reliable.
                     </span>
-
-                    {/* SVG hand-drawn oval */}
+                    {/* SVG hand-drawn oval — hidden on very small screens */}
                     <svg
                       aria-hidden="true"
                       viewBox="0 0 280 84"
+                      className="hidden sm:block"
                       style={{
                         position: "absolute",
                         top: "50%",
@@ -243,22 +225,6 @@ export default function TrustBanner() {
                           animationDuration: "1.25s",
                         }}
                       />
-                      <ellipse
-                        cx={cx + 3}
-                        cy={cy + 1}
-                        rx={rx - 8}
-                        ry={ry - 6}
-                        fill="none"
-                        stroke="rgba(234,179,8,0.3)"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        transform="rotate(1.5, 140, 42)"
-                        style={{
-                          opacity: ovalDrawn ? 1 : 0,
-                          transition: "opacity 0.4s ease 1.4s",
-                          strokeDasharray: "4 6",
-                        }}
-                      />
                     </svg>
                   </span>
                 ) : (
@@ -278,7 +244,7 @@ export default function TrustBanner() {
             className={`tb-underline${lineVisible ? " tb-visible" : ""}`}
             style={{
               height: "3px",
-              marginTop: "clamp(1.5rem, 3vw, 2rem)",
+              marginTop: "clamp(1rem, 2.5vw, 1.5rem)",
               background:
                 "linear-gradient(90deg, #EAB308 0%, #FDE68A 50%, #EAB308 100%)",
               borderRadius: "2px",
@@ -286,16 +252,16 @@ export default function TrustBanner() {
             }}
           />
 
-          {/* Trust stat pills — staggered fade-in */}
+          {/* Trust stat pills — 2-col grid on mobile */}
           <div
             ref={statsRef as React.RefObject<HTMLDivElement>}
-            className="flex flex-wrap items-center justify-center gap-3 mt-10"
+            className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-3 mt-8 w-full sm:w-auto"
           >
             {TRUST_STATS.map((stat, i) => (
               <div
                 key={stat.label}
                 data-ocid={`trust.item.${i + 1}`}
-                className="flex flex-col items-center px-5 py-3 rounded-2xl"
+                className="flex flex-col items-center px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl"
                 style={{
                   background: "rgba(255,255,255,0.05)",
                   border: `1px solid ${stat.color}44`,
@@ -308,7 +274,7 @@ export default function TrustBanner() {
                 }}
               >
                 <span
-                  className="font-black text-lg"
+                  className="font-black text-base sm:text-lg"
                   style={{ color: stat.color }}
                 >
                   {stat.value}
@@ -325,11 +291,11 @@ export default function TrustBanner() {
 
           {/* Tagline */}
           <p
-            className="mt-6"
+            className="mt-5"
             style={{
               color: "rgba(241,245,249,0.45)",
-              fontSize: "clamp(0.85rem, 1.5vw, 1.05rem)",
-              letterSpacing: "0.18em",
+              fontSize: "clamp(0.7rem, 1.5vw, 0.95rem)",
+              letterSpacing: "0.12em",
               fontWeight: 500,
               textTransform: "uppercase",
               opacity: lineVisible ? 1 : 0,
@@ -341,21 +307,21 @@ export default function TrustBanner() {
           </p>
         </div>
 
-        {/* Decorative corners */}
+        {/* Decorative corners — hidden on mobile */}
         <div
-          className="absolute top-0 left-0 pointer-events-none"
+          className="hidden sm:block absolute top-0 left-0 pointer-events-none"
           style={{
-            width: "180px",
-            height: "180px",
+            width: "120px",
+            height: "120px",
             borderTop: "1px solid rgba(234,179,8,0.12)",
             borderLeft: "1px solid rgba(234,179,8,0.12)",
           }}
         />
         <div
-          className="absolute bottom-0 right-0 pointer-events-none"
+          className="hidden sm:block absolute bottom-0 right-0 pointer-events-none"
           style={{
-            width: "180px",
-            height: "180px",
+            width: "120px",
+            height: "120px",
             borderBottom: "1px solid rgba(234,179,8,0.12)",
             borderRight: "1px solid rgba(234,179,8,0.12)",
           }}

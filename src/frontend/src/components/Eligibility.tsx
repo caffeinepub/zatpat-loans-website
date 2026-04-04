@@ -1,4 +1,5 @@
 import { Banknote, Briefcase, FileCheck, Smartphone, User } from "lucide-react";
+import type React from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 const criteria = [
@@ -18,11 +19,7 @@ const criteria = [
     label: "CIBIL / Credit Score",
     detail: "No minimum — all credit scores welcome",
   },
-  {
-    icon: FileCheck,
-    label: "Documents",
-    detail: "Aadhaar + PAN (that's it!)",
-  },
+  { icon: FileCheck, label: "Documents", detail: "Aadhaar + PAN (that's it!)" },
 ];
 
 export default function Eligibility() {
@@ -36,28 +33,28 @@ export default function Eligibility() {
       id="eligibility"
       data-ocid="eligibility.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-20 lg:py-28 bg-white"
+      className="py-12 sm:py-16 lg:py-24 bg-white"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-14">
           <span
             className="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-4 py-1.5 rounded-full"
             style={{ background: "#EFF6FF", color: "#2563EB" }}
           >
             Loan Details
           </span>
-          <h2 className="text-3xl lg:text-4xl font-black text-gray-900 section-title-underline">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900">
             Loan Amount &amp;{" "}
             <span style={{ color: "#FF6A00" }}>Eligibility</span>
           </h2>
-          <p className="mt-3 text-base text-slate-500 max-w-xl mx-auto">
+          <p className="mt-2 text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
             Everyone qualifies. No CIBIL check. No income minimum. Just your
             Aadhaar &amp; PAN.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left: Loan range */}
           <div
             style={{
@@ -67,21 +64,14 @@ export default function Eligibility() {
             }}
           >
             <div
-              className="rounded-3xl p-10 text-center relative overflow-hidden"
+              className="rounded-2xl sm:rounded-3xl p-7 sm:p-10 text-center relative overflow-hidden"
               style={{
                 background: "linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%)",
               }}
             >
               {/* Decorative circles */}
               <div
-                className="absolute top-[-40px] right-[-40px] w-40 h-40 rounded-full opacity-20 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(circle, #2563EB 0%, transparent 70%)",
-                }}
-              />
-              <div
-                className="absolute bottom-[-30px] left-[-30px] w-32 h-32 rounded-full opacity-15 pointer-events-none"
+                className="absolute top-[-40px] right-[-40px] w-36 h-36 rounded-full opacity-20 pointer-events-none"
                 style={{
                   background:
                     "radial-gradient(circle, #2563EB 0%, transparent 70%)",
@@ -90,7 +80,7 @@ export default function Eligibility() {
 
               {/* No CIBIL USP banner */}
               <div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-5"
                 style={{
                   background: "rgba(34,197,94,0.15)",
                   color: "#86EFAC",
@@ -100,51 +90,51 @@ export default function Eligibility() {
                 ✅ No CIBIL Check Required
               </div>
 
-              <p className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
+              <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-3">
                 Loan Range
               </p>
               <div
-                className="text-5xl lg:text-6xl font-black mb-2"
+                className="text-4xl sm:text-5xl font-black mb-1"
                 style={{ color: "#FF6A00" }}
               >
                 ₹1,000
               </div>
-              <div className="text-white/40 text-2xl font-bold mb-2">to</div>
+              <div className="text-white/40 text-xl font-bold mb-1">to</div>
               <div
-                className="text-5xl lg:text-6xl font-black"
+                className="text-4xl sm:text-5xl font-black"
                 style={{ color: "#FF6A00" }}
               >
                 ₹5,000
               </div>
-              <p className="text-white/50 text-sm mt-4">
+              <p className="text-white/50 text-xs mt-3">
                 Maximum loan: ₹5,000 · Flexible tenures 1–6 months
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-2 gap-3">
                 <div
-                  className="rounded-2xl p-4"
+                  className="rounded-xl p-3"
                   style={{ background: "rgba(37,99,235,0.15)" }}
                 >
                   <div
-                    className="text-2xl font-black"
+                    className="text-xl font-black"
                     style={{ color: "#FF6A00" }}
                   >
                     12%
                   </div>
-                  <div className="text-white/60 text-xs mt-1">
+                  <div className="text-white/60 text-xs mt-0.5">
                     Interest p.a.*
                   </div>
                 </div>
                 <div
-                  className="rounded-2xl p-4"
+                  className="rounded-xl p-3"
                   style={{ background: "rgba(37,99,235,0.15)" }}
                 >
                   <div
-                    className="text-2xl font-black"
+                    className="text-xl font-black"
                     style={{ color: "#FF6A00" }}
                   >
                     0
                   </div>
-                  <div className="text-white/60 text-xs mt-1">
+                  <div className="text-white/60 text-xs mt-0.5">
                     Prepayment Charges
                   </div>
                 </div>
@@ -160,18 +150,18 @@ export default function Eligibility() {
               transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
             }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
               Eligibility Criteria
             </h3>
-            <p className="text-sm text-slate-500 mb-6">
+            <p className="text-xs sm:text-sm text-slate-500 mb-4">
               Super simple — almost everyone qualifies.
             </p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {criteria.map((item, index) => (
                 <div
                   key={item.label}
                   data-ocid={`eligibility.item.${index + 1}`}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all duration-200"
+                  className="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all duration-200"
                   style={{
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? "translateX(0)" : "translateX(20px)",
@@ -179,22 +169,22 @@ export default function Eligibility() {
                   }}
                 >
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ background: "#EFF6FF" }}
                   >
-                    <item.icon size={18} style={{ color: "#2563EB" }} />
+                    <item.icon size={16} style={{ color: "#2563EB" }} />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                       {item.label}
                     </div>
-                    <div className="text-sm font-semibold text-gray-800 mt-0.5">
+                    <div className="text-xs sm:text-sm font-semibold text-gray-800 mt-0.5">
                       {item.detail}
                     </div>
                   </div>
-                  <div className="ml-auto">
+                  <div className="ml-auto flex-shrink-0">
                     <span
-                      className="w-6 h-6 rounded-full flex items-center justify-center text-xs"
+                      className="w-5 h-5 rounded-full flex items-center justify-center text-xs"
                       style={{ background: "#22C55E", color: "white" }}
                     >
                       ✓

@@ -78,9 +78,9 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
       id="emi-calculator"
       data-ocid="emi_calculator.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-16 md:py-24 bg-white relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden"
     >
-      {/* Top blue gradient border */}
+      {/* Top gradient border */}
       <div
         className="absolute top-0 left-0 right-0 h-1"
         style={{
@@ -88,31 +88,22 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
         }}
       />
 
-      <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%)",
-          transform: "translate(30%, -30%)",
-        }}
-      />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.7s ease, transform 0.7s ease",
           }}
         >
-          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-4">
+          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full border border-blue-100 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
             CALCULATE YOUR EMI
           </span>
           <h2
-            className="text-3xl md:text-5xl font-bold"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold"
             style={{ color: "#1E293B" }}
           >
             Know Your Monthly Payment{" "}
@@ -127,30 +118,30 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
               Before You Apply
             </span>
           </h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto mt-4">
-            Borrow ₹1,000 to ₹5,000 — no CIBIL check required. Calculate your
-            EMI instantly.
+          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3">
+            Borrow ₹1,000 to ₹5,000 — no CIBIL check required.
           </p>
         </div>
 
         {/* Calculator card */}
         <div
-          className="rounded-3xl overflow-hidden"
+          className="rounded-2xl sm:rounded-3xl overflow-hidden"
           style={{
             boxShadow:
-              "0 20px 60px rgba(37,99,235,0.10), 0 4px 16px rgba(0,0,0,0.05)",
+              "0 16px 48px rgba(37,99,235,0.08), 0 4px 16px rgba(0,0,0,0.04)",
             border: "1px solid #E2E8F0",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(32px)",
             transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
           }}
         >
-          <div className="grid lg:grid-cols-2">
+          {/* Stacked on mobile, side-by-side on lg */}
+          <div className="flex flex-col lg:grid lg:grid-cols-2">
             {/* Left: Controls */}
-            <div className="p-8 lg:p-10 bg-white">
+            <div className="p-5 sm:p-7 lg:p-10 bg-white">
               {/* Loan Amount Slider */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2.5">
                   <label
                     htmlFor="loan-amount-slider"
                     className="text-sm font-semibold"
@@ -159,31 +150,29 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                     Loan Amount
                   </label>
                   <span
-                    className="text-base font-black px-3 py-1 rounded-lg"
+                    className="text-sm font-black px-3 py-1 rounded-lg"
                     style={{ background: "#EFF6FF", color: "#2563EB" }}
                   >
                     {formatINR(loanAmount)}
                   </span>
                 </div>
-                <div className="relative">
-                  <input
-                    id="loan-amount-slider"
-                    type="range"
-                    data-ocid="emi_calculator.input"
-                    min={MIN}
-                    max={MAX}
-                    step={500}
-                    value={loanAmount}
-                    onChange={(e) => setLoanAmount(Number(e.target.value))}
-                    className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                    style={{
-                      background: `linear-gradient(to right, #2563EB ${fillPercent}%, #E2E8F0 ${fillPercent}%)`,
-                      accentColor: "#FF6A00",
-                    }}
-                  />
-                </div>
+                <input
+                  id="loan-amount-slider"
+                  type="range"
+                  data-ocid="emi_calculator.input"
+                  min={MIN}
+                  max={MAX}
+                  step={500}
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #2563EB ${fillPercent}%, #E2E8F0 ${fillPercent}%)`,
+                    accentColor: "#FF6A00",
+                  }}
+                />
                 <div
-                  className="flex justify-between text-xs mt-2"
+                  className="flex justify-between text-xs mt-1.5"
                   style={{ color: "#94A3B8" }}
                 >
                   <span>₹1,000</span>
@@ -192,9 +181,9 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
               </div>
 
               {/* Tenure Tabs */}
-              <div className="mb-8">
+              <div className="mb-6">
                 <p
-                  className="block text-sm font-semibold mb-3"
+                  className="block text-sm font-semibold mb-2.5"
                   style={{ color: "#1E293B" }}
                 >
                   Loan Tenure
@@ -216,6 +205,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                             : "none",
                         transform:
                           tenure === months ? "scale(1.04)" : "scale(1)",
+                        minHeight: "44px",
                       }}
                     >
                       {months}m
@@ -226,27 +216,30 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
 
               {/* Rate info */}
               <div
-                className="flex items-center gap-2 px-4 py-3 rounded-xl"
+                className="flex items-start gap-2 px-3 py-2.5 rounded-xl"
                 style={{ background: "#FFF7ED", border: "1px solid #FED7AA" }}
               >
-                <Info size={14} style={{ color: "#FF6A00", flexShrink: 0 }} />
+                <Info
+                  size={14}
+                  style={{ color: "#FF6A00", flexShrink: 0, marginTop: "1px" }}
+                />
                 <p className="text-xs" style={{ color: "#92400E" }}>
                   Interest Rate: <strong>{ANNUAL_RATE}% p.a.</strong> (fixed) —
-                  No CIBIL check. No hidden fees.
+                  No CIBIL. No hidden fees.
                 </p>
               </div>
             </div>
 
             {/* Right: Result */}
             <div
-              className="p-8 lg:p-10 flex flex-col justify-between"
+              className="p-5 sm:p-7 lg:p-10 flex flex-col justify-between"
               style={{
                 background: "linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%)",
               }}
             >
               <div>
                 <p
-                  className="text-xs font-bold uppercase tracking-widest mb-2"
+                  className="text-xs font-bold uppercase tracking-widest mb-1.5"
                   style={{ color: "rgba(148,163,184,0.8)" }}
                 >
                   Monthly EMI
@@ -254,7 +247,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 <div
                   className="font-black mb-1"
                   style={{
-                    fontSize: "clamp(2.5rem, 6vw, 3.5rem)",
+                    fontSize: "clamp(2rem, 8vw, 3rem)",
                     background: "linear-gradient(135deg, #FF6A00, #FBBF24)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -272,27 +265,27 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 </p>
               </div>
 
-              <div className="my-6 space-y-3">
+              <div className="my-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <span
-                    className="text-sm"
+                    className="text-xs sm:text-sm"
                     style={{ color: "rgba(148,163,184,0.8)" }}
                   >
                     Principal Amount
                   </span>
-                  <span className="text-sm font-bold text-white">
+                  <span className="text-xs sm:text-sm font-bold text-white">
                     {formatINR(loanAmount)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span
-                    className="text-sm"
+                    className="text-xs sm:text-sm"
                     style={{ color: "rgba(148,163,184,0.8)" }}
                   >
                     Total Interest
                   </span>
                   <span
-                    className="text-sm font-bold"
+                    className="text-xs sm:text-sm font-bold"
                     style={{ color: "#FF6A00" }}
                   >
                     {formatINR(animatedInterest)}
@@ -303,12 +296,12 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                   style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
                 >
                   <span
-                    className="text-sm font-semibold"
+                    className="text-xs sm:text-sm font-semibold"
                     style={{ color: "rgba(241,245,249,0.9)" }}
                   >
                     Total Amount
                   </span>
-                  <span className="text-sm font-black text-white">
+                  <span className="text-xs sm:text-sm font-black text-white">
                     {formatINR(animatedTotal)}
                   </span>
                 </div>
@@ -318,17 +311,19 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 type="button"
                 data-ocid="emi_calculator.primary_button"
                 onClick={openModal}
-                className="w-full flex items-center justify-center gap-2 rounded-full py-4 font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-95"
+                className="w-full flex items-center justify-center gap-2 rounded-full py-3.5 font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-95"
                 style={{
                   background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
                   boxShadow: "0 4px 20px rgba(255,106,0,0.4)",
+                  minHeight: "52px",
+                  fontSize: "0.9rem",
                 }}
               >
-                Apply for {formatINR(loanAmount)} Loan <ArrowRight size={18} />
+                Apply for {formatINR(loanAmount)} Loan <ArrowRight size={16} />
               </button>
 
               <p
-                className="text-xs text-center mt-3"
+                className="text-xs text-center mt-2"
                 style={{ color: "rgba(148,163,184,0.5)" }}
               >
                 ⚡ No CIBIL check — Approved for everyone
@@ -339,11 +334,11 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
 
         {/* Trust micro-copy */}
         <div
-          className="flex flex-wrap items-center justify-center gap-4 mt-8 text-xs"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 mt-6 text-xs"
           style={{ color: "#64748B" }}
         >
           <span>🔒 Safe &amp; Secure • RBI Regulated</span>
-          <span>✅ No CIBIL score required — Bad credit welcome</span>
+          <span>✅ No CIBIL score required</span>
           <span>⚡ Same-day disbursal</span>
         </div>
       </div>

@@ -7,8 +7,6 @@ const TICKER_ITEMS = [
   "🟢 Deepak from Pune just got ₹1,500 approved • 2 min ago",
   "🟢 Anjali from Kolkata just got ₹4,000 approved • 6 min ago",
   "🟢 Ravi from Ahmedabad just got ₹5,000 approved • 7 min ago",
-  "🟢 Meera from Jaipur just got ₹3,500 approved • 3 min ago",
-  "🟢 Suresh from Lucknow just got ₹2,000 approved • 8 min ago",
 ];
 
 const SEPARATOR = "  •  ";
@@ -23,7 +21,7 @@ export default function SocialProofTicker() {
           to { transform: translateX(-50%); }
         }
         .ticker-inner {
-          animation: ticker-scroll 40s linear infinite;
+          animation: ticker-scroll 45s linear infinite;
           display: flex;
           align-items: center;
           white-space: nowrap;
@@ -43,29 +41,29 @@ export default function SocialProofTicker() {
         className="w-full overflow-hidden relative"
         style={{
           backgroundColor: "#0F172A",
-          height: "36px",
+          height: "32px",
           zIndex: 49,
         }}
       >
         {/* Left fade */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none"
           style={{
             background: "linear-gradient(to right, #0F172A, transparent)",
           }}
         />
         {/* Right fade */}
         <div
-          className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+          className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none"
           style={{
             background: "linear-gradient(to left, #0F172A, transparent)",
           }}
         />
 
         {/* Pulsing dot */}
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex items-center gap-1.5">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 z-20 flex items-center gap-1.5">
           <span
-            className="inline-block w-2 h-2 rounded-full"
+            className="inline-block w-2 h-2 rounded-full flex-shrink-0"
             style={{
               backgroundColor: "#22C55E",
               boxShadow: "0 0 6px #22C55E",
@@ -76,10 +74,9 @@ export default function SocialProofTicker() {
 
         <div className="h-full flex items-center">
           <div
-            className="ticker-inner pl-10 text-xs font-medium"
+            className="ticker-inner pl-8 text-[10px] sm:text-xs font-medium"
             style={{ color: "#22C55E" }}
           >
-            {/* Double the text for seamless loop */}
             <span>{MARQUEE_TEXT}</span>
             <span>{MARQUEE_TEXT}</span>
           </div>

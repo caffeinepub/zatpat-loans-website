@@ -13,12 +13,12 @@ const navLinks = [
   { label: "Contact", href: "#footer" },
 ];
 
-function RocketMoneyLogo() {
+function RocketMoneyLogo({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="flex items-center gap-2 select-none">
+    <span className="flex items-center gap-1.5 select-none">
       <svg
-        width="34"
-        height="34"
+        width={compact ? 28 : 34}
+        height={compact ? 28 : 34}
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ function RocketMoneyLogo() {
         style={{
           fontFamily: "Inter, system-ui, sans-serif",
           fontWeight: 800,
-          fontSize: "1.2rem",
+          fontSize: compact ? "1rem" : "1.2rem",
           letterSpacing: "-0.02em",
           color: "#1E293B",
           lineHeight: 1,
@@ -73,6 +73,15 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setMobileOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     setActiveSection(href);
@@ -96,17 +105,17 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
         transition: "box-shadow 0.3s ease",
       }}
     >
-      {/* Desktop navbar — 3-part flex layout */}
+      {/* Main navbar bar */}
       <div
         style={{
           maxWidth: "100%",
-          paddingLeft: "clamp(24px, 5vw, 60px)",
-          paddingRight: "clamp(24px, 5vw, 60px)",
-          height: "84px",
+          paddingLeft: "clamp(16px, 4vw, 60px)",
+          paddingRight: "clamp(16px, 4vw, 60px)",
+          height: "64px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: "16px",
+          gap: "12px",
         }}
       >
         {/* LEFT — Logo */}
@@ -125,7 +134,13 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             }}
             aria-label="Go to home"
           >
-            <RocketMoneyLogo />
+            {/* Compact logo on mobile, full on desktop */}
+            <span className="block lg:hidden">
+              <RocketMoneyLogo compact={true} />
+            </span>
+            <span className="hidden lg:block">
+              <RocketMoneyLogo compact={false} />
+            </span>
           </button>
         </div>
 
@@ -137,7 +152,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "8px",
+            gap: "4px",
           }}
         >
           {navLinks.map((link) => {
@@ -152,36 +167,16 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  padding: "8px 14px",
+                  padding: "8px 12px",
                   borderRadius: "8px",
-                  fontSize: "0.9rem",
+                  fontSize: "0.875rem",
                   fontWeight: isActive ? 600 : 500,
                   color: isActive ? "#2563EB" : "#374151",
                   backgroundColor: isActive
                     ? "rgba(37,99,235,0.08)"
                     : "transparent",
-                  transition:
-                    "color 0.2s ease, background-color 0.2s ease, transform 0.15s ease",
+                  transition: "color 0.2s ease, background-color 0.2s ease",
                   whiteSpace: "nowrap",
-                  letterSpacing: "-0.01em",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLButtonElement).style.color =
-                      "#2563EB";
-                    (
-                      e.currentTarget as HTMLButtonElement
-                    ).style.backgroundColor = "rgba(37,99,235,0.06)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLButtonElement).style.color =
-                      "#374151";
-                    (
-                      e.currentTarget as HTMLButtonElement
-                    ).style.backgroundColor = "transparent";
-                  }
                 }}
               >
                 {link.label}
@@ -204,60 +199,71 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
               color: "#ffffff",
               border: "none",
               borderRadius: "50px",
-              padding: "11px 28px",
-              fontSize: "0.9rem",
+              padding: "10px 24px",
+              fontSize: "0.875rem",
               fontWeight: 700,
               cursor: "pointer",
-              letterSpacing: "0.01em",
               boxShadow: "0 4px 14px rgba(255,106,0,0.35)",
               transition: "transform 0.18s ease, box-shadow 0.18s ease",
               whiteSpace: "nowrap",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform =
-                "translateY(-2px)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                "0 8px 22px rgba(255,106,0,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform =
-                "translateY(0)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                "0 4px 14px rgba(255,106,0,0.35)";
+              minHeight: "44px",
             }}
           >
             Apply Now
           </button>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          data-ocid="navbar.toggle"
-          className="lg:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "#374151",
-            padding: "8px",
-            borderRadius: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile: Apply Now + Hamburger */}
+        <div className="lg:hidden flex items-center gap-2">
+          <button
+            type="button"
+            data-ocid="navbar.primary_button"
+            onClick={onApplyNow}
+            style={{
+              background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "50px",
+              padding: "8px 16px",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              minHeight: "40px",
+            }}
+          >
+            Apply
+          </button>
+          <button
+            type="button"
+            data-ocid="navbar.toggle"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#374151",
+              padding: "8px",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "44px",
+              minWidth: "44px",
+            }}
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu drawer */}
       <div
         className="lg:hidden"
         style={{
-          maxHeight: mobileOpen ? "400px" : "0",
+          maxHeight: mobileOpen ? "360px" : "0",
           overflow: "hidden",
           transition: "max-height 0.3s ease",
           backgroundColor: "#ffffff",
@@ -265,12 +271,12 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
           boxShadow: mobileOpen ? "0 8px 24px rgba(30,41,59,0.10)" : "none",
         }}
       >
-        <div
+        <nav
           style={{
-            padding: "16px clamp(20px, 5vw, 60px) 24px",
+            padding: "12px 16px 20px",
             display: "flex",
             flexDirection: "column",
-            gap: "4px",
+            gap: "2px",
           }}
         >
           {navLinks.map((link) => {
@@ -285,13 +291,14 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                   background: isActive ? "rgba(37,99,235,0.07)" : "none",
                   border: "none",
                   cursor: "pointer",
-                  padding: "12px 16px",
+                  padding: "14px 16px",
                   borderRadius: "10px",
                   textAlign: "left",
                   fontSize: "1rem",
                   fontWeight: isActive ? 600 : 500,
                   color: isActive ? "#2563EB" : "#374151",
                   width: "100%",
+                  minHeight: "48px",
                   transition: "background-color 0.2s ease, color 0.2s ease",
                 }}
               >
@@ -307,7 +314,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
               onApplyNow();
             }}
             style={{
-              marginTop: "12px",
+              marginTop: "10px",
               background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
               color: "#ffffff",
               border: "none",
@@ -317,12 +324,13 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
               fontWeight: 700,
               cursor: "pointer",
               width: "100%",
+              minHeight: "52px",
               boxShadow: "0 4px 14px rgba(255,106,0,0.30)",
             }}
           >
-            Apply Now
+            Apply Now — No CIBIL Needed
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   );

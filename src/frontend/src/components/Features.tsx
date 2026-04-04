@@ -65,7 +65,7 @@ const CARD_CONFIGS = [
     icon: RotateCcw,
     title: "Flexible Repayment",
     description:
-      "Choose from 3 to 36 month tenure plans that fit your budget and financial goals.",
+      "Choose from 1 to 6 month tenure plans that fit your budget and financial goals.",
     gradient: "linear-gradient(135deg, #E11D48 0%, #BE185D 100%)",
     glowColor: "rgba(225, 29, 72, 0.45)",
     sparkleTop: "15%",
@@ -85,24 +85,23 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
 
   const cardStyle: React.CSSProperties = {
     background: config.gradient,
-    borderRadius: "20px",
-    padding: "32px 28px",
+    borderRadius: "16px",
+    padding: "24px 20px",
     position: "relative",
     overflow: "hidden",
     cursor: "default",
     opacity: isVisible ? 1 : 0,
     transform: isVisible
       ? hovered
-        ? "perspective(600px) rotateX(-6deg) rotateY(6deg) translateY(-6px) scale(1.03)"
-        : "perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)"
+        ? "translateY(-4px) scale(1.02)"
+        : "translateY(0) scale(1)"
       : "translateY(48px)",
     transition: isVisible
       ? `opacity 0.7s ease ${index * 80}ms, transform 0.3s ease`
       : `opacity 0.7s ease ${index * 80}ms, transform 0.7s ease ${index * 80}ms`,
     boxShadow: hovered
-      ? `0 24px 60px ${config.glowColor}, 0 8px 24px rgba(0,0,0,0.18)`
-      : `0 8px 32px ${config.glowColor}, 0 2px 8px rgba(0,0,0,0.1)`,
-    borderBottom: "2px solid rgba(255,255,255,0.25)",
+      ? `0 16px 48px ${config.glowColor}, 0 4px 16px rgba(0,0,0,0.12)`
+      : `0 6px 24px ${config.glowColor}, 0 2px 8px rgba(0,0,0,0.08)`,
   };
 
   const shimmerStyle: React.CSSProperties = {
@@ -119,29 +118,17 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
   };
 
   const iconWrapStyle: React.CSSProperties = {
-    width: "60px",
-    height: "60px",
+    width: "52px",
+    height: "52px",
     borderRadius: "50%",
     background: "rgba(255,255,255,0.18)",
-    boxShadow: `0 0 0 8px rgba(255,255,255,0.08), 0 0 20px ${config.glowColor}`,
+    boxShadow: "0 0 0 6px rgba(255,255,255,0.08)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: "20px",
+    marginBottom: "16px",
     transform: isVisible ? "scale(1)" : "scale(0)",
     transition: `transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 80 + 300}ms`,
-  };
-
-  const sparkleStyle: React.CSSProperties = {
-    position: "absolute",
-    top: config.sparkleTop,
-    right: config.sparkleRight,
-    width: "8px",
-    height: "8px",
-    borderRadius: "50%",
-    background: "rgba(255,255,255,0.15)",
-    animation: "sparkleFloat 3s ease-in-out infinite",
-    animationDelay: `${index * 0.4}s`,
   };
 
   return (
@@ -152,40 +139,27 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
       onMouseLeave={() => setHovered(false)}
     >
       <div style={shimmerStyle} />
-      <div style={sparkleStyle} />
       <div
         style={{
           position: "absolute",
-          bottom: "-30px",
-          right: "-30px",
-          width: "120px",
-          height: "120px",
+          bottom: "-24px",
+          right: "-24px",
+          width: "96px",
+          height: "96px",
           borderRadius: "50%",
           background: "rgba(255,255,255,0.06)",
           pointerEvents: "none",
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          top: "-20px",
-          left: "-20px",
-          width: "80px",
-          height: "80px",
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.04)",
-          pointerEvents: "none",
-        }}
-      />
       <div style={iconWrapStyle}>
-        <Icon size={26} color="white" />
+        <Icon size={22} color="white" />
       </div>
       <h3
         style={{
           color: "#ffffff",
           fontWeight: 800,
-          fontSize: "1.15rem",
-          marginBottom: "10px",
+          fontSize: "1rem",
+          marginBottom: "8px",
           letterSpacing: "-0.01em",
         }}
       >
@@ -194,8 +168,8 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
       <p
         style={{
           color: "rgba(255,255,255,0.88)",
-          fontSize: "0.9rem",
-          lineHeight: 1.65,
+          fontSize: "0.85rem",
+          lineHeight: 1.6,
         }}
       >
         {config.description}
@@ -219,13 +193,10 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
       id="features"
       data-ocid="features.section"
       ref={ref as React.RefObject<HTMLElement>}
-      style={{ padding: "80px 0 96px", background: "#F8FAFC" }}
+      className="py-12 sm:py-16 md:py-20"
+      style={{ background: "#F8FAFC" }}
     >
       <style>{`
-        @keyframes sparkleFloat {
-          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.15; }
-          50% { transform: translateY(-8px) scale(1.4); opacity: 0.3; }
-        }
         @media (prefers-reduced-motion: reduce) {
           [data-ocid^="features.item"] {
             transition: none !important;
@@ -236,12 +207,11 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
         }
       `}</style>
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div
+          className="text-center mb-10 sm:mb-14"
           style={{
-            textAlign: "center",
-            marginBottom: "56px",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.7s ease, transform 0.7s ease",
@@ -252,39 +222,26 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
             WHY ROCKET.MONEY
           </span>
           <h2
+            className="text-2xl sm:text-3xl md:text-4xl font-black"
             style={{
-              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
-              fontWeight: 900,
               color: "#1E293B",
-              lineHeight: 1.15,
-              marginBottom: "16px",
+              lineHeight: 1.2,
+              marginBottom: "12px",
             }}
           >
             Why Choose <span style={{ color: "#FF6A00" }}>Rocket.Money</span>?
           </h2>
           <p
-            style={{
-              fontSize: "1.05rem",
-              color: "rgba(30,41,59,0.7)",
-              maxWidth: "540px",
-              margin: "0 auto",
-              lineHeight: 1.7,
-            }}
+            className="text-sm sm:text-base max-w-xl mx-auto"
+            style={{ color: "rgba(30,41,59,0.7)", lineHeight: 1.65 }}
           >
-            We’ve reimagined personal lending to make it faster, simpler, and
+            We've reimagined personal lending to make it faster, simpler, and
             more transparent than ever before.
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "24px",
-            marginBottom: "40px",
-          }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8">
           {CARD_CONFIGS.map((config, index) => (
             <FeatureCard
               key={config.title}
@@ -297,8 +254,8 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
 
         {/* Secondary CTA link */}
         <div
+          className="text-center"
           style={{
-            textAlign: "center",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s",
@@ -311,7 +268,7 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
               const el = document.querySelector("#how-it-works");
               if (el) el.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200 min-h-[44px] px-4"
             style={{
               color: "#2563EB",
               background: "none",
