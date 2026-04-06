@@ -285,7 +285,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
       id="credit-score"
       data-ocid="creditscore.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-12 sm:py-16 md:py-20 bg-white relative overflow-hidden"
+      className="py-16 sm:py-20 md:py-28 bg-white relative overflow-hidden"
     >
       {/* Background decorations */}
       <div
@@ -311,7 +311,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
             BUILD YOUR FUTURE
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
             Build Your <span style={{ color: "#FF6A00" }}>Credit Score</span>{" "}
             While Getting Loans
           </h2>
@@ -510,7 +510,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             type="button"
             data-ocid="creditscore.primary_button"
             onClick={onApplyNow}
-            className="inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
+            className="inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-4 sm:py-5 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
             style={{
               background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
               boxShadow: "0 4px 20px rgba(255,106,0,0.4)",

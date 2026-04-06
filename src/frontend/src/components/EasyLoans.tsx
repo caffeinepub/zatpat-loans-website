@@ -297,7 +297,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               For Every Bharatvasi
             </span>
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-slate-900 leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-slate-900 leading-tight"
               style={{ letterSpacing: "-0.02em" }}
             >
               Loans for Every Bharatvasi —{" "}

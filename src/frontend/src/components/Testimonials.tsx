@@ -148,7 +148,7 @@ export default function Testimonials({ onApplyNow }: TestimonialsProps) {
   return (
     <section
       data-ocid="testimonials.section"
-      className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden"
+      className="py-16 sm:py-20 md:py-28 bg-white overflow-hidden"
     >
       <style>{`
         @keyframes testimonial-scroll {
@@ -176,7 +176,7 @@ export default function Testimonials({ onApplyNow }: TestimonialsProps) {
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
             CUSTOMER STORIES
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
             What Our <span style={{ color: "#2563EB" }}>Customers Say</span>
           </h2>
 
@@ -233,7 +233,7 @@ export default function Testimonials({ onApplyNow }: TestimonialsProps) {
           type="button"
           data-ocid="testimonials.primary_button"
           onClick={onApplyNow}
-          className="inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-3.5 sm:py-4 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-4 sm:py-5 text-white font-bold text-sm sm:text-base transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
           style={{
             background: "linear-gradient(135deg, #FF6A00, #FF8C2E)",
             boxShadow: "0 4px 20px rgba(255,106,0,0.4)",

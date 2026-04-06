@@ -12,6 +12,7 @@ import Features from "./components/Features";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import HeroBand from "./components/HeroBand";
+import HeroTrustStrip from "./components/HeroTrustStrip";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
@@ -53,6 +54,9 @@ export default function App() {
 
         {/* 4b. Premium Hero Section — loans for every Indian */}
         <PremiumHeroSection />
+
+        {/* 4c. Hero Trust Strip — RBI, ISO, CIBIL, SSL, Rating, Borrowers */}
+        <HeroTrustStrip />
 
         {/* 5. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />

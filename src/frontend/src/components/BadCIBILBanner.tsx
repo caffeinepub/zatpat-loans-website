@@ -80,7 +80,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
         style={{
           background:
             "linear-gradient(135deg, #0F172A 0%, #0D1F3C 50%, #0F172A 100%)",
-          padding: "48px 0 64px",
+          padding: "64px 0 80px",
         }}
       >
         {/* Background orbs — visible on all screens */}
@@ -158,7 +158,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             }}
           >
             <h2
-              className="text-4xl sm:text-5xl md:text-6xl font-black"
+              className="text-5xl sm:text-6xl md:text-7xl font-black"
               style={{
                 lineHeight: 1.08,
                 letterSpacing: "-0.03em",

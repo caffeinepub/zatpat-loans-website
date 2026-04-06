@@ -95,7 +95,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
         data-ocid="how-it-works.section"
         ref={ref as React.RefObject<HTMLElement>}
         style={{ background: "#F8FAFC", overflow: "hidden" }}
-        className="py-12 sm:py-16 md:py-24 relative"
+        className="py-16 sm:py-20 md:py-28 relative"
       >
         {/* Background blobs */}
         <div
@@ -128,7 +128,7 @@ export default function HowItWorks({ onApplyNow }: HowItWorksProps) {
             </span>
 
             <h2
-              className="text-2xl sm:text-3xl md:text-4xl font-bold"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold"
               style={{ color: "#1E293B" }}
             >
               How It{" "}

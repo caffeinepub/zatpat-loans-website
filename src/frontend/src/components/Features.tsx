@@ -86,7 +86,7 @@ function FeatureCard({ config, index, isVisible }: FeatureCardProps) {
   const cardStyle: React.CSSProperties = {
     background: config.gradient,
     borderRadius: "16px",
-    padding: "24px 20px",
+    padding: "30px 26px",
     position: "relative",
     overflow: "hidden",
     cursor: "default",
@@ -238,7 +238,7 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
       id="features"
       data-ocid="features.section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-12 sm:py-16 md:py-20"
+      className="py-16 sm:py-20 md:py-28"
       style={{ background: "#F8FAFC" }}
     >
       <style>{`
@@ -284,7 +284,7 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
             WHY ROCKET.MONEY
           </span>
           <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-black"
+            className="text-3xl sm:text-4xl md:text-5xl font-black"
             style={{
               color: "#1E293B",
               lineHeight: 1.2,
