@@ -51,6 +51,9 @@ export default function App() {
         {/* 3. TrustBar — compliance / partner logos */}
         <TrustBar />
 
+        {/* 3b. PremiumHeroSection — tri-color headline, Indian personas, glassmorphic badges, stat cards */}
+        <PremiumHeroSection />
+
         {/* 4. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />
 
@@ -59,9 +62,6 @@ export default function App() {
 
         {/* 6. HowItWorks — process clarity, how easy it is */}
         <HowItWorks onApplyNow={openModal} />
-
-        {/* 6b. PremiumHeroSection — tri-color headline, Indian personas, glassmorphic badges, stat cards */}
-        <PremiumHeroSection />
 
         {/* 7. EasyLoans — inclusivity, loan growth gamification */}
         <EasyLoans onApplyNow={openModal} />
