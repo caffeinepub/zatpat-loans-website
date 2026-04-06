@@ -154,19 +154,47 @@ export default function BannerIllustration() {
             {/* Headline */}
             <h2
               className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight mb-4"
-              style={{ color: "#1E293B", letterSpacing: "-0.02em" }}
+              style={{
+                color: "#0F172A",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.15,
+              }}
             >
-              From Campus to Counter —{" "}
+              Whether you&apos;re a{" "}
               <span
                 style={{
-                  background:
-                    "linear-gradient(135deg, #2563EB 0%, #22C55E 100%)",
+                  color: "#2563EB",
+                  background: "linear-gradient(135deg, #2563EB, #1D4ED8)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                 }}
               >
-                We've Got Every Indian Covered
+                Student
+              </span>{" "}
+              ,{" "}
+              <span
+                style={{
+                  color: "#FF6A00",
+                  background: "linear-gradient(135deg, #FF6A00, #EA580C)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Gig Worker
+              </span>{" "}
+              , or{" "}
+              <span
+                style={{
+                  color: "#22C55E",
+                  background: "linear-gradient(135deg, #22C55E, #16A34A)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Shop Owner
               </span>
             </h2>
 
