@@ -1,4 +1,4 @@
-import { ArrowRight, Info } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
@@ -7,7 +7,6 @@ interface EMICalculatorProps {
 }
 
 const TENURE_OPTIONS = [1, 2, 3, 6];
-const ANNUAL_RATE = 18;
 
 function formatINR(amount: number): string {
   return `₹${amount.toLocaleString("en-IN")}`;
@@ -60,8 +59,9 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
   });
   const [loanAmount, setLoanAmount] = useState(3000);
   const [tenure, setTenure] = useState(3);
+  const [interestRate, setInterestRate] = useState(18);
 
-  const emi = calculateEMI(loanAmount, tenure, ANNUAL_RATE);
+  const emi = calculateEMI(loanAmount, tenure, interestRate);
   const totalAmount = emi * tenure;
   const totalInterest = totalAmount - loanAmount;
 
@@ -72,6 +72,11 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
   const MIN = 1000;
   const MAX = 5000;
   const fillPercent = ((loanAmount - MIN) / (MAX - MIN)) * 100;
+
+  const RATE_MIN = 1;
+  const RATE_MAX = 40;
+  const rateFillPercent =
+    ((interestRate - RATE_MIN) / (RATE_MAX - RATE_MIN)) * 100;
 
   return (
     <section
@@ -214,19 +219,45 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 </div>
               </div>
 
-              {/* Rate info */}
-              <div
-                className="flex items-start gap-2 px-3 py-2.5 rounded-xl"
-                style={{ background: "#FFF7ED", border: "1px solid #FED7AA" }}
-              >
-                <Info
-                  size={14}
-                  style={{ color: "#FF6A00", flexShrink: 0, marginTop: "1px" }}
+              {/* Interest Rate Slider */}
+              <div className="mb-2">
+                <div className="flex items-center justify-between mb-2.5">
+                  <label
+                    htmlFor="interest-rate-slider"
+                    className="text-sm font-semibold"
+                    style={{ color: "#1E293B" }}
+                  >
+                    Interest Rate (p.a.)
+                  </label>
+                  <span
+                    className="text-sm font-black px-3 py-1 rounded-lg"
+                    style={{ background: "#EFF6FF", color: "#2563EB" }}
+                  >
+                    {interestRate}% p.a.
+                  </span>
+                </div>
+                <input
+                  id="interest-rate-slider"
+                  type="range"
+                  data-ocid="emi_calculator.select"
+                  min={RATE_MIN}
+                  max={RATE_MAX}
+                  step={1}
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #2563EB ${rateFillPercent}%, #E2E8F0 ${rateFillPercent}%)`,
+                    accentColor: "#FF6A00",
+                  }}
                 />
-                <p className="text-xs" style={{ color: "#92400E" }}>
-                  Interest Rate: <strong>{ANNUAL_RATE}% p.a.</strong> (fixed) —
-                  No Credit Check. No hidden fees.
-                </p>
+                <div
+                  className="flex justify-between text-xs mt-1.5"
+                  style={{ color: "#94A3B8" }}
+                >
+                  <span>1%</span>
+                  <span>40%</span>
+                </div>
               </div>
             </div>
 
@@ -289,6 +320,20 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                     style={{ color: "#FF6A00" }}
                   >
                     {formatINR(animatedInterest)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span
+                    className="text-xs sm:text-sm"
+                    style={{ color: "rgba(148,163,184,0.8)" }}
+                  >
+                    Interest Rate
+                  </span>
+                  <span
+                    className="text-xs sm:text-sm font-bold"
+                    style={{ color: "#93C5FD" }}
+                  >
+                    {interestRate}% p.a.
                   </span>
                 </div>
                 <div
