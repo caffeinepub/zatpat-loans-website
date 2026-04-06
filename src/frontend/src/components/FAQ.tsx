@@ -4,11 +4,11 @@ import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 const faqs = [
   {
     q: "What is the maximum loan amount I can borrow?",
-    a: "You can borrow up to \u20b95,000 through Rocket.Money. First-time borrowers typically receive between \u20b91,000 and \u20b95,000, and the limit can increase over time.",
+    a: "You can borrow up to \u20b95,000 through RocketMoney.in. First-time borrowers typically receive between \u20b91,000 and \u20b95,000, and the limit can increase over time.",
   },
   {
-    q: "Do I need a good CIBIL score to get a loan?",
-    a: "Absolutely not! Rocket.Money accepts all CIBIL scores \u2014 even as low as 300. No CIBIL check means no rejection based on credit score.",
+    q: "Do I need a good Credit Score to get a loan?",
+    a: "Absolutely not! RocketMoney.in accepts all Credit Scores \u2014 even as low as 300. No Credit Check means no rejection based on credit score.",
   },
   {
     q: "How quickly will I receive the loan amount?",
@@ -24,10 +24,10 @@ const faqs = [
   },
   {
     q: "Can I prepay my loan without penalties?",
-    a: "Yes! Rocket.Money offers zero prepayment charges. You can pay off your loan early at any time without any additional fees.",
+    a: "Yes! RocketMoney.in offers zero prepayment charges. You can pay off your loan early at any time without any additional fees.",
   },
   {
-    q: "Is my personal data secure with Rocket.Money?",
+    q: "Is my personal data secure with RocketMoney.in?",
     a: "Absolutely. We use 256-bit bank-grade encryption for all data storage and transmission. Your personal information is never sold to third parties.",
   },
 ];
@@ -125,7 +125,7 @@ export default function FAQ({ onApplyNow }: FAQProps) {
             Frequently Asked <span style={{ color: "#2563EB" }}>Questions</span>
           </h2>
           <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3">
-            Everything you need to know about Rocket.Money.
+            Everything you need to know about RocketMoney.in.
           </p>
         </div>
 

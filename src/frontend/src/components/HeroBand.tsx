@@ -294,7 +294,7 @@ export default function HeroBand() {
                 marginBottom: "6px",
               }}
             >
-              Why choose Rocket.Money
+              Why choose RocketMoney.in
             </p>
             <h2
               style={{

@@ -1,7 +1,7 @@
 const TRUST_BADGES = [
   { emoji: "🏛️", label: "RBI NBFC" },
   { emoji: "🔒", label: "ISO 27001" },
-  { emoji: "📊", label: "CIBIL Partner" },
+  { emoji: "📊", label: "Credit Partner" },
   { emoji: "🛡️", label: "256-bit SSL" },
   { emoji: "📱", label: "Google Play" },
   { emoji: "🍎", label: "App Store" },

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const TRUST_ITEMS = [
   { emoji: "🏛️", label: "RBI NBFC Registered", color: "#2563EB" },
   { emoji: "🔒", label: "ISO 27001 Certified", color: "#475569" },
-  { emoji: "📊", label: "CIBIL Partner", color: "#475569" },
+  { emoji: "📊", label: "Credit Partner", color: "#475569" },
   { emoji: "🛡️", label: "256-bit SSL", color: "#16A34A" },
   { emoji: "⭐", label: "4.8★ Rating", color: "#D97706" },
   { emoji: "👥", label: "50,000+ Borrowers", color: "#475569" },

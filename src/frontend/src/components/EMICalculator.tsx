@@ -119,7 +119,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
             </span>
           </h2>
           <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3">
-            Borrow ₹1,000 to ₹5,000 — no CIBIL check required.
+            Borrow ₹1,000 to ₹5,000 — no Credit Check required.
           </p>
         </div>
 
@@ -225,7 +225,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 />
                 <p className="text-xs" style={{ color: "#92400E" }}>
                   Interest Rate: <strong>{ANNUAL_RATE}% p.a.</strong> (fixed) —
-                  No CIBIL. No hidden fees.
+                  No Credit Check. No hidden fees.
                 </p>
               </div>
             </div>
@@ -326,7 +326,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
                 className="text-xs text-center mt-2"
                 style={{ color: "rgba(148,163,184,0.5)" }}
               >
-                ⚡ No CIBIL check — Approved for everyone
+                ⚡ No Credit Check — Approved for everyone
               </p>
             </div>
           </div>
@@ -338,7 +338,7 @@ export default function EMICalculator({ openModal }: EMICalculatorProps) {
           style={{ color: "#64748B" }}
         >
           <span>🔒 Safe &amp; Secure • RBI Regulated</span>
-          <span>✅ No CIBIL score required</span>
+          <span>✅ No Credit Score required</span>
           <span>⚡ Same-day disbursal</span>
         </div>
       </div>

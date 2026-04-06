@@ -303,7 +303,7 @@ export default function TrustBanner() {
               transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
             }}
           >
-            Rocket.Money — Your Trusted Financial Partner
+            RocketMoney.in — Your Trusted Financial Partner
           </p>
         </div>
 

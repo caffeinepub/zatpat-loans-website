@@ -27,7 +27,7 @@ const PERSONA_BADGES = [
   {
     id: "shop",
     label: "✅ Priya — ₹4,000",
-    sub: "Kirana owner · No CIBIL",
+    sub: "Kirana owner · No Credit Check",
     color: "#22C55E",
     bg: "rgba(34,197,94,0.08)",
     border: "rgba(34,197,94,0.3)",
@@ -49,7 +49,7 @@ const STATS = [
     color: "#FF6A00",
   },
   {
-    display: "0 CIBIL",
+    display: "0 Credit Score",
     label: "Minimum Score",
     color: "#22C55E",
   },
@@ -204,12 +204,12 @@ export default function BannerIllustration() {
               style={{ color: "rgba(30, 41, 59, 0.7)", maxWidth: 420 }}
             >
               Students, workers, shop owners — anyone can get a loan up to
-              ₹5,000 in under 5 minutes. No CIBIL required.
+              ₹5,000 in under 5 minutes. No Credit Check required.
             </p>
 
             {/* Mini stats row */}
             <div className="flex flex-wrap items-center gap-2 mb-6 justify-center lg:justify-start">
-              {["50K+ Loans", "₹5,000 Max", "Any CIBIL"].map((stat) => (
+              {["50K+ Loans", "₹5,000 Max", "Any Credit Score"].map((stat) => (
                 <span
                   key={stat}
                   className="text-xs font-bold px-3 py-1.5 rounded-full"

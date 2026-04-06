@@ -8,7 +8,7 @@ const personas = [
   {
     icon: "📚",
     name: "Riya, 21 — College Student",
-    quote: "Loan approved in 4 mins! No CIBIL needed. Pure magic 🙌",
+    quote: "Loan approved in 4 mins! No Credit Check needed. Pure magic 🙌",
     tag: "Student",
     color: "from-blue-600 to-blue-700",
     accentColor: "#2563EB",
@@ -19,7 +19,8 @@ const personas = [
   {
     icon: "⚙️",
     name: "Arjun, 28 — Delivery Worker",
-    quote: "₹5,000 when I needed it most. Low CIBIL, instantly approved!",
+    quote:
+      "₹5,000 when I needed it most. Low Credit Score, instantly approved!",
     tag: "Gig Worker",
     color: "from-orange-500 to-orange-600",
     accentColor: "#FF6A00",
@@ -40,22 +41,22 @@ const personas = [
   },
 ];
 
-const cibilSteps = [
+const creditSteps = [
   {
     icon: "😟",
-    text: "Low or No CIBIL? Don't worry",
+    text: "Low or No Credit Score? Don't worry",
     badge: "Any Credit Score",
     badgeColor: "#ef4444",
     badgeBg: "#fef2f2",
-    id: "cibil-worried",
+    id: "credit-worried",
   },
   {
     icon: "📱",
-    text: "Apply with Rocket.Money",
+    text: "Apply with RocketMoney.in",
     badge: "Easy Apply",
     badgeColor: "#2563EB",
     badgeBg: "#EFF6FF",
-    id: "cibil-apply",
+    id: "credit-apply",
   },
   {
     icon: "✅",
@@ -63,7 +64,7 @@ const cibilSteps = [
     badge: "Approved!",
     badgeColor: "#22C55E",
     badgeBg: "#f0fdf4",
-    id: "cibil-approved",
+    id: "credit-approved",
   },
   {
     icon: "😊",
@@ -71,7 +72,7 @@ const cibilSteps = [
     badge: "Success",
     badgeColor: "#f59e0b",
     badgeBg: "#fffbeb",
-    id: "cibil-happy",
+    id: "credit-happy",
   },
 ];
 
@@ -316,8 +317,8 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               className="mt-4 text-sm sm:text-base max-w-xl mx-auto leading-relaxed px-2"
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
-              No CIBIL? Low CIBIL? Zero credit history? We don't care. Up to
-              ₹5,000 instantly for every Indian.
+              No Credit Check? Low Credit Score? Zero credit history? We don't
+              care. Up to ₹5,000 instantly for every Indian.
             </p>
             <div
               className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full text-xs font-bold"
@@ -327,7 +328,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
                 color: "#166534",
               }}
             >
-              ✅ No CIBIL · Low Credit Welcome · Max ₹5,000
+              ✅ No Credit Check · Low Credit Welcome · Max ₹5,000
             </div>
           </div>
 
@@ -448,7 +449,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
             ))}
           </div>
 
-          {/* CIBIL Journey */}
+          {/* Credit Journey */}
           <div
             className="mb-14 sm:mb-20"
             style={{
@@ -461,10 +462,10 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               className="text-center text-base sm:text-lg font-bold mb-8"
               style={{ color: "#1E293B" }}
             >
-              Even with Low or Zero CIBIL Score — We Always Say Yes!
+              Even with Low or Zero Credit Score — We Always Say Yes!
             </h3>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {cibilSteps.map((step, i) => (
+              {creditSteps.map((step, i) => (
                 <div
                   key={step.id}
                   className="flex flex-col items-center text-center gap-2.5"
@@ -687,7 +688,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               style={{ color: "rgba(30, 41, 59, 0.7)" }}
             >
               Join <strong style={{ color: "#1E293B" }}>2 lakh+</strong> Indians
-              who already trust Rocket.Money
+              who already trust RocketMoney.in
             </p>
             <button
               type="button"
@@ -699,7 +700,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               }}
               onClick={onApplyNow}
             >
-              Apply Now — No CIBIL Needed
+              Apply Now — No Credit Check Needed
               <span
                 className="w-6 h-6 rounded-full flex items-center justify-center text-xs"
                 style={{ background: "rgba(255,255,255,0.2)" }}
@@ -708,7 +709,7 @@ export default function EasyLoans({ onApplyNow }: EasyLoansProps) {
               </span>
             </button>
             <p className="text-xs text-slate-400 mt-3">
-              ✓ No CIBIL check &nbsp;·&nbsp; ✓ Low credit welcome &nbsp;·&nbsp;
+              ✓ No Credit Check &nbsp;·&nbsp; ✓ Low credit welcome &nbsp;·&nbsp;
               ✓ Max ₹5,000 loan
             </p>
           </div>

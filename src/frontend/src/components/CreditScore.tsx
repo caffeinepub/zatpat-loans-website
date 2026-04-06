@@ -316,7 +316,7 @@ export default function CreditScore({ onApplyNow }: CreditScoreProps) {
             While Getting Loans
           </h2>
           <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto mt-3 px-2">
-            Every timely repayment with Rocket.Money is reported to credit
+            Every timely repayment with RocketMoney.in is reported to credit
             bureaus — turning your loan journey into a{" "}
             <span style={{ color: "#2563EB", fontWeight: 600 }}>
               credit-building engine.

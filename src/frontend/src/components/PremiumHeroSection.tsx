@@ -371,7 +371,7 @@ const PERSONAS = [
     accentBorder: "rgba(37,99,235,0.28)",
     tag: "Student",
     name: "Riya \u2014 Student",
-    quote: "\u20b93,000 approved in just 4 minutes. No CIBIL needed!",
+    quote: "\u20b93,000 approved in just 4 minutes. No Credit Check needed!",
     delay: 0.4,
     isCenter: false,
   },
@@ -429,7 +429,7 @@ const BADGES = [
   },
   {
     label: "Priya \u2014 Shop Owner",
-    sub: "\u20b95,000 approved, no CIBIL",
+    sub: "\u20b95,000 approved, no Credit Check",
     bg: "rgba(34,197,94,0.08)",
     border: "rgba(34,197,94,0.25)",
     dot: "#22C55E",
@@ -457,7 +457,7 @@ const STATS = [
     delay: 1.8,
   },
   {
-    value: "0 CIBIL",
+    value: "0 Credit Score",
     label: "Minimum Score",
     color: "#22C55E",
     icon: "\u2705",
@@ -754,9 +754,9 @@ export default function PremiumHeroSection() {
               letterSpacing: "0.008em",
             }}
           >
-            Rocket.Money approves your loan in minutes &mdash;{" "}
+            RocketMoney.in approves your loan in minutes &mdash;{" "}
             <strong style={{ color: "#1E293B", fontWeight: 700 }}>
-              No CIBIL needed
+              No Credit Check needed
             </strong>
             , no paperwork.
           </motion.p>

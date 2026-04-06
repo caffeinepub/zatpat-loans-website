@@ -14,49 +14,203 @@ const navLinks = [
 ];
 
 function RocketMoneyLogo({ compact = false }: { compact?: boolean }) {
+  const iconSize = compact ? 30 : 36;
   return (
-    <span className="flex items-center gap-1.5 select-none">
-      <svg
-        width={compact ? 28 : 34}
-        height={compact ? 28 : 34}
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        style={{ flexShrink: 0 }}
-      >
-        <circle cx="16" cy="16" r="16" fill="#2563EB" />
-        <path
-          d="M16 6C16 6 21 9 21 16C21 19.5 19.5 22.5 16 26C12.5 22.5 11 19.5 11 16C11 9 16 6 16 6Z"
-          fill="white"
-          opacity="0.95"
-        />
-        <ellipse cx="16" cy="16" rx="2.5" ry="2.5" fill="#2563EB" />
-        <path
-          d="M13 22.5C12 24 11 25.5 10.5 27C11.5 26.5 13 25.5 13.5 24L13 22.5Z"
-          fill="white"
-          opacity="0.7"
-        />
-        <path
-          d="M19 22.5C20 24 21 25.5 21.5 27C20.5 26.5 19 25.5 18.5 24L19 22.5Z"
-          fill="white"
-          opacity="0.7"
-        />
-      </svg>
+    <span
+      className="flex items-center select-none"
+      style={{ gap: compact ? 6 : 8 }}
+    >
+      {/* Enhanced rocket icon with Indian tri-color accent ring */}
       <span
         style={{
-          fontFamily: "'Plus Jakarta Sans', Inter, system-ui, sans-serif",
-          fontWeight: 800,
-          fontSize: compact ? "1rem" : "1.2rem",
-          letterSpacing: "-0.02em",
-          color: "#1E293B",
-          lineHeight: 1,
-          whiteSpace: "nowrap",
+          position: "relative",
+          flexShrink: 0,
+          width: iconSize,
+          height: iconSize,
         }}
       >
-        Rocket
-        <span style={{ color: "#FF6A00" }}>.</span>
-        <span style={{ color: "#2563EB" }}>Money</span>
+        <svg
+          width={iconSize}
+          height={iconSize}
+          viewBox="0 0 36 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          {/* Gradient background circle */}
+          <defs>
+            <linearGradient
+              id="bgGrad"
+              x1="0"
+              y1="0"
+              x2="36"
+              y2="36"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="#1D4ED8" />
+              <stop offset="100%" stopColor="#2563EB" />
+            </linearGradient>
+            <linearGradient
+              id="flameGrad"
+              x1="18"
+              y1="24"
+              x2="18"
+              y2="34"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="#FF6A00" />
+              <stop offset="100%" stopColor="#FFB300" stopOpacity="0" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="0.8" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          {/* Circle base */}
+          <circle cx="18" cy="18" r="18" fill="url(#bgGrad)" />
+          {/* Indian tri-color thin ring: top saffron arc, middle white, bottom green */}
+          <circle
+            cx="18"
+            cy="18"
+            r="16.5"
+            fill="none"
+            stroke="#FF9933"
+            strokeWidth="1"
+            strokeDasharray="17.3 86.4"
+            strokeDashoffset="0"
+            opacity="0.9"
+          />
+          <circle
+            cx="18"
+            cy="18"
+            r="16.5"
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="1"
+            strokeDasharray="17.3 86.4"
+            strokeDashoffset="-34.6"
+            opacity="0.8"
+          />
+          <circle
+            cx="18"
+            cy="18"
+            r="16.5"
+            fill="none"
+            stroke="#138808"
+            strokeWidth="1"
+            strokeDasharray="17.3 86.4"
+            strokeDashoffset="-69.1"
+            opacity="0.9"
+          />
+          {/* Rocket body */}
+          <path
+            d="M18 5C18 5 24 8.5 24 17C24 21.5 22 25.5 18 30C14 25.5 12 21.5 12 17C12 8.5 18 5 18 5Z"
+            fill="white"
+            opacity="0.96"
+            filter="url(#glow)"
+          />
+          {/* Rocket window */}
+          <circle cx="18" cy="17" r="3" fill="url(#bgGrad)" />
+          <circle cx="18" cy="17" r="1.8" fill="white" opacity="0.3" />
+          {/* Left fin */}
+          <path
+            d="M14.5 24.5C13 26.5 11.5 28 11 30C12.5 29.2 14.2 28 14.8 26.5L14.5 24.5Z"
+            fill="white"
+            opacity="0.75"
+          />
+          {/* Right fin */}
+          <path
+            d="M21.5 24.5C23 26.5 24.5 28 25 30C23.5 29.2 21.8 28 21.2 26.5L21.5 24.5Z"
+            fill="white"
+            opacity="0.75"
+          />
+          {/* Flame exhaust */}
+          <path
+            d="M15.5 28.5C16 30.5 17 32.5 18 33.5C19 32.5 20 30.5 20.5 28.5C19.5 29.5 18.5 30 18 30C17.5 30 16.5 29.5 15.5 28.5Z"
+            fill="url(#flameGrad)"
+            opacity="0.9"
+          />
+          {/* Speed lines */}
+          <line
+            x1="6"
+            y1="15"
+            x2="10"
+            y2="15"
+            stroke="white"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            opacity="0.4"
+          />
+          <line
+            x1="5"
+            y1="18"
+            x2="9.5"
+            y2="18"
+            stroke="white"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            opacity="0.3"
+          />
+          <line
+            x1="6"
+            y1="21"
+            x2="10"
+            y2="21"
+            stroke="white"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            opacity="0.4"
+          />
+        </svg>
+      </span>
+      {/* Logo wordmark */}
+      <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+        <span
+          style={{
+            fontFamily: "'Plus Jakarta Sans', Inter, system-ui, sans-serif",
+            fontWeight: 800,
+            fontSize: compact ? "1rem" : "1.18rem",
+            letterSpacing: "-0.03em",
+            color: "#1E293B",
+            lineHeight: 1.1,
+            whiteSpace: "nowrap",
+            display: "flex",
+            alignItems: "baseline",
+            gap: 0,
+          }}
+        >
+          <span>Rocket</span>
+          <span style={{ color: "#2563EB" }}>Money</span>
+          <span
+            style={{
+              fontSize: compact ? "0.6rem" : "0.68rem",
+              fontWeight: 700,
+              color: "#FF6A00",
+              letterSpacing: "0.01em",
+              marginLeft: 1,
+              lineHeight: 1,
+              alignSelf: "flex-end",
+              paddingBottom: compact ? "0.05em" : "0.08em",
+            }}
+          >
+            .in
+          </span>
+        </span>
+        {!compact && (
+          <span
+            style={{
+              fontSize: "0.52rem",
+              fontWeight: 600,
+              color: "#64748B",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              lineHeight: 1,
+              marginTop: 1,
+            }}
+          >
+            Loans for Every Indian
+          </span>
+        )}
       </span>
     </span>
   );
@@ -338,7 +492,7 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
                 "transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease",
             }}
           >
-            🚀 Apply Now — No CIBIL Needed
+            🚀 Apply Now — No Credit Check Needed
           </button>
           <p
             style={{

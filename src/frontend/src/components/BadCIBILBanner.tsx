@@ -8,7 +8,7 @@ interface BadCIBILBannerProps {
 
 const SCORE_CARDS = [
   {
-    range: "0 or No CIBIL",
+    range: "0 or No Credit Score",
     label: "No Credit History",
     barColor: "#EF4444",
     barWidth: "28%",
@@ -47,34 +47,34 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
   return (
     <>
       <style>{`
-        @keyframes cibil-orb-pulse {
+        @keyframes credit-orb-pulse {
           0%, 100% { transform: scale(1); opacity: 0.8; }
           50% { transform: scale(1.15); opacity: 1; }
         }
-        @keyframes cibil-check-bounce {
+        @keyframes credit-check-bounce {
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.18); }
         }
-        @keyframes cibil-stat-pulse {
+        @keyframes credit-stat-pulse {
           0%, 100% { box-shadow: 0 0 0 0 rgba(255,106,0,0.4); }
           50% { box-shadow: 0 0 0 10px rgba(255,106,0,0); }
         }
-        .cibil-check-bounce {
-          animation: cibil-check-bounce 2s ease-in-out infinite;
+        .credit-check-bounce {
+          animation: credit-check-bounce 2s ease-in-out infinite;
         }
-        .cibil-stat-pulse {
-          animation: cibil-stat-pulse 2.5s ease-in-out infinite;
+        .credit-stat-pulse {
+          animation: credit-stat-pulse 2.5s ease-in-out infinite;
         }
         @media (prefers-reduced-motion: reduce) {
-          .cibil-check-bounce, .cibil-stat-pulse {
+          .credit-check-bounce, .credit-stat-pulse {
             animation: none !important;
           }
         }
       `}</style>
 
       <section
-        id="bad-cibil"
-        data-ocid="cibil.section"
+        id="low-credit"
+        data-ocid="credit.section"
         ref={ref as React.RefObject<HTMLElement>}
         className="relative w-full overflow-hidden"
         style={{
@@ -93,7 +93,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             left: "-8%",
             background:
               "radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%)",
-            animation: "cibil-orb-pulse 6s ease-in-out infinite",
+            animation: "credit-orb-pulse 6s ease-in-out infinite",
           }}
         />
         <div
@@ -105,7 +105,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             right: "-5%",
             background:
               "radial-gradient(circle, rgba(255,106,0,0.14) 0%, transparent 70%)",
-            animation: "cibil-orb-pulse 8s ease-in-out infinite",
+            animation: "credit-orb-pulse 8s ease-in-out infinite",
           }}
         />
         {/* Third orb — bottom center green */}
@@ -119,7 +119,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             transform: "translateX(-50%)",
             background:
               "radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%)",
-            animation: "cibil-orb-pulse 10s ease-in-out infinite",
+            animation: "credit-orb-pulse 10s ease-in-out infinite",
           }}
         />
 
@@ -144,7 +144,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                 className="w-2 h-2 rounded-full inline-block flex-shrink-0"
                 style={{ background: "#FF6A00", boxShadow: "0 0 8px #FF6A00" }}
               />
-              NO CIBIL REQUIRED
+              NO CREDIT CHECK REQUIRED
             </span>
           </div>
 
@@ -173,7 +173,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                   textShadow: "0 2px 20px rgba(255,255,255,0.1)",
                 }}
               >
-                Low CIBIL?
+                Low Credit Score?
               </span>
               <span
                 style={{
@@ -203,7 +203,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           >
             We approve loans for{" "}
             <strong style={{ color: "#F1F5F9" }}>
-              every credit score — even 0 or No CIBIL
+              every credit score — even 0 or No Credit Score
             </strong>
             . No judgment, just fast cash in your account.
           </p>
@@ -216,7 +216,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             {SCORE_CARDS.map((card, i) => (
               <div
                 key={card.range}
-                data-ocid={`cibil.item.${i + 1}`}
+                data-ocid={`credit.item.${i + 1}`}
                 style={{
                   position: "relative",
                   background: "rgba(255,255,255,0.04)",
@@ -273,7 +273,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                         marginBottom: "3px",
                       }}
                     >
-                      CIBIL Score
+                      Credit Score
                     </div>
                     <div
                       style={{
@@ -298,7 +298,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
 
                   {/* Pulsing check */}
                   <div
-                    className="cibil-check-bounce"
+                    className="credit-check-bounce"
                     style={{ animationDelay: `${i * 0.3}s` }}
                   >
                     <CheckCircle2
@@ -376,7 +376,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
             }}
           >
             <div
-              className="cibil-stat-pulse inline-flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full"
+              className="credit-stat-pulse inline-flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-full"
               style={{
                 background: "rgba(255,255,255,0.06)",
                 border: "1px solid rgba(255,106,0,0.4)",
@@ -405,7 +405,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                     fontWeight: 500,
                   }}
                 >
-                  with Low CIBIL — Approved &amp; Funded
+                  with Low Credit Score — Approved &amp; Funded
                 </div>
               </div>
             </div>
@@ -422,7 +422,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
           >
             <button
               type="button"
-              data-ocid="cibil.primary_button"
+              data-ocid="credit.primary_button"
               onClick={onApplyNow}
               className="inline-flex items-center justify-center gap-3 rounded-full font-black text-white transition-all duration-200 hover:brightness-110 active:scale-95 w-full sm:w-auto"
               style={{
@@ -435,7 +435,7 @@ export default function BadCIBILBanner({ onApplyNow }: BadCIBILBannerProps) {
                 minHeight: "56px",
               }}
             >
-              Apply Now — No CIBIL Needed
+              Apply Now — No Credit Check Needed
               <ArrowRight size={18} strokeWidth={2.5} />
             </button>
 

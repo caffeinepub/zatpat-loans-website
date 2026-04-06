@@ -15,7 +15,7 @@ const criteria = [
   },
   {
     icon: "📊",
-    label: "CIBIL / Credit Score",
+    label: "Credit Score",
     detail: "No minimum — all credit scores welcome",
   },
   { icon: "📄", label: "Documents", detail: "Aadhaar + PAN (that's it!)" },
@@ -48,7 +48,7 @@ export default function Eligibility() {
             <span style={{ color: "#FF6A00" }}>Eligibility</span>
           </h2>
           <p className="mt-2 text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
-            Everyone qualifies. No CIBIL check. No income minimum. Just your
+            Everyone qualifies. No Credit Check. No income minimum. Just your
             Aadhaar &amp; PAN.
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function Eligibility() {
                 }}
               />
 
-              {/* No CIBIL USP banner */}
+              {/* No Credit Check USP banner */}
               <div
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-5"
                 style={{
@@ -86,7 +86,7 @@ export default function Eligibility() {
                   border: "1px solid rgba(34,197,94,0.3)",
                 }}
               >
-                ✅ No CIBIL Check Required
+                ✅ No Credit Check Required
               </div>
 
               <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-3">

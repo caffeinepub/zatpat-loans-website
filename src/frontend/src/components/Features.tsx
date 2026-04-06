@@ -291,7 +291,7 @@ export default function Features({ onApplyNow: _onApplyNow }: FeaturesProps) {
               marginBottom: "12px",
             }}
           >
-            Why Choose <span style={{ color: "#FF6A00" }}>Rocket.Money</span>?
+            Why Choose <span style={{ color: "#FF6A00" }}>RocketMoney.in</span>?
           </h2>
           <p
             className="text-sm sm:text-base max-w-xl mx-auto"

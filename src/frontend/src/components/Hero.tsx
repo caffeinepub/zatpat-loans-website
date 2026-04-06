@@ -116,6 +116,158 @@ function LiveLoanCounter() {
   );
 }
 
+const GLOW_PARTICLES = [
+  {
+    id: "gp1",
+    top: "15%",
+    left: "10%",
+    size: "6px",
+    delay: "0s",
+    color: "#7DD3FC",
+  },
+  {
+    id: "gp2",
+    top: "30%",
+    right: "8%",
+    size: "4px",
+    delay: "1.5s",
+    color: "#38BDF8",
+  },
+  {
+    id: "gp3",
+    top: "55%",
+    left: "15%",
+    size: "5px",
+    delay: "0.8s",
+    color: "#BAE6FD",
+  },
+  {
+    id: "gp4",
+    top: "20%",
+    right: "20%",
+    size: "3px",
+    delay: "2s",
+    color: "#7DD3FC",
+  },
+  {
+    id: "gp5",
+    top: "70%",
+    right: "12%",
+    size: "4px",
+    delay: "1s",
+    color: "#FF6A00",
+  },
+];
+
+/** Premium animated rocket graphic — desktop only, purely decorative */
+function RocketGraphic() {
+  return (
+    <div
+      className="hidden lg:block absolute pointer-events-none select-none"
+      style={{
+        top: "-110px",
+        right: "0px",
+        zIndex: 40,
+        width: "220px",
+        height: "320px",
+      }}
+    >
+      {/* Soft energy ring behind rocket */}
+      <div
+        className="absolute"
+        style={{
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "220px",
+          height: "180px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(ellipse, rgba(56,189,248,0.18) 0%, rgba(14,165,233,0.08) 55%, transparent 80%)",
+          border: "1px solid rgba(56,182,255,0.2)",
+          animation: "energy-ring-pulse 5s ease-in-out infinite",
+        }}
+      />
+      {/* Second ring */}
+      <div
+        className="absolute"
+        style={{
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "170px",
+          height: "140px",
+          borderRadius: "50%",
+          border: "0.5px dashed rgba(56,182,255,0.15)",
+          animation: "energy-ring-pulse 7s ease-in-out infinite 1s",
+        }}
+      />
+
+      {/* Rocket image */}
+      <img
+        src="/assets/generated/hero-rocket-premium-transparent.dim_400x400.png"
+        alt=""
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "0px",
+          left: "50%",
+          transform: "translateX(-50%) rotate(-35deg)",
+          width: "180px",
+          height: "180px",
+          objectFit: "contain",
+          animation: "rocket-float 6s ease-in-out infinite",
+          filter:
+            "drop-shadow(0 0 20px rgba(56,189,248,0.5)) drop-shadow(0 4px 24px rgba(255,106,0,0.3))",
+        }}
+      />
+
+      {/* Floating glow particles */}
+      {GLOW_PARTICLES.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            width: p.size,
+            height: p.size,
+            top: p.top,
+            left: (p as any).left,
+            right: (p as any).right,
+            background: p.color,
+            boxShadow: `0 0 8px 3px ${p.color}88`,
+            animation: `badge-micro-float 4s ease-in-out infinite ${p.delay}`,
+          }}
+        />
+      ))}
+
+      {/* "Build Your Credit" text label */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "0px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          whiteSpace: "nowrap",
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontWeight: 600,
+          fontSize: "11px",
+          letterSpacing: "0.12em",
+          background:
+            "linear-gradient(90deg, #E0F2FE 0%, #7DD3FC 50%, #BAE6FD 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          animation: "build-credit-glow 5s ease-in-out infinite",
+          zIndex: 10,
+          textTransform: "uppercase",
+        }}
+      >
+        🚀 Build Your Credit
+      </div>
+    </div>
+  );
+}
+
 export default function Hero({ onApplyNow }: HeroProps) {
   return (
     <section
@@ -190,6 +342,38 @@ export default function Hero({ onApplyNow }: HeroProps) {
         .hero-stat-pill {
           transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
+
+        /* ── Rocket animations ── */
+        @keyframes rocket-float {
+          0%, 100% { transform: translateX(-50%) rotate(-35deg) translateY(0px); }
+          50% { transform: translateX(-50%) rotate(-33deg) translateY(-6px); }
+        }
+        @keyframes build-credit-glow {
+          0%, 100% {
+            filter: drop-shadow(0 0 6px rgba(186,230,253,0.4)) drop-shadow(0 0 14px rgba(56,189,248,0.2));
+            opacity: 0.8;
+          }
+          50% {
+            filter: drop-shadow(0 0 14px rgba(186,230,253,0.9)) drop-shadow(0 0 28px rgba(56,189,248,0.6));
+            opacity: 1;
+          }
+        }
+
+        @keyframes energy-ring-pulse {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.45; }
+          50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; }
+        }
+        @keyframes badge-micro-float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-3px); }
+        }
+        .animate-float:hover {
+          transform: translateY(-4px) scale(1.005);
+          transition: transform 0.4s ease;
+        }
+        .animate-float {
+          transition: transform 0.4s ease;
+        }
       `}</style>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 lg:py-24">
@@ -214,7 +398,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse flex-shrink-0" />
-              India's Fastest Loan Platform — No CIBIL Required
+              India's Fastest Loan Platform — No Credit Check Required
             </motion.div>
 
             <h1
@@ -233,7 +417,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               >
                 Every Indian
               </span>{" "}
-              — Any CIBIL Score
+              — Any Credit Score
             </h1>
 
             {/* Live counter */}
@@ -243,8 +427,8 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="text-sm sm:text-base lg:text-lg mt-4 sm:mt-6 mb-4 sm:mb-6 max-w-xl leading-relaxed"
               style={{ color: "rgba(148, 163, 184, 0.9)" }}
             >
-              Low CIBIL? No CIBIL? No problem. Get up to ₹5,000 instantly — 100%
-              digital, zero paperwork, same day disbursal.
+              Low Credit Score? No Credit Check? No problem. Get up to ₹5,000
+              instantly — 100% digital, zero paperwork, same day disbursal.
             </p>
 
             {/* Key points */}
@@ -252,7 +436,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               {[
                 "Up to ₹5,000 Loans",
                 "5-Min Approval",
-                "No CIBIL Check",
+                "No Credit Check",
                 "100% Digital",
               ].map((item) => (
                 <span
@@ -309,7 +493,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               className="mt-3 text-xs text-center sm:text-left"
               style={{ color: "rgba(148,163,184,0.7)" }}
             >
-              No CIBIL check • Low credit welcome • Same day disbursal
+              No Credit Check • Low credit welcome • Same day disbursal
             </p>
 
             {/* ── PREMIUM GLASSMORPHIC STAT PILLS ── */}
@@ -376,6 +560,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.9, ease: "easeOut" }}
             className="flex justify-center lg:justify-end relative mt-4 lg:mt-0"
+            style={{ overflow: "visible", paddingTop: "120px" }}
           >
             {/* Glow rings — hidden on mobile to reduce clutter */}
             <div
@@ -386,6 +571,9 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 animation: "ring-pulse 4s ease-in-out infinite",
               }}
             />
+
+            {/* ── PREMIUM ROCKET GRAPHIC ── */}
+            <RocketGraphic />
 
             {/* Sparkle dots — hidden on mobile */}
             <div className="hidden sm:block">
@@ -418,7 +606,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               >
                 <img
                   src="/assets/generated/rocket-money-hero-banner.dim_1920x1080.jpg"
-                  alt="Rocket.Money - Premium fintech hero banner"
+                  alt="RocketMoney.in - Premium fintech hero banner"
                   className="w-full object-cover rounded-2xl"
                   style={{ aspectRatio: "16/9" }}
                 />
@@ -447,6 +635,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 background: "rgba(15,23,42,0.92)",
                 border: "1px solid rgba(37,99,235,0.4)",
                 backdropFilter: "blur(8px)",
+                animation: "badge-micro-float 4s ease-in-out infinite",
               }}
             >
               <Clock size={14} style={{ color: "#60A5FA", flexShrink: 0 }} />
@@ -461,7 +650,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   className="text-[9px] sm:text-[10px]"
                   style={{ color: "#93C5FD" }}
                 >
-                  No CIBIL
+                  No Credit Check
                 </span>
               </div>
             </motion.div>
@@ -480,6 +669,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                 background: "rgba(15,23,42,0.92)",
                 border: "1px solid rgba(34,197,94,0.35)",
                 backdropFilter: "blur(8px)",
+                animation: "badge-micro-float 4s ease-in-out infinite 1s",
               }}
             >
               <Shield size={14} style={{ color: "#22C55E", flexShrink: 0 }} />
@@ -494,7 +684,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
                   className="text-[9px] sm:text-[10px]"
                   style={{ color: "#86EFAC" }}
                 >
-                  All CIBIL
+                  All Credit Score
                 </span>
               </div>
             </motion.div>
@@ -513,6 +703,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               style={{
                 background: "white",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                animation: "badge-micro-float 5s ease-in-out infinite 0.5s",
               }}
             >
               <CheckCircle2 size={18} style={{ color: "#22C55E" }} />
@@ -542,6 +733,7 @@ export default function Hero({ onApplyNow }: HeroProps) {
               style={{
                 background: "white",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                animation: "badge-micro-float 6s ease-in-out infinite 2s",
               }}
             >
               <div

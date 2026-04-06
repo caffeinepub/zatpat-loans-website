@@ -39,7 +39,7 @@ export default function App() {
         {/* 1. Hero — first impression, emotional hook */}
         <Hero onApplyNow={openModal} />
 
-        {/* 1b. Hero Trust Strip — RBI, ISO, CIBIL, SSL, Rating, Borrowers — directly below hero */}
+        {/* 1b. Hero Trust Strip — RBI, ISO, Credit, SSL, Rating, Borrowers — directly below hero */}
         <HeroTrustStrip />
 
         {/* Gradient bridge: dark → light */}
@@ -57,7 +57,7 @@ export default function App() {
         {/* 4. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />
 
-        {/* 5. BadCIBILBanner — unmissable USP: low CIBIL still approved */}
+        {/* 5. BadCIBILBanner — unmissable USP: low Credit Score still approved */}
         <BadCIBILBanner onApplyNow={openModal} />
 
         {/* 6. HowItWorks — process clarity, how easy it is */}

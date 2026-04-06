@@ -83,7 +83,7 @@ export default function LoanModal({ open, onClose }: LoanModalProps) {
             Apply for a Loan
           </DialogTitle>
           <DialogDescription className="text-gray-500 text-sm">
-            No CIBIL check — bad credit or no credit, everyone is welcome. Fill
+            No Credit Check — bad credit or no credit, everyone is welcome. Fill
             in your details and we'll get back to you within minutes.
           </DialogDescription>
         </DialogHeader>
@@ -180,14 +180,14 @@ export default function LoanModal({ open, onClose }: LoanModalProps) {
               <p className="text-xs text-gray-400">Range: ₹1,000 – ₹5,000</p>
             </div>
 
-            {/* No CIBIL badge */}
+            {/* No Credit Check badge */}
             <div
               className="flex items-center gap-2 px-4 py-3 rounded-xl"
               style={{ background: "#f0fdf4", border: "1px solid #bbf7d0" }}
             >
               <span className="text-green-600 text-base">✅</span>
               <p className="text-xs font-semibold" style={{ color: "#166534" }}>
-                No CIBIL check • Bad credit welcome • Approved for everyone
+                No Credit Check • Bad credit welcome • Approved for everyone
               </p>
             </div>
 

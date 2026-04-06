@@ -37,7 +37,7 @@ const steps = [
     icon: Download,
     title: "Download App",
     description:
-      "Download the Rocket.Money app from Google Play Store or Apple App Store on your smartphone.",
+      "Download the RocketMoney.in app from Google Play Store or Apple App Store on your smartphone.",
     tag: "2 minutes",
   },
   {

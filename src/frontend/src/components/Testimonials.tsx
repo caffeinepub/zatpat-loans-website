@@ -13,7 +13,7 @@ const testimonials = [
     loanAmount: "₹3,000",
     approvalTime: "4 minutes",
     quote:
-      "Got ₹3,000 in my account in just 4 minutes of applying! Absolutely smooth experience. Rocket.Money saved me during a tough time.",
+      "Got ₹3,000 in my account in just 4 minutes of applying! Absolutely smooth experience. RocketMoney.in saved me during a tough time.",
     color: "#2563EB",
   },
   {
@@ -24,7 +24,7 @@ const testimonials = [
     loanAmount: "₹5,000",
     approvalTime: "5 minutes",
     quote:
-      "My CIBIL score was low and I was rejected everywhere. Rocket.Money approved ₹5,000 in just 5 minutes. No questions asked!",
+      "My Credit Score was low and I was rejected everywhere. RocketMoney.in approved ₹5,000 in just 5 minutes. No questions asked!",
     color: "#2563EB",
   },
   {
@@ -35,7 +35,7 @@ const testimonials = [
     loanAmount: "₹2,500",
     approvalTime: "3 minutes",
     quote:
-      "Needed emergency funds quickly. Rocket.Money approved ₹2,500 in under 3 minutes. Truly a lifesaver for emergency situations!",
+      "Needed emergency funds quickly. RocketMoney.in approved ₹2,500 in under 3 minutes. Truly a lifesaver for emergency situations!",
     color: "#22C55E",
   },
   {
@@ -200,7 +200,7 @@ export default function Testimonials({ onApplyNow }: TestimonialsProps) {
           </div>
 
           <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
-            Over 50,000 happy customers trust Rocket.Money for their financial
+            Over 50,000 happy customers trust RocketMoney.in for their financial
             needs.
           </p>
         </div>

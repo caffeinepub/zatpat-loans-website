@@ -145,7 +145,7 @@ export default function AppDownload() {
             <div className="animate-float relative z-10">
               <img
                 src="/assets/generated/app-download-phone.dim_400x700.png"
-                alt="Rocket.Money Mobile App"
+                alt="RocketMoney.in Mobile App"
                 className="w-40 sm:w-48 lg:w-60 object-contain drop-shadow-2xl"
               />
             </div>
