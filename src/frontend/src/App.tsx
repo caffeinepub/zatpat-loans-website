@@ -16,6 +16,7 @@ import HeroTrustStrip from "./components/HeroTrustStrip";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
+import PremiumHeroSection from "./components/PremiumHeroSection";
 import SocialProofTicker from "./components/SocialProofTicker";
 import StickyCTA from "./components/StickyCTA";
 import Testimonials from "./components/Testimonials";
@@ -62,6 +63,9 @@ export default function App() {
 
         {/* 7. HowItWorks — process clarity, how easy it is */}
         <HowItWorks onApplyNow={openModal} />
+
+        {/* 7b. PremiumHeroSection — tri-color headline, Indian personas, glassmorphic badges, stat cards */}
+        <PremiumHeroSection />
 
         {/* 8. EasyLoans — inclusivity, loan growth gamification */}
         <EasyLoans onApplyNow={openModal} />
