@@ -484,37 +484,14 @@ export default function Navbar({ onApplyNow }: NavbarProps) {
             </button>
           </div>
 
-          {/* Mobile: Apply Now + Hamburger */}
+          {/* Mobile: Hamburger only — Apply Now lives inside the drawer */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "8px",
             }}
             className="lg:hidden"
           >
-            <button
-              type="button"
-              data-ocid="navbar.primary_button"
-              onClick={onApplyNow}
-              style={{
-                background: "linear-gradient(135deg, #FF6A00 0%, #FF8C38 100%)",
-                color: "#ffffff",
-                border: "none",
-                borderRadius: "50px",
-                padding: "9px 16px",
-                fontSize: "0.78rem",
-                fontWeight: 700,
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-                minHeight: "38px",
-                boxShadow: "0 2px 10px rgba(255,106,0,0.3)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Apply Now
-            </button>
-            {/* Hamburger button — always visible on mobile */}
             <button
               type="button"
               data-ocid="navbar.toggle"

@@ -16,7 +16,6 @@ import HeroTrustStrip from "./components/HeroTrustStrip";
 import HowItWorks from "./components/HowItWorks";
 import LoanModal from "./components/LoanModal";
 import Navbar from "./components/Navbar";
-import PremiumHeroSection from "./components/PremiumHeroSection";
 import SocialProofTicker from "./components/SocialProofTicker";
 import StickyCTA from "./components/StickyCTA";
 import Testimonials from "./components/Testimonials";
@@ -40,6 +39,9 @@ export default function App() {
         {/* 1. Hero — first impression, emotional hook */}
         <Hero onApplyNow={openModal} />
 
+        {/* 1b. Hero Trust Strip — RBI, ISO, CIBIL, SSL, Rating, Borrowers — directly below hero */}
+        <HeroTrustStrip />
+
         {/* Gradient bridge: dark → light */}
         <div className="h-10 bg-gradient-to-b from-[#0F172A] to-[#F8FAFC]" />
 
@@ -51,12 +53,6 @@ export default function App() {
 
         {/* 4. Banner Illustration — inclusive personas, emotional trust visual */}
         <BannerIllustration />
-
-        {/* 4b. Premium Hero Section — loans for every Indian */}
-        <PremiumHeroSection />
-
-        {/* 4c. Hero Trust Strip — RBI, ISO, CIBIL, SSL, Rating, Borrowers */}
-        <HeroTrustStrip />
 
         {/* 5. Features — immediate value proposition after hero */}
         <Features onApplyNow={openModal} />
